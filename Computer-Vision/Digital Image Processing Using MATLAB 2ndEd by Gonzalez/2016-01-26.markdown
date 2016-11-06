@@ -1,0 +1,278 @@
+---
+date: 2016-01-26 16:19
+status: public
+title: 2016-01-26
+---
+
+<http://www.imageprocessingplace.com/>
+# MATLAB
+## 保存和检索工作会话
+Save Workspace As
+保存为.mat格式。
+# imread读取图像
+`imread('filename')`,赋值给图像句柄f,f是一个图像数组。
+imredd支持GIF格式，但imwrite不支持。
+函数size(f)给出图像的行列数。
+`whos f`显示出一个数组的附加信息。
+# imshow显示图像
+`imshow(f,G)`
+f是一个图像数组，G是显示该图像的灰度级数，默认为256.
+`imshow(f,[low high])`会将所有<=low的值显示为黑色，>=high的显示为白色。
+`imshow(f,[])`将变量low设置为f的最小值，high设置为f的最大值。
+当用imshow显示另一幅图像g时，MATLAB会以新替旧。需要用figure保持。
+`figure, imshow(g)`
+# imwrite写入图像
+`>>imwrite(f,'patient10_run1','tif')`
+or
+`>>imwrite(f,'patient10_run1.tif')`
+imwrite可以有其他参数。
+另一种常用于JPEG的函数：
+`imwrite(f,'filename.jpg','quality',q)`其中q是0到100之间的整数。（压缩的品质因数）
+一种常用于tif图像的语法：
+`imwrite(g,'filename.tif','compression','parameter',...'resolution',[colres=72 rowres=72])`
+其中parameter是：
+* none：无压缩；
+* packbits:比特包压缩（非二值图像的默认参数）；
+* ccitt：表示ccitt压缩。
+colres,rowres是垂直方向和水平方向的dpi。
+
+# imfinfo查看保存图像信息
+了解所实现的压缩并获得图像文件的其他详细信息：`>>imfinfo filename.jpg`
+输出的信息可以存放到结构变量中。
+或者`K=imfinfo('filename.jpg')`(命令-函数二元性）
+如要将一张图压缩尺寸，但像素不变，即dpi升高，可以如下：
+```matlab:n
+% dpi计算
+>>res = round(200*2.25/1.5) ；
+% 无压缩（res变量亦可输入[300 300])
+>>imwrite(f,'filename.tif','compression','none','resolution',res)
+```
+# print输出到磁盘
+`print -fNUMBER -dFILEFORMAT -rRESNO filename`
+其中，NUMBER是figure窗口的图形编号，FILEFORMAT是希望保存为的图片格式，RESNO是dpi，filename是希望指定为的文件名。
+# 数据类
+
+![](~/18-42-17.jpg)
+# 图像类型
+MATLAB工具箱支持以下4种：
+* Intensity images 亮度图像
+* Binary images 二值图像
+* Indexed images 索引图像
+* RGB images RGB图像
+**大多数单色图像的处理运算是通过二值图像或亮度图像进行的。**
+## Intensity images
+一幅亮度图像是一个数据矩阵，其归一化取值表示亮度。若像素都是uint8类或者uint16类，则整数值范围分别是[0,255],[0,63535]。如果是double类，则像素取值为浮点数，规定其（双精度型归一化亮度图像）取值范围为[0,1]、
+## Binary images
+一个取值只包含0和1的uint8类数组，在MATLAB中并不认为是二值图像。
+使用logical函数可以把数值数组转换为二值数组。islogical函数可以验证。
+## 术语注释
+**一幅图像的特性是由数据类和图像类型这两者表征的。**
+# 数据类与图像类型间的转换
+## 数据类间的转换
+通用语法为：
+`B = data_class_name(A)`
+## 图像类与类型类间的转换
+
+![](~/18-59-02.jpg)
+# 数组索引
+## 向量索引
+转置运算符 **.'**
+有行向量v,则v(1:end)产生一个行向量，v(:)产生一个列向量
+`v([1 4 5])`挑出v的第1、4、5个元素。
+使用一个向量作为另一个向量的索引。
+例：
+* `fp=f(end:-1:1,:)`垂直翻转f
+* `fc=f(257:768,257:768)`剪裁f
+* `fs=f(1:2:end,1:2:end)`二次取样
+* `plot(f(512,:))` 得到通过f所示图像中部（512对应原图像为1024x1024)的一条水平扫描线。也可以写成`plot(f(size(f,1)/2,:))`
+## 选择数组的维数
+形如`operation(A,dim)`的操作，operation表示MATLAB的一种可用操作，A是一个数组，dim是一个标量(维数)。
+例如`k=size(A,1);`给出A的行数。
+# 一些重要的标准数组
+* zeros(M,N)    MxN的double类零矩阵；
+* ones(M,N)     
+* ture(M,N)     logical矩阵，元素为1
+* false(M,N)    logical矩阵，元素为0
+* magic(M)      生成一个MxM的魔术方阵。
+**魔术方阵的每一行中的元素之和，每一列中的元素之和，及主对角线中的元素之和均相等。**
+* rand(M,N)     随机，矩阵元素是落在[0,1]上均匀分布的。
+* randn(M,N)    正态分布（如高斯分布）的。均值为0，方差为1。
+# M文件函数编程
+**'**是共轭转置，
+**.'**才是转置。
+
+![](~/19-58-27.jpg)
+## max/min
+* C = max(A)    
+若A是一个向量，则返回其最大元素；若是一个矩阵（不是一维的），将A的列作为向量处理，并返回一个包含了每列最大值的行向量。
+* C = max(A,B)
+返回一个与A和B大小相同的数组，由A与B中最大的元素组成。每个位置两两比较大小取大者。
+* C = max(A,[],dim)
+返回沿标量dim指定的A的维度上的最大元素。如`max(A,[],1)`产生的是A的第一行上的最大值。
+* [C,I] = max(...)
+找出A的最大值的索引，返回至向量I中输出。
+代码示例：
+函数的功能是将两幅输入图像相乘，输出图像的乘积、乘积的最大值与最小值，以及一幅归一化的乘积图像（其取值范围是[0,1]）。
+```matlab:n
+function [p,pmax,pmin,pn] = improd(f,g)
+% Improd computes the product of two images.
+% [p,pmax,pmin,pn] = improd(f,g) outputs the element-by-element product of two input
+% images, f and g, the product values in the range[0,1]. The input images must be of
+% the same size. They can be of class uint8,uint16,or double. The outputs are of
+% class double.
+fd = double(f);
+gd = double(g);
+p = fd.*gd;
+pmax = max(p(:));
+pmin = min(p(:));
+pn = mat2gray(p);
+```
+输入图像使用函数double而非im2double来转换为double类。因为**若输入是uint8类图像，则函数im2double会将它们转换到范围[0,1]。假定要将原始值的成绩放在p中，需要用mat2gray。注意单个冒号索引的使用。
+
+# 关系运算符
+A==B返回的是每个位置一一比较所得布尔值。而非整体。其他关系运算符同。
+# 逻辑运算符
+同上。
+# 逻辑函数
+xor(A,B),all(A),any(A)
+顾名思义。**all和any按列操作。**
+如A=[1 2 3;4 5 6]，则all(A)运算如下：
+
+|A|1  |2    |3|
+|---|---|---|----|
+||4    |5    |6|
+|all(A)|1    |1    |1|
+
+![](~/21-05-48.jpg)
+
+## 使用for循环将多幅图像写入文件
+```matlab:n
+for q = 0:5:100
+    filename = sprintf('series_%3d.jpg',q);
+    imwrite(f,filename,'quality',q);
+end
+```
+
+函数sprintf的语法：
+`s = sprintf('characters1%ndcharacters2',q)`
+将格式化的数据写为一个字符串s。
+
+## 从给定图像中提取矩形子图像
+```matlab:n
+function s = subim(f,m,n,rx,cy)
+% Sumim extracts a subimage, s, from a given image, f.
+% The subimage is of size m-by-n, and the coordinates of its top , left corner are(rx,cy).
+s = zeros(m,n);
+rowhigh = rx + m - 1;
+colhigh = cy + n - 1;
+xcount = 0;
+for r = rx:rowhigh
+    xcount = xcount + 1;
+    ycount = 0;
+    for c = cy:colhigh
+        ycount = ycount + 1;
+        a(xcount,ycount) = f(r,c);
+    end
+end        
+```
+
+# 代码优化
+## 向量化循环
+假设要生成一个一维函数。f(x) = A sin(x/2π)
+其中x = 0,1,2,...,M-1。
+用for循环实现如下：
+```matlab
+for x = 1:M % Array indices指数 in MATLAB cannot be 0.
+    f(x) = A * sin((x-1)/(2*pi));
+end
+```
+向量化实现（充分利用MATLAB索引），简化如下：
+```matlab
+x = 0:M-1;
+f = A * sin(x/(2*pi));
+```
+一维索引通常很简单。当将被评估的函数有两个变量时，优化的索引可能会复杂一些。二维函数的评估由 **mashgrid** 实现。
+`[C,R] = meshgrid(c,r)`
+注意在meshgrid的输入和输出中，列总是首先列出。
+输出数组C的行是向量c的副本，输出数组R的列是向量r的副本。
+例如，假设要形成一个二维函数，该函数的元素是坐标x和y的值的平方和，其中x=0,1,2和y=0,1。
+向量r由坐标的行分量构成：r=[0,1,2];类似的，向量c由坐标的列分量构成：c=[0 1].**此处r,c均为行向量。**
+代入meshgrid。得到C=[0 1;0 1;0 1],R=[0 0;1 1;2 2]
+要形成的函数`h = R.^2 + C.^2`，得到：
+h=[0 1;1 2;4 5]
+**h的维数是length(r)xlength(c)。**
+坐标涉及0时，会比较混乱。因为matlab数组不能有0索引。
+h,R和C的索引由1开始。
+## 向量化的可计算优点示例以及计时函数tic和toc
+目标函数f(x,y)=Asin(u0x +v0y)
+其中x=0,1,2,...,M-1和y=0,1,2,...,N-1。函数的输入是A,u0,v0,M,N。期望的输出是由两种方法生成的图像（应该是“殊途同归”的）。
+使用计时函数对比for和向量化的执行效率，解决方案如下：
+```matlab:n
+function [rt,f,g] = twodsin(A,u0,v0,M,N)
+% Twodsin compares for loops vs. vecterization.
+% The comparison is based on implementing the function f(x,y)=Asin(u0x+v0y) for x=0,1,2,...,M-1
+% and y=0,1,2,..,N-1. The inputs to the function are M and N and the constants in the function.
+% First implement using for loops.
+tic % Start timing.
+for r = 1:M
+    u0x = u0*(r-1);
+    for c = 1:N
+        v0y=v0*(c-1);
+        f(r,c) = A*sin(u0x + v0y);
+    end
+end
+t1 = toc; % End timing.
+% Now implement using vectorization.Call the image g.
+tic % Start timing.
+r = 0:M-1;
+c = 0:N-1;
+[C,R] = meshgrid(c,r);
+g = A*sin(u0*R+v0*C);
+t2 = toc; % End timing.
+% Compute the ratio of the two times.
+rt = t1/(t2+eps);% Use eps in case t2 is close to 0.
+end % End of function
+```
+然后运行函数：
+`>> [rt,f,g] = twodsin(1,1/(4*pi),1/(4*pi),512,512);`
+得到rt=34.2520.
+可视化：`g = mat2gray(g);imshow(g)`
+
+向量化经常用于此类操作：从一幅已知图像中提取或处理一块矩形区域。对于提取大小m x n且其左上角坐标为(rx,cy)的区域s,可使用如下所示基本向量化代码：
+```
+rowhigh = rx + m - 1;
+colhigh = cy + n - 1;
+s = f(rx:rowhigh,cy:colhigh);
+```
+## 预分配数组
+加快代码执行的另一种方法。
+在处理数值或逻辑数组时，预分配只是简单地创建适当维数的数组，元素均为0。
+动态存储器的分配和去分配会使得存储器出现碎片。实际的结果是在计算过程中可能会有足够空间的可用物理存储器，但可能没有足够的连续空间来容纳一个较大的变量。
+# 交互式I/O
+`disp( argument )`在屏幕上显示信息argument。
+`t = input('message')`数据输入到函数。
+`t = input('message','s')`输出message，接收一个字符串。
+## strread函数
+`[a,b,c,...] = strread(cstr,'format','param','value')`
+从字符串cstr中读取数据。
+常用格式有%f浮点数,%q字符串，对于param项，使用delimiter，表示format中识别的项将由value中指定的字符分割（常为逗号或空格）。
+## strcmp函数
+假设有一个M函数g = imnorm(f,param),该函数读取一幅图像f和一个参数param，参数param有两种形式，即'norma1'和'norm255'。首先，f将被缩放到[0,1]；其次，缩放到[0,255]。两种情况下输出均为double。下列代码完成归一化：
+```matlab:n
+f = double(f);
+f = f - min(f(:));
+f = f./max(f(:));
+if strcmp(param,'norm1')
+    g = f;
+elseif strcmp(param,'norm255')
+    g = 255*f;
+else
+    error('Unknown value of param.')
+end
+```
+不健壮性：param指定的值若不是'norm1'或'norm255'，则错误；用于归一化因子的不全是小写字符，错误。
+修改：`param = lower(param)`。
+# 单元数组与结构简介
+单元数组是一个多维数组，其元素是其他数组元素的副本。如：
+`c = {'gauss',[1 0;0 1],3}`
+包含了三个元素：一个字符串，一个2*2矩阵，和一个标量。单元数组用大括号。

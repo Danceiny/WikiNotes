@@ -1,0 +1,198 @@
+2 用多线程编程
+2.1线程(函数)库（The Threads Library）
+    用户级多线程是通过线程库，libthread来实现的（参考手册第3页：
+library routines）。线程库支持信号，为可运行的程序排队，并负责同
+时操纵多任务。
+    这一章讨论libthread中的一些通用过程，首先接触基本操作，然后循
+序渐进地进入更复杂的内容
+创建线程-基本特性       Thr_create(3T)
+获得线程号              Thr_self(3T)
+执行线程                Thr_yield(3T,the below is same)
+挂起或继续线程          Thr_su spend
+                        Thr_continue
+向线程送信号            Thr_kill
+设置线程的调用掩模      Thr_sigsetmask
+终止线程                Thr-exit
+等待线程终止            Thr-join
+维护线程的私有数据      Thr_keycreate
+                        Thr_setspecific
+                        Thr_getspecific
+创建线程-高级特性       Thr_create
+获得最小堆栈容量        Thr_min_stack
+获得或设置线程的同时性等级      Thr_getconcurrency
+                                Thr_setconcurrency
+获得或设置线程的优先级          Thr_getprio
+                                Thr_setprio
+2.1.1创建线程-基本篇
+    thr_create过程是线程库所有过程当中最复杂的一个。这部分的内容仅
+适用于你使用thr_create的缺省参数来创建进程。
+    对于thr_create更加复杂的使用，包括如何使用自定参数，我们将在高
+级特性部分给出说明。
+    thr_create(3T)
+    这个函数用于在当前进程中添加一个线程。注意，新的线程不继承未处
+理的信号，但继承优先级和信号掩模。
+    #include 
+    int thr_create(void *stack_base,size_t stack_size,
+        void *(*start_routine) (void*),void *arg,long flags,
+        thread_t *new_thread);
+    size_t thr_min_stack(void);
+    stack_base--新线程的堆栈地址。如果stack_base是空则thr_create()按
+照stack_size为新线程分配一个堆栈。
+    Stack_size--新线程堆栈的字节数。如果本项为0，将使用缺省值，一般
+情况下最好将此项设为0。
+    并不是每个线程都需要指定堆栈空间。线程库为每个线程的堆栈分配1M
+的虚拟内存，不保留交换空间。（线程库用mmap（2）的MAP_NORESERVE的选项
+来实现这种分配）。
+    Start_routine--指定线程开始执行的函数。如果start_routine返回，
+线程将用该函数的返回值作为退出状态而退出。（参考thr_exit(3T)）。
+    Flags--指定新线程的属性，一般设置为0。
+    Flags的值是通过下列内容的位同或来实现的（最后四个flags在高级特性中
+给出）。
+        1． THR_DETACHED 将新线程分离，使得它的线程号和其他资源在线程
+结束时即可以回收利用。当你不想等待线程终止时，将其置位。如果没有明确的
+同步需求阻碍，一个不挂起的，分离的线程可以在创建者的thr_create返回之前
+终止并将其线程号分配给一个心得线程。
+        2． THR_SUSPENDED挂起新线程，直到被thr_continue唤醒。
+        3． THR_BOUND把新线程永久绑定在一个LWP上（生成一个绑定线程）。
+        4． THR_NEW_LWP将非绑定线程的同时性级别加1。
+        5． THR_DAEMON新线程为一个守护线程。
+    New_thread--指向存储新线程ID的地址。多数情况下设置为0。
+    Return Values--thr_create()在成功执行后返回0并退出。任何其他返回值
+表明有错误发生。当以下情况被检测到时，thr_create()失败并返回响应的值。
+    EAGAIN      ：超出了系统限制，例如创建了太多的LWP。
+    ENOMEM：可用内存不够创建新线程。
+    EINVAL：stack_base不是NULL而且stack_size比thr_minstack()函数返回的
+最小堆栈要小。
+2.1.2获取线程号
+    thr_self(3T)    获得自身的线程号。
+        #include 
+        thread_t thr_self(void)
+        返回值--调用者的线程号。
+2.1.3放弃执行
+    thr_yield(3T)
+    thr_yield停止执行当前线程，将执行权限让给有相同或更高优先权的线程。
+
+        #include 
+        void thr_yield(void);
+2.1.4挂起或继续执行线程
+thr_suspend(3T) 挂起线程。
+        #include 
+        int thr_suspend(thread_t target_thread);
+    thr_suspend()立即挂起由target_thread指定的线程。在thr_suspend成功
+返回后，挂起的线程不再执行。后继的thr_suspend无效。
+    Return Values--执行成功后返回0。其他返回值意味着错误。以下情况发生
+时，thr_suspend()失败并返回相关值。
+    ESRCH: 在当前进程中找不到target_thread。
+Thr_continue(3T)
+    Thr_continue()恢复执行一个挂起的线程。一旦线程脱离挂起状态，后继的
+thr_continue将无效。
+        #include 
+        int thr_continue(thread_t target_thread);
+    一个挂起的线程不会被信号唤醒。信号被挂起知道线程被thr-continue恢复
+执行。
+   返回值--成功执行后返回0。其他值意味着错误。在以下情况发生时，函数失
+败并返回相关值。
+        ESRCH：target_thread在当前进程中找不到。
+2.1.5向线程发信号
+thr_kill(3T)向线程发信号
+        #include 
+        #include 
+        int thr_kill(thread_t target_thread,int sig);
+    thr_kill向线程号为target_thread的线程发送信号sig。Target_thread一定
+
+要与调用线程处于同一个进程内。参数sig一定是signal(5)中定义过的。
+    当sig是0时，错误检查将被执行，没有实际的信号被发送。这可以用来检测
+target_thread参数是否合法。
+    返回值--成功执行后返回0，其他值意味着错误。在以下情况发生时，函数失
+
+败并返回相关值。
+        EINVAL：sig非法；
+        ESRCH：target_thread找不到；
+2.1.6设置本线程的信号掩模
+thr_sigsetmask(3T) 获取或改变本线程的信号掩模（signal mask）
+        #include 
+        #include 
+        int thr_sigsetmask(int how,const sigset_t *set,sigset_t *oset);
+
+    how参数决定信号设置将被如何改变，可以是下列值之一：
+    SIG_BLOCK--在当前信号掩模上增加set，set指要阻塞的信号组。
+    SIG_UNBLOCK--在当前信号掩模上去掉set，set指要解除阻塞的信号组。
+    SIG_SETMASK--用新的掩模代替现有掩模，set指新的信号掩模。
+    当set的值是NULL时，how的值并不重要，信号掩模将不被改变。所以，要查
+询当前的信号掩模，就给set赋值为NULL。
+    当参数oset不是NULL时，它指向以前的信号掩模存放的地方。
+    Return Values--正常执行后返回0。其他值意味着错误。在以下情况发生时，
+
+函数失败并返回相关值。
+        EINVAL：set不是NULL且how没有被定义；
+        EFAULT：set或oset不是合法地址；
+2.1.7终止线程
+thr_exit(3T)
+用来终止一个线程。
+        #include 
+        void thr_exit(void *status);
+    thr_exit 函数终止当前线程。所有的私有数据被释放。如果调用线程不是一
+
+个分离线程，线程的ID和返回状态保留直到有另外的线程在等待。否则返回状态
+被忽略，线程号被立刻重新使用。
+    返回值--当调用线程是进程中的最后一个非守护线程，进程将用状态0退出。
+
+当最初的线程从main()函数中返回时进程用该线程main函数的返回值退出。
+    线程可以通过两种方式停止执行。第一种是从最初的过程中返回。第二种是
+提供一个退出代码，通过调用thr_exit()结束。下面的事情依赖于在线程创建时
+flags的设置。
+    线程A终止的缺省操作（当flags的相应位设为0时，执行缺省操作）是保持
+状态，直到其它线程（不妨设为B）通过"联合"的方式得知线程A已经死亡。联合
+的结果是B线程得到线程A的退出码，A自动消亡。你可以通过位或来给flags的
+THR_DETACHED参数置位，使得线程在thr_exit()之后或从最初过程返回后立即消
+亡。在这种情况下，它的退出码不会被任何线程获得。
+    有一个重要的特殊情况，在主线程--即最初存在的线程--从主函数返回或调
+用了exit()，整个进程将终止。所以在主线程中要注意不要过早地从主函数main
+返回。
+    如果主线程仅仅调用了thr_exit(),仅仅是它自己死亡，进程不会结束，进
+程内的其他线程将继续运行（当然，如果所有的线程都结束，进程也就结束了）。
+
+    如果一个线程是非分离的，在它结束后一定要有其它进程与它"联合"，否则
+该线程的资源就不会被回收而被新线程使用。所以如果你不希望一个线程被
+"联合"，最好按照分离线程来创建。
+    另外一个flag参数是THR_DAEMON。使用这个标志创建的线程是守护线程，在
+其他线程终止之后，这些线程自动终止。这些守护线程在线程库内部特别有用。
+    守护线程可以用库内函数创建--在程序的其他部分是不可见的。当程序中所
+有的其他线程终止，这些线程自动终止。如果它们不是守护线程，在其它线程终
+止后他们不会自动终止，进程不会自动结束。
+2.1.8等待线程结束
+thr_join(3T) 用thr_join函数来等待线程终止。
+    #include 
+    int thr_join(thread_t wait_for,thread_t *departed,void **status);
+    thr_join()函数阻塞自身所在的线程，直到由wait_for指定的线程终止。指
+定的线程一定与本线程在同一个进程内部，而且一定不是分离线程。当wait_for
+参数为0时，thr_join等待任何一个非分离线程结束。换句话说，当不指定线程
+号时，任何非分离线程的退出将导致thr_join()返回。
+    当departed参数不是NULL时，在thr_join正常返回时它指向存放终止线程ID
+的地址。当status参数不是NULL时，在thr_join正常返回时它指向存放终止线程
+退出码的地址。
+    如果线程创建时指定了堆栈，在thr_join返回时堆栈可以被回收。由它返回
+的线程号可以被重新分配。
+    不能有两个线程同时等待同一个线程，如果出现这种情况，其中一个线程正
+常返回，另外一个返回ESRCH错误。
+    返回值--thr_join()在正常执行后返回0，其他值意味着错误。在以下情况
+发生时，函数失败并返回相关值。
+        ESRCH wait_for不合法，等待的线程为分离现成。
+        EDEADLK 等待自身结束。
+    最后步骤
+        thr_join()有三个参数，提供了一定的灵活性。当你需要一个线程等待
+        直到另外一个指定的线程结束，应当把后者的ID提供为第一参数。如果
+        需要等待到任何其他的线程结束，将第一参数置零。
+    如果调用者想知道是那个线程终止，第二参数应当是储存死线程的ID的地址。
+
+如果不感兴趣，将该参数置零。最后如果需要知道死线程的退出码，应当指出接
+收该错误码的地址。
+    一个线程可以通过以下的代码等待所有的非守护线程结束：
+        while(thr_join(0,0,0)==0)
+    第三个参数的声明（void **）看上去很奇怪。相应的thr_exit()的参数为
+void *。这样做的意图在于你的错误代码为定长的四字节，c语言给定长4字节的
+定义不能是void型，因为这以为着没有参数。所以用void*。因为thr_join()的
+第三参数必须是一个指向thr_exit()返回值的指针，所以类型必须是void **。
+    注意，thr_join()只在目标线程为非分离时有效。如果没有特殊的同步要求
+的话，线程一般都设置成分离的。
+    可以认为，分离线程是通常意义下的线程，而非分离线程知识特殊情况。

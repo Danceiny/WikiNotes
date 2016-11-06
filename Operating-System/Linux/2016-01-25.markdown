@@ -1,0 +1,8 @@
+---
+date: 2016-01-25 23:41
+status: public
+title: 2016-01-25
+---
+
+ubuntu 
+执行`sudo passwd root`，之后登陆为root用户。设置开机自启mentohust可运行。

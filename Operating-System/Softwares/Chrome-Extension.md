@@ -1,0 +1,1 @@
+[Chrome-百度云插件](https://greasyfork.org/en/scripts/496-%E7%99%BE%E5%BA%A6%E4%BA%91%E6%8F%92%E4%BB%B6-apikey)

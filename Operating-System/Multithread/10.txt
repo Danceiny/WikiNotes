@@ -1,0 +1,34 @@
+5.4库的多线程安全等级
+    所有可能被多线程程序的线程调用的函数都应当是MT-Safe的。
+    这意味着过程可以同时正确地执行两个操作。所以，每一个被多线程程序
+使用的接口都应是MT-Safe。
+    并不是所有的库都是MT-Safe的。通常被使用的MT-Safe的库详列于表5-2中。
+
+其他的库也将最终被改写成MT-Safe的。
+        表5-2 一些MT-Safe库
+------------------------------------
+库                                      说明
+------------------------------------
+lib/libc                getXXbyYY接口（例如gethostbyname(3N)）是MT-Safe的
+lib/libdl_stubs         （支持static switch compiling）
+lib/libintl
+lib/libm                仅当为共享库编译时是MT-Safe的，但与文档库连接时
+                        不是MT-Safe的
+lib/libmalloc
+lib/libmapmalloc
+lib/libnsl              包括TLI接口，XDR，RPC客户方和服务方，netdir和
+                        netselect。 GetXXbyYY是不安全的，但有线程安全版本
+                        GetXXbyYY_r
+lib/libresolv           支持因线程而异的错误码
+lib/libsocket
+lib/libw
+lib/nametoaddr
+lib/nametoaddr
+lib/nsswitch
+libX11
+libC                    （不是Solaris系统的部分；可以分开购买）
+------------------------------------
+
+*不安全库
+    如果库中的函数不是MT-Safe的，则只有在一个线程的调用时才是安全的。
+
