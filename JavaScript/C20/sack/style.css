@@ -1,0 +1,31 @@
+html {background: #e9f4e7; margin: 0px; padding: 0px;}
+body {font-family: Verdana; font-size: 14px; width: 740px; margin: 0px auto; background: #fff; border: 2px solid #cfdfd0 ; padding: 10px;}
+h1 {font-size: 20px; border: 1px solid #ccc; background: #EEE;}
+h2 {font-size: 18px; font-family: Georgia; font-style: italic; letter-spacing: 0.2em; font-weight: normal;}
+h3 {font-size: 16px; margin-bottom: 0px;}
+p {margin-left: 2em;}
+dl {margin-left: 2em;}
+dt {margin-bottom: 0px;}
+dd {margin-left: 1em; margin-top: 0px;}
+dd p {margin-top: 0px;}
+dl p {margin-bottom: 0.5em;}
+h1 span, h3 span {font-family: 'Courier New'; font-weight: normal; font-style: italic;}
+var {font-weight: bold; color: #244797;}
+label {display: block;}
+
+#demo {margin: 0px auto; width: 500px; border: 2px solid #ccc;}
+#demo tr th {width: 250px; background: #eee;}
+#demo tr td {width: 250px; vertical-align: top;}
+#demo tr > td {white-space: pre;}
+
+.var_type {}
+.var_name {}
+.prop_type {}
+.prop_name {}
+.param_type {}
+.param_name {}
+.func_type {}
+.func_name {}
+
+.param_type, .prop_type, .var_type, .func_type {font-style: italic; font-family: 'Courier New'; color: #962424;}
+.param_name, .prop_name, .var_name, .func_name {font-weight: bold;}

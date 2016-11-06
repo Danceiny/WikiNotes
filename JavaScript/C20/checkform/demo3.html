@@ -1,0 +1,40 @@
+<HTML>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<HEAD>
+<SCRIPT language=JavaScript src="checkform.js"></script>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+function test()
+{
+
+	try
+	{
+		var aa = document.getElementById("a").value;
+		var bb = document.getElementById("b").value;
+		var cc = document.getElementById("c").value;
+
+		if(!isNaN(aa)&&!isNaN(bb)&&!isNaN(cc)&&aa.length>0&&bb.length>0&&cc.length>0)
+		{
+			return aa*1+bb*1>cc*1;
+		}
+		else
+		{
+			return false;
+		}
+
+	}catch(e){alert();return false;}
+}
+//-->
+</SCRIPT>
+</HEAD>
+<BODY>外接函数和表达式测试: 
+<FORM name=form1 >
+
+	a:<INPUT id=a usage="num"><BR>
+	b:<INPUT id=b usage="num" ><BR>
+	c:<INPUT id=c usage="test()" tip="a+b>c">a+b>c<BR>
+	长度:<INPUT id=d usage="document.getElementById('d').value.replace(/[^\x00-\xff]/g,'**').length<=5" tip="长度大能于5" value="你好啊">不大于5<BR>
+	<INPUT type=submit value=提交查询内容>
+</FORM>
+</BODY>
+</HTML>

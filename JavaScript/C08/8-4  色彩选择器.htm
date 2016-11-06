@@ -1,0 +1,41 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=GB2312" />
+<title>8-4  色彩选择器</title>
+<!-- 样式表 -->
+<style>
+* { font-size:12px; font-family:宋体, Arial; font-weight:normal; color:#333; } /*规定了所有的字体样式*/
+#divColor { border:1px solid black; width:80px; height:80px; float:left; }
+</style>
+<!-- 脚本部分 -->
+<script>
+function openColorSelector(){
+    var newWin = window.open("8-4-color_dialog.htm","colorSelector","width=360, height=400, top=0, left=0, scrollbars=no, status=no, toolbar=no, menubar=no, resizable=no");
+}
+
+function setColor(strColor){
+    $("txtColor").value = strColor;
+    $("divColor").style.backgroundColor = strColor;
+}
+
+function $(str){ return(document.getElementById(str)); }
+</script>
+</head>
+<body style="overflow:auto;">
+<table>
+    <tr>
+        <td>请输入色彩值：</td>
+        <td>
+            <input id="txtColor" value="#ffffff">
+            <input type="button" value="选择" onclick="openColorSelector();">
+        </td>
+    </tr>
+    <tr>
+        <td>色彩预览：</td>
+        <td>
+            <div id="divColor"></div>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

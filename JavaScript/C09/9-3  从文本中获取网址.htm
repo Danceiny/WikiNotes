@@ -1,0 +1,35 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=GB2312" />
+<title>9-3  从文本中获取网址</title>
+<!-- 样式表 -->
+<style>
+* { font-size:12px; font-family:宋体, Arial; color:#333; } /*规定了所有的字体样式*/
+body { background-color:buttonface; border-width:0px; margin:0px; padding:5px; }
+textarea { border-width:1px; width:100%; height:110px; margin-bottom:5px; }
+input { border-width:1px; margin-bottom:5px; }
+</style>
+<script>
+function parseURL(){
+    var str, re;
+    str = $("t1").value;
+    re = str.match(/http:\/\/[^ \t\r\n]+/gi);
+    if(re){
+        $("t2").value = re.join("\r\n\r\n");
+    }else{
+        $("t2").value = "没有网址";
+    }
+}
+
+function $(str){ return(document.getElementById(str)); }
+</script>
+</head>
+<body style="overflow:auto;">
+<b>请输入需分析的文本：</b>
+<textarea id="t1"></textarea>
+<input type="button" value="获取网址" onclick="parseURL();">
+<br/>
+<b>网址列表：</b>
+<textarea id="t2"></textarea>
+</body>
+</html>

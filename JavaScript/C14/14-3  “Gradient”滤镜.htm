@@ -1,0 +1,77 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=GB2312" />
+<title>14-3  “Gradient”滤镜</title>
+<style>
+* { font-size:12px; font-family:宋体, Arial; } /*规定了所有的字体样式*/
+body { overflow:auto; }
+#hutia1, #hutia2, #hutia3 {
+    position:absolute; left:10px; top:50px; padding:10px;
+    width:240px; height:180px; font-size:20px; font-weight:bold; color:red;
+}
+#hutia1 { filter:progid:DXImageTransform.Microsoft.Gradient(startColorStr='#FFFF0000', endColorStr='#00FF0000'); }
+#hutia2 { filter:progid:DXImageTransform.Microsoft.Gradient(startColorStr='#0000FF00', endColorStr='#FF00FF00'); }
+#hutia3 { filter:progid:DXImageTransform.Microsoft.Gradient(startColorStr='#FF0000FF', endColorStr='#000000FF'); }
+</style>
+<script>
+//初始化函数
+window.onload = function(){
+    //设定蓝色分量的渐变方向为横向
+    $("hutia3").filters[0].GradientType = 1;
+    //初始化“透明度”下拉列表框
+    setSltOp(1);
+}
+
+//设定对应分量的不透明度
+function setOp(i){
+    var obj, strOp;
+    //获取对应色彩层对象
+    obj = $("hutia"+$("sltObj").value);
+    //计算16进制的不透明度字符串
+    strOp = parseInt(i/100*255).toString(16);
+    strOp = (strOp.length>1 ? "":"0") + strOp;
+    //设定对应的滤镜参数
+    if($("sltObj").value==2){
+        obj.filters[0].endColorStr = obj.filters[0].endColorStr.replace(/^#../, "#" + strOp);
+    }else{
+        obj.filters[0].startColorStr = obj.filters[0].startColorStr.replace(/^#../, "#" + strOp);
+    }
+}
+
+//改变所选择的分量时，更改相应的不透明度的显示
+function setSltOp(i){
+    var obj, iOp, iOpIndex;
+    //获取对应色彩层对象
+    obj = $("hutia"+i);
+    //解析对应的色彩字符串，得到当前的不透明度
+    if(i==2){
+        iOp = parseInt(obj.filters[0].endColorStr.substring(1,3), 16);
+    }else{
+        iOp = parseInt(obj.filters[0].startColorStr.substring(1,3), 16);
+    }
+    //计算对应的下来列表框的选项序号
+    iOpIndex = parseInt(iOp/255*10);
+    //选择对于的选项
+    $("sltOp").options[iOpIndex].selected = true;
+}
+
+function $(str){ return(document.getElementById(str)); }
+</script>
+</head>
+<body>
+色彩分量：
+<select onchange="setSltOp(this.value);" id="sltObj">
+    <option value="1">红</option>
+    <option value="2">绿</option>
+    <option value="3">蓝</option>
+</select>
+不透明度：
+<select onchange="setOp(this.value);" id="sltOp">
+    <script>for(var i=0;i<101;i+=10)document.write("<option value=\""+i+"\">"+i+"%</option>");</script>
+</select>
+<!-- 对应的三个色彩层 -->
+<div id="hutia1">这里是文本内容</div>
+<div id="hutia2">这里是文本内容</div>
+<div id="hutia3">这里是文本内容</div>
+</body>
+</html>

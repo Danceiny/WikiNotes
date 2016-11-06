@@ -1,0 +1,59 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=GB2312" />
+<title>18-3  扩展内置“String”对象和“Array”对象</title>
+<style>
+* { font-size:12px; font-family:宋体, Arial; } /*规定了所有的字体样式*/
+</style>
+<script>
+//用于输出的函数
+function print(str){ document.write(str+"<br>"); }
+function println(){ document.write("<br><hr><br>"); }
+
+//向数组对象中增加方法“clear”，用于清空数组对象
+Array.prototype.clear = function(){
+    this.length = 0;
+}
+
+//向数组对象中增加方法“each”，用于循环遍历数组对象
+Array.prototype.each = function(funcHandle){
+    var len = this.length;
+    for(var i=0; i<len; i++)funcHandle(this[i], i);
+}
+
+//向数值对象中增加方法“toPaddedString”，用于生成指定位数和进制的字符串
+Number.prototype.toPaddedString = function(len, rad){
+    var str = this.toString(rad || 10);
+    return "0".times(len - str.length) + str;
+}
+
+//向字符串对象中增加方法“capitalize”，用于将字符串首字母大写
+String.prototype.capitalize = function(){
+    return(this.charAt(0).toUpperCase() + this.substring(1).toLowerCase());
+}
+
+//向字符串对象中增加方法“isBlank”，用于判断字符串是否为仅含有空白字符
+String.prototype.isBlank = function(){
+    return(/^\s*$/.test(this));
+}
+
+//向字符串对象中增加方法“toArray”，用于将字符串转换为数组
+String.prototype.toArray = function(){
+    return(this.split(""));
+}
+//向字符串对象中增加方法“times”，用于将此字符串按指定次数重复的后返回
+String.prototype.times = function(count){
+    return(count<1?"":(new Array(count+1)).join(this));
+}
+
+//向字符串对象中增加方法“trim”，用于去除字符串头部和尾部的空白字符
+String.prototype.trim = function(){
+    return(this.replace(/^[ \t]+/,"").replace(/[ \t]+$/,""));
+}
+
+
+</script>
+</head>
+<body>
+</body>
+</html>

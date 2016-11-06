@@ -1,0 +1,69 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=GB2312" />
+<title>16-4  XML文件的节点排序</title>
+<style>
+* { font-size:12px; font-family:宋体, Arial; } /*规定了所有的字体样式*/
+body { overflow:auto; }
+#hutia { font-size:14px; font-weight:bold; color:white; font-family:Arial, 宋体; background-color:#6090DA; padding:4px 10px; }
+.out { width:180px; height:100px; overflow:auto; border:1px solid silver; margin:10px; }
+</style>
+<script>
+var xml;
+//函数“$”根据指定字符串获取相应ID的对象
+function $(str){ return(document.getElementById(str)); }
+//将给定的字符串中的特殊字符替换为HTML实体
+function html_encode(strV){ return(strV.replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/ /g,"&nbsp;").replace(/\t/g,"&nbsp;&nbsp;&nbsp;&nbsp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\r\n/g,"<br>")); }
+//将给定的字符串输出到一个新建的DIV对象
+function print(str){
+    //创建用于输出的DIV
+    var obj = document.createElement("div");
+    //设置指定的样式类名
+    obj.className = "out";
+    //插入新建的DIV元素
+    $("hutia").appendChild(obj);
+    //对DIV的innerHTML属性赋值，完成输出操作
+    obj.innerHTML = html_encode(str);
+}
+//窗体载入完毕时初始化
+window.onload = function(){
+    var ary, obj;
+    //创建XML控件
+    xml = new ActiveXObject("Microsoft.XMLDOM");
+    //初始化一个数组
+    ary = new Array();
+    //对数组各个元素赋以随机的数值
+    for(var i=0; i<50; i++)ary[i] = Math.random().toFixed(4);
+    //将数组的元素联合起来，生成一个随机的XML文档
+    xml.loadXML("<root>\r\n<i>" + ary.join("</i>\r\n<i>") + "</i>\r\n</root>");
+    //输出生成的XML文档内容
+    print(xml.xml);
+    //对XML文档的子节点进行排序操作
+    sort(xml.documentElement);
+    //输出排序后的XML文档内容
+    print(xml.xml);
+}
+//排序函数，将给定的XML元素节点的子节点，按其text属性排序
+function sort(node){
+    var len, sorted;
+    //获取元素的子节点长度，用以判断循环
+    len = node.childNodes.length;
+    //单向冒泡排序算法
+    do{
+        sorted = false;
+        for(var i=0; i<len-1; i++){
+            if(node.childNodes[i].text > node.childNodes[i+1].text){
+                node.insertBefore(node.childNodes[i], node.childNodes[i+2]);
+                sorted = true;
+            }
+        }
+    }while(sorted);
+}
+
+</script>
+</head>
+<body>
+<!-- 用于输出的容器DIV -->
+<div id="hutia"></div>
+</body>
+</html>

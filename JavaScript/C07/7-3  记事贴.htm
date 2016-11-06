@@ -1,0 +1,50 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=GB2312" />
+<title>7-3  记事贴</title>
+<!-- 样式表 -->
+<style>
+* { font-size:12px; font-family:宋体, Arial; font-weight:normal; color:#333; } /*规定了所有的字体样式*/
+textarea { width:100%; height:98%; border:1px solid black; } /*定义多行文本框的样式*/
+</style>
+<!-- 脚本部分 -->
+<script>
+
+function read_cookie(key){
+    var str, ary;
+    str = document.cookie;
+    ary = str.replace(/ *; */g, ";").split(";");
+    key = escape(key) + "=";
+    for(var i=0; i<ary.length; i++){
+        if(ary[i].indexOf(key)==0){
+            return(unescape(ary[i].split("=")[1]));
+        }
+    }
+}
+
+function write_cookie(key, value, cookieDomain, cookiePath, expireTime, targetWindow){
+    var strAppendix="";
+    strAppendix+=cookieDomain?";domain="+cookieDomain:"";
+    strAppendix+=cookiePath?";path="+cookiePath:"";
+    strAppendix+=expireTime?";expires="+expireTime:"";
+    targetWindow=targetWindow?targetWindow:top;
+    targetWindow.document.cookie=escape(key) + "=" + escape(value) +strAppendix;
+}
+
+function loadData(){
+    if(read_cookie("txt1"))$("txt1").value = read_cookie("txt1");
+}
+
+function saveData(){
+    var dt = new Date();
+    dt.setYear(dt.getYear()+2);
+    write_cookie("txt1",$("txt1").value,false,false,dt.toUTCString());
+}
+
+function $(str){ return(document.getElementById(str)); }
+</script>
+</head>
+<body style="overflow:auto;" onload="loadData();" onunload="saveData();">
+<textarea id="txt1">在这里输入内容，关闭页面再次打开，修改后的内容依然存在</textarea>
+</body>
+</html>

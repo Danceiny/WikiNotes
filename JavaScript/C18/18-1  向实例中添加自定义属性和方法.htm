@@ -1,0 +1,43 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=GB2312" />
+<title>18-1  向实例中添加自定义属性和方法</title>
+<style>
+* { font-size:12px; font-family:宋体, Arial; } /*规定了所有的字体样式*/
+</style>
+<script>
+function User(name){
+    this.name;
+    this.init = function(name){
+        if(!name){
+            this.name = "默认名称";
+        }else{
+            this.name = name;
+        }
+        this.print("我已初始化结束");
+    }
+    this.login = function(password){
+        this.print("我在执行登录操作");
+    }
+    this.print = function(str){
+        document.write("["+this.name+"]："+str+"<br>");
+    }
+    this.init(name);
+}
+
+//创建新的“User”类实例
+user1 = new User("hutia");
+user1.newName = "hutia2";
+user1.remove = function(){ this.print("我被移除了！"); }
+//创建新的“User”类实例
+user2 = new User("axiang");
+//调用“User类”实例的方法
+user1.print("我的新属性\"newName\"的值是\""+user1.newName+"\"");
+user2.print("我的新属性\"newName\"的值是\""+user2.newName+"\"");
+user1.print("我的新方法\"remove\"的内容是\""+user1.remove+"\"");
+user2.print("我的新方法\"remove\"的内容是\""+user2.remove+"\"");
+</script>
+</head>
+<body>
+</body>
+</html>

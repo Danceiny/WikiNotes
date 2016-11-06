@@ -1,0 +1,39 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=GB2312" />
+<title>4-6  更人性化的表单</title>
+<!-- 脚本部分 -->
+<script type="text/javascript">
+    function $(str){ return(document.getElementById(str)); }
+    function check_submit(){
+        if($("txt_user_name").value==""){ alert("请填写用户名"); return(false); }
+        if($("txt_user_pass").value==""){ alert("请填写密码"); return(false); }
+        if($("txt_user_pass_confirm").value==""){ alert("请填写确认密码"); return(false); }
+        $("submit_button").disabled=true;
+        return(false);
+    }
+    function mover(){
+        event.srcElement.focus();
+        event.srcElement.select();
+    }
+    function mclick(){
+        if(event.srcElement.value=="[请输入用户名]")event.srcElement.value="";
+    }
+    function mblur(){
+        if(event.srcElement.value=="")event.srcElement.value="[请输入用户名]";
+    }
+</script>
+</head>
+<body style="overflow:auto;">
+<form action="" onsubmit="return check_submit();">
+    用户名：<br>
+    <input id="txt_user_name" onmouseover="mover();"
+    onclick="mclick();" onblur="mblur();" value="[请输入用户名]"><br>
+    密码：<br>
+    <input id="txt_user_pass" type="password" onmouseover="mover();" value="默认密码"><br>
+    确认密码：<br>
+    <input id="txt_user_pass_confirm" type="password" onmouseover="mover();" value="默认密码"><br>
+    <input type="submit" value="提交" id="submit_button">
+</form>
+</body>
+</html>

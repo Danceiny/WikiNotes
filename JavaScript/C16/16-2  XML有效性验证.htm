@@ -1,0 +1,55 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=GB2312" />
+<title>16-2  XML有效性验证</title>
+<style>
+* { font-size:12px; font-family:宋体, Arial; } /*规定了所有的字体样式*/
+body { overflow:auto; }
+textarea { width:100%; height:100px; }
+</style>
+<script>
+var xml;
+//函数“$”根据指定字符串获取相应ID的对象
+function $(str){ return(document.getElementById(str)); }
+//窗体载入完毕时初始化
+window.onload = function(){
+    xml = new ActiveXObject("Microsoft.XMLDOM");
+    xml.loadXML("<root><\/root>");
+}
+//载入XML文本内容，并根据相应的DTD校验其内容
+function validate_xml(){
+    var err, strMsg;
+    //载入多行文本框的内容
+    xml.loadXML($("txt1").value);
+    //执行XML Document的“Validate”方法
+    //此方法返回一个“error”对象
+    err = xml.validate();
+    if(err.errorCode==0){
+        //如果没有错误发生
+        strMsg = "XML内容正确！通过验证！\r\n";
+        strMsg += "当前XML文档内容为：\r\n\r\n";
+        //输出XML控件对象的XML内容
+        strMsg += xml.xml;
+    }else{
+        //如果出现错误
+        strMsg = "XML内容错误！\r\n";
+        //输出错误代码
+        strMsg += "错误代码：" + err.errorCode + "\r\n";
+        //输出错误描述
+        strMsg += "错误描述：" + err.reason + "\r\n";
+        strMsg += "当前XML文档内容为：\r\n\r\n";
+        strMsg += xml.xml;
+    }
+    //显示输出结果
+    alert(strMsg);
+}
+
+</script>
+</head>
+<body>
+<!-- 用于输入XML文本内容的多行文本框 -->
+<textarea id="txt1"></textarea>
+<!-- 执行按钮 -->
+<input type="button" value="验证" onclick="validate_xml();">
+</body>
+</html>

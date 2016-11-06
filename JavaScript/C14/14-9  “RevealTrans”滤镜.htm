@@ -1,0 +1,46 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=GB2312" />
+<title>14-9  “RevealTrans”滤镜</title>
+<style>
+* { font-size:12px; font-family:宋体, Arial; } /*规定了所有的字体样式*/
+body { overflow:auto; }
+#hutia { height:200px; filter:progid:DXImageTransform.Microsoft.RevealTrans(); }
+</style>
+<script>
+var i = 0;
+function $(str){ return(document.getElementById(str)); }
+window.onload = function(){
+    //生成选择滤镜转换方式的下拉列表框
+    for(var i=0; i<23; i++){
+        $("sltTransition").options[$("sltTransition").options.length] = new Option(i, i);
+    }
+    //绑定图片鼠标单击事件
+    $("hutia").onclick = doTransition;
+}
+
+function doTransition(){
+    //根据滤镜的状态决定需要执行的操作
+    if(this.filters[0].status == 2){
+        //如果转换正在进行，则停止转换的效果，并显示最终的结果
+        this.filters[0].stop();
+    }else{
+        //如果转换未进行，则执行转换
+        //设置滤镜转换效果为设置值
+        this.filters[0].transition = $("sltTransition").value;
+        //捕获对象初始显示状态
+        this.filters[0].apply();
+        //改变对象src属性，载入新的图片
+        this.src = "..\\inc\\img\\14-" + (7+(++i%2)) + ".jpg";
+        //执行转换
+        this.filters[0].play(5);
+    }
+}
+</script>
+</head>
+<body>
+设置滤镜转换方式：<select id="sltTransition"></select>
+<br/>
+<img id="hutia" src="..\inc\img\14-7.jpg">
+</body>
+</html>

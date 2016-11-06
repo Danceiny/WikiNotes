@@ -1,0 +1,61 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=GB2312" />
+<title>11-5  表格行与列的隐藏</title>
+<!-- 通用样式表 -->
+<style>
+* { font-size:12px; font-family:宋体, Arial; } /*规定了所有的字体样式*/
+body { overflow:auto; border-style:none; }
+table { border:1px solid black; }
+td { border:1px solid black; }
+#tools { background-color:buttonface; color:black; border-bottom:2px solid buttonshadow; height:24px; line-height:24px; padding:0px 5px; }
+#hutia { padding:0px 10px; }
+</style>
+<script>
+function selectRule(selectorText){
+    var rls, re;
+    rls = document.styleSheets[0].rules;
+    selectorText = selectorText.toLowerCase();
+    for(var i=0; i<rls.length; i++)if(rls[i].selectorText.toLowerCase() == selectorText)return(rls[i]);
+    document.styleSheets[0].addRule(selectorText, "display:block;");
+    return(document.styleSheets[0].rules[document.styleSheets[0].rules.length-1]);
+}
+
+function op_display(v){
+    var selectorText, rule;
+    selectorText = "." + $("op_mode").value + $("op_no").value;
+    rule = selectRule(selectorText);
+    rule.style.display = v;
+}
+
+function createTable(){
+    for(var row=0; row<10; row++){
+        document.write("<tr>");
+        for(var col=0; col<10; col++){
+            document.write("<td class=\"col" + col + " row" + row + "\">列" + col + "行" + row + "</td>");
+        }
+        document.write("</tr>");
+    }
+}
+function $(str){ return(document.getElementById(str)); }
+</script>
+</head>
+<body>
+<table cellspacing="0" cellpadding="5" style="border-collapse:collapse;">
+    <script>
+        createTable();
+    </script>
+</table>
+<br/>
+将第
+<select id="op_no">
+    <script>for(var i=0; i<10; i++)document.write("<option value=\"" + i + "\">" + i + "<\/option>");</script>
+</select>
+<select id="op_mode">
+    <option value="row">行</option>
+    <option value="col">列</option>
+</select>
+<input type="button" value="隐藏" onclick="op_display('none');" />
+<input type="button" value="显示" onclick="op_display('');" />
+</body>
+</html>

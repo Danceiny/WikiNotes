@@ -1,0 +1,61 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=GB2312" />
+<title>6-1  由初速度和仰角求射程</title>
+<!-- 脚本部分 -->
+<script>
+//计算射程的函数
+function calc(){
+    //声明所用到的变量
+    var lngSpeed, lngAngle, lngTime, lngDistance, g;
+    //重力加速度
+    g = 10;
+    //获取用户输入的数值
+    lngSpeed = $("txt_init_speed").value;
+    lngAngle = $("txt_angle").value;
+    //判断用户输入是否完整
+    if(lngSpeed == "" || lngAngle ==""){
+        alert("输入信息不全，请输入未完成项。");
+        return;
+    }
+    //判断用户输入是否是数值
+    if(isNaN(lngSpeed) || isNaN(lngAngle)){
+        alert("输入有误！内容必须是数值，请重新输入。");
+        return;
+    }
+    //计算炮弹飞行的时间
+    lngTime = Math.sin(lngAngle/180*Math.PI)*lngSpeed/g*2;
+    //计算炮弹的射程
+    lngDistance = lngTime*Math.cos(lngAngle/180*Math.PI)*lngSpeed;
+    //将结果以文本框的数值输出
+    $("txt_time").value = lngTime.toFixed(2);
+    $("txt_distance").value = lngDistance.toFixed(2);
+}
+
+function $(str){ return(document.getElementById(str)); }
+</script>
+</head>
+<body style="overflow:auto;">
+<table>
+    <tr>
+        <td>炮弹的初速度：</td>
+        <td><input id="txt_init_speed">（米/秒）</td>
+    </tr>
+    <tr>
+        <td>炮弹的发射仰角：</td>
+        <td><input id="txt_angle">（度）</td>
+    </tr>
+    <tr>
+        <td><input type="button" value="计算" onclick="calc();"></td>
+    </tr>
+    <tr>
+        <td>炮弹的飞行时间：</td>
+        <td><input id="txt_time">（秒）</td>
+    </tr>
+    <tr>
+        <td>炮弹的射程：</td>
+        <td><input id="txt_distance">（米）</td>
+    </tr>
+</table>
+</body>
+</html>

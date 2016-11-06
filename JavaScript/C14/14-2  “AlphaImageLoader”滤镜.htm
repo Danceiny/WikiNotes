@@ -1,0 +1,38 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=GB2312" />
+<title>14-2  “AlphaImageLoader”滤镜</title>
+<style>
+* { font-size:12px; font-family:宋体, Arial; } /*规定了所有的字体样式*/
+body { overflow:auto; }
+#hutia {
+    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='..\inc\img\14-2 1.png', sizingMethod='crop');
+    width:400px; height:120px; font-size:20px; font-weight:bold; color:red;
+    background-color:silver; padding:10px;
+}
+</style>
+<script>
+function $(str){ return(document.getElementById(str)); }
+</script>
+</head>
+<body>
+请选择图片地址：
+<select onchange="$('hutia').filters[0].src=this.value;">
+    <option value="..\inc\img\14-2 1.png" selected>14-2 1.png</option>
+    <option value="..\inc\img\14-2 2.png">14-2 2.png</option>
+    <option value="..\inc\img\14-2 3.png">14-2 3.png</option>
+</select> |
+请选择图片缩放模式：
+<select onchange="$('hutia').filters[0].sizingMethod=this.value;">
+    <option value="crop" selected>剪切（crop）</option>
+    <option value="scale">缩放（scale）</option>
+    <option value="image">图像（image）</option>
+</select> |
+滤镜开关：
+<select onchange="$('hutia').filters[0].Enabled=this.value;">
+    <option value="true" selected>开</option>
+    <option value="false">关</option>
+</select>
+<div id="hutia">这里是文本内容</div>
+</body>
+</html>

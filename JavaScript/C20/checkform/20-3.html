@@ -1,0 +1,38 @@
+<HTML>
+<title>内置表达式测试</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<HEAD>
+<SCRIPT language=JavaScript src="checkform.js"></script>
+</HEAD>
+<BODY>内置表达式测试: 
+<FORM name=form1 >
+
+	账号:<INPUT name=id usage="notempty" tip='帐号不能为空！'>不能为空<BR>
+	整数:<INPUT usage="int" >46<BR>
+	正整数:<INPUT usage="int+" >13试试能不能输入非数字<BR>
+	负整数:<INPUT usage="int-" >-45<BR>
+	浮点数:<INPUT usage="float" >56.4<BR>
+	正浮点数:<INPUT usage="float+" >1.0<BR>
+	负浮点数:<INPUT usage="float-" >-1.0<BR>
+	数字:<INPUT usage="num" >345<BR>
+	正数:<INPUT usage="num+" >+1<BR>
+	负数:<INPUT usage="num-" >-1.0<BR>	
+	邮箱:<INPUT  usage="email">ttyp@21cn.com<BR>
+
+	颜色:<INPUT  usage="color">#f0f0f0<BR>
+	连接:<INPUT  usage="url">http://www.cnblogs.com/ttyp<BR>
+
+	中文:<INPUT  usage="chinese">只能中文<BR>
+	ascii:<INPUT  usage="ascii">只能abc<BR>
+
+	邮编:<INPUT  usage="zipcode">200083<BR>
+	手机:<INPUT  usage="mobile">13678452345<BR>	
+	IP:<INPUT  usage="ip4">192.168.0.1<BR>
+	图片:<INPUT type=file usage="picture">c:\a.jpg<BR>
+	压缩文件:<INPUT type=file usage="rar">c:\a.rar<BR>
+	日期:<INPUT usage="date">2005-04-12<BR>
+	<INPUT type=submit value=提交查询内容>
+	<INPUT type=reset value=重置>
+</FORM>
+</BODY>
+</HTML>

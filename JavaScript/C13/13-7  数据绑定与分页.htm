@@ -1,0 +1,38 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=GB2312" />
+<title>13-7  数据绑定与分页</title>
+<style>
+* { font-size:12px; font-family:宋体, Arial; } /*规定了所有的字体样式*/
+body { overflow:auto; }
+input { border-width:1px; padding:5px 10px -2px 10px; }
+</style>
+</head>
+<body>
+    <OBJECT CLASSID="clsid:333C7BC4-460F-11D0-BC04-0080C7055A83"
+        ID="hutia" WIDTH="0" HEIGHT="0">
+        <PARAM NAME="DataURL" VALUE="inc/data/13-6 data.csv">
+        <PARAM NAME="UseHeader" VALUE="true">
+    </OBJECT>
+    分页大小：
+    <select onchange="tb.dataPageSize=this.value;">
+        <option value="3" selected >3</option>
+        <option value="6">6</option>
+        <option value="12">12</option>
+    </select>
+    | 页面跳转
+    <input type="button" value="<<" title="第一页" onclick="tb.firstPage();">
+    <input type="button" value=" <" title="上一页" onclick="tb.previousPage();">
+    <input type="button" value=" >" title="下一页" onclick="tb.nextPage();">
+    <input type="button" value=">>" title="最后一页" onclick="tb.lastPage();">
+    <br/><br/>
+    <table border="1" dataSrc="#hutia" id="tb" dataPageSize="3" cellpadding="4">
+        <thead><tr><th>日期</th><th>地点</th><th>事件</th></tr></thead>
+        <tbody><tr>
+            <td><span dataFld="日期"></span></td>
+            <td><span dataFld="地点"></span></td>
+            <td><span dataFld="事件"></span></td>
+        </tr></tbody>
+    </table>
+</body>
+</html>

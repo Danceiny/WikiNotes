@@ -1,0 +1,75 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=GB2312" />
+<title>7-1  可以记住内容的表单</title>
+<!-- 样式表 -->
+<style>
+* { font-size:12px; font-family:宋体, Arial; font-weight:normal; color:#333; } /*规定了所有的字体样式*/
+</style>
+<!-- 脚本部分 -->
+<script>
+
+function read_cookie(key){
+    var str, ary;
+    str = document.cookie;
+    ary = str.replace(/ *; */g, ";").split(";");
+    key = escape(key) + "=";
+    for(var i=0; i<ary.length; i++){
+        if(ary[i].indexOf(key)==0){
+            return(unescape(ary[i].split("=")[1]));
+        }
+    }
+}
+
+function write_cookie(key, value, cookieDomain, cookiePath, expireTime, targetWindow){
+    var strAppendix="";
+    strAppendix+=cookieDomain?";domain="+cookieDomain:"";
+    strAppendix+=cookiePath?";path="+cookiePath:"";
+    strAppendix+=expireTime?";expires="+expireTime:"";
+    targetWindow=targetWindow?targetWindow:top;
+    targetWindow.document.cookie=escape(key) + "=" + escape(value) +strAppendix;
+}
+
+function loadData(){
+    if(read_cookie("txt3"))$("txt3").value = read_cookie("txt3");
+    if(read_cookie("txt4"))$("txt4").value = read_cookie("txt4");
+}
+
+function saveData(){
+    write_cookie("txt3",$("txt3").value);
+    write_cookie("txt4",$("txt4").value);
+}
+
+function $(str){ return(document.getElementById(str)); }
+</script>
+</head>
+<body style="overflow:auto;" onload="loadData();" onunload="saveData();">
+<form>
+<table>
+    <tr>
+        <td>普通文本框：</td>
+        <td><input id="txt1"></td>
+    </tr>
+    <tr>
+        <td>普通文本框2：</td>
+        <td><input id="txt2"></td>
+    </tr>
+    <tr>
+        <td>可以记住输入内容的文本框：</td>
+        <td><input id="txt3"></td>
+    </tr>
+    <tr>
+        <td>可以记住输入内容的文本框2：</td>
+        <td><input id="txt4"></td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <input type="submit" value="提交">
+            <input type="reset" value="重填">
+            <input type="button" value="查看Cookie" onclick="alert(document.cookie);">
+        </td>
+    </tr>
+</table>
+</form>
+</body>
+</html>

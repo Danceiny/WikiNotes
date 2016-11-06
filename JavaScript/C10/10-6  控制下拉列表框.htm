@@ -1,0 +1,33 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=GB2312" />
+<title>10-6  控制下拉列表框</title>
+<script>
+//向下拉列表框中添加新项目
+function add_to_select(){
+    var op = new Option(); //建立一个新项目
+    op.innerHTML = (new Date()).toLocaleString(); 				//新项目的内容为当前日期时间
+    select1.appendChild(op); //将新项目加入下拉列表框
+}
+
+//从下拉列表框中删除当前项目
+function del_select(){
+    if(select1.options.length<1)return;						//如果下拉列表框中没有项目，则取消操作
+    var op = select1.options[select1.selectedIndex]; //取得当前项目
+    select1.removeChild(op); //删除当前项目
+}
+
+function select_next(){
+    //如果下拉列表框中没有项目或当前项目已是最后一个，则取消操作
+    if(select1.options.length<1 || select1.selectedIndex > select1.options.length-2)return;
+    select1.options[select1.selectedIndex+1].selected = true; 		//选中下一个项目
+}
+</script>
+</head>
+<body style="overflow:auto;">
+<select id="select1"></select><br/>
+<input type="button" onclick="add_to_select();" value="添加项目"><br/>
+<input type="button" onclick="del_select();" value="删除项目"><br/>
+<input type="button" onclick="select_next();" value="选中下一个项目">
+</body>
+</html>

@@ -1,0 +1,54 @@
+<HTML>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<HEAD>
+<SCRIPT language=JavaScript src="checkform.js"></script>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+
+//外接报警方式（自定义）
+CLASS_CHECK.prototype.showMessageEx = function()
+{
+	document.title = this.message;
+}
+
+//弹出式报警
+g_check.alert	= true;
+
+//单条报警
+g_check.showAll = false;
+
+
+function test()
+{
+
+	try
+	{
+		var aa = document.getElementById("a").value;
+		var bb = document.getElementById("b").value;
+		var cc = document.getElementById("c").value;
+
+		if(!isNaN(aa)&&!isNaN(bb)&&!isNaN(cc)&&aa.length>0&&bb.length>0&&cc.length>0)
+		{
+			return aa*1+bb*1>cc*1;
+		}
+		else
+		{
+			return false;
+		}
+
+	}catch(e){alert();return false;}
+}
+//-->
+</SCRIPT>
+</HEAD>
+<BODY>自定义报警测试: （在title处显示单条报警）
+<FORM name=form1 >
+
+	a:<INPUT id=a usage="num"><BR>
+	b:<INPUT id=b usage="num" ><BR>
+	c:<INPUT id=c usage="test()" tip="a+b>c">a+b>c<BR>
+	
+	<INPUT type=submit value=提交查询内容>
+</FORM>
+</BODY>
+</HTML>
