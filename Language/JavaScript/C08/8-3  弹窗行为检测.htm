@@ -1,0 +1,24 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=GB2312" />
+<title>8-3  弹窗行为检测</title>
+<!-- 样式表 -->
+<style>
+* { font-size:12px; font-family:宋体, Arial; font-weight:normal; color:#333; } /*规定了所有的字体样式*/
+</style>
+<!-- 脚本部分 -->
+<script>
+try{
+    var newWin = window.open("http://www.google.cn","_blank","width=240, height=180, top=0, left=0, scrollbars=no, status=yes, toolbar=no, menubar=no, resizable=no");
+    if(!newWin)throw(new Error("弹出窗口被拦截"));
+    document.write("新窗口打开成功！");
+}catch(e){
+    document.write("打开新窗口时检测到一个错误<br>");
+    document.write("错误的描述为" + e.description + "<br>");
+    document.write("<a href=\"javascript:window.open('http://www.google.cn','_blank','width=240, height=180, top=0, left=0, scrollbars=no, status=yes, toolbar=no, menubar=no, resizable=no');void(0);\">单击此处打开一个新窗口</a>");
+}
+</script>
+</head>
+<body style="overflow:auto;">
+</body>
+</html>

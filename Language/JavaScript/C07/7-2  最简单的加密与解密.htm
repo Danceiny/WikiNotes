@@ -1,0 +1,25 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=GB2312" />
+<title>7-2  最简单的加密与解密</title>
+<!-- 样式表 -->
+<style>
+* { font-size:12px; font-family:宋体, Arial; font-weight:normal; color:#333; } /*规定了所有的字体样式*/
+textarea { width:100%; height:80px; border:1px solid black; } /*定义多行文本框的样式*/
+</style>
+<!-- 脚本部分 -->
+<script>
+function $(str){ return(document.getElementById(str)); }
+</script>
+</head>
+<body style="overflow:auto;">
+请输入需要加密或解密的内容：<br/>
+<textarea id="txt1"></textarea><br/>
+<center>
+    <input type="button" value="加密" onclick="$('txt2').value = escape($('txt1').value);" />
+    <input type="button" value="解密" onclick="$('txt2').value = unescape($('txt1').value);" />
+</center>
+结果输出：<br/>
+<textarea id="txt2"></textarea>
+</body>
+</html>

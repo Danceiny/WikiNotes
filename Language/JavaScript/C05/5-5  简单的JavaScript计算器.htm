@@ -1,0 +1,21 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=GB2312" />
+<title>5-5  简单的JavaScript计算器</title>
+<!-- 脚本部分 -->
+<script>
+function calc(){
+    try{
+        document.getElementById("txt_formula").value = eval(document.getElementById("txt_formula").value);
+    }catch(e){
+        document.getElementById("txt_formula").value = "错误的算式";
+    }
+}
+</script>
+</head>
+<body style="overflow:auto;">
+<label>输入要计算的算式：</label>
+<input id="txt_formula">
+<input type="button" value="计算" onclick="calc();">
+</body>
+</html>

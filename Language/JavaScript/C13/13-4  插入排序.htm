@@ -1,0 +1,52 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=GB2312" />
+<title>13-4  插入排序</title>
+<style>
+* { font-size:12px; font-family:宋体, Arial; } /*规定了所有的字体样式*/
+body { overflow:auto; }
+</style>
+<script>
+window.onload = function(){
+    var ary, st, re, timeCost;
+    //生成一个长度1000的随机数组
+    ary = create_random_array(1000);
+    //记录开始时间
+    st = new Date();
+    //插入排序
+    re = sort(ary);
+    //记录用时
+    timeCost = ((new Date())-st);
+    //输出结果
+    alert("插入排序耗时 " + timeCost + " 毫秒");
+}
+//新建一个指定长度的数组，并对其元素赋以随机的数值
+function create_random_array(len){
+    var re = new Array(len);
+    for(var i=0; i<len; i++)re[i] = Math.random();
+    return(re);
+}
+//插入排序算法
+function sort(ary){
+    var len, j, tmp;
+    len = ary.length;
+    //自左至右扫描无序区
+    for(var i=1; i<len; i++){
+        //ary[-1] 是哨兵，且是ary[i]的副本
+        ary[-1] = ary[i];
+        //自右至左扫描有序区
+        j = i-1;
+        do{
+           ary[j+1] = ary[j];
+           j--;
+        }while(ary[-1]<ary[j]);
+        //将记录插入恰当的位置
+        ary[j+1] = ary[-1];
+    }
+    return(ary);
+}
+</script>
+</head>
+<body>
+</body>
+</html>

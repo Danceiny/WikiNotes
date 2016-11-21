@@ -1,0 +1,88 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=GB2312" />
+<title>10-1  随用户操作而变化的表单</title>
+<!-- 脚本部分 -->
+<script type="text/javascript">
+    function show_upload(){
+        document.getElementById("div_upload").style.display = "block"; 			// 显示上传头像部分
+        document.getElementById("input_show_upload").value = "关闭上传头像";	// 更改按钮文字
+        document.getElementById("input_show_upload").onclick = hide_upload; 	// 绑定onclick事件
+    }
+    
+    function hide_upload(){
+        document.getElementById("div_upload").style.display = "none";		 	// 隐藏上传头像部分
+        document.getElementById("input_show_upload").value = "我要上传头像"; 	// 更改按钮文字
+        document.getElementById("input_show_upload").onclick = show_upload; 	// 绑定onclick事件
+    }
+    
+    function upload_image_preview(){
+        var img_path = document.getElementById("input_image_file").value;
+        // 通过后缀名判断，如果选择的文件不是图片那么终止执行
+        if(!img_path.match(/\.(jpg|gif|tif|png)$/i))return;
+        // 载入图片
+        document.getElementById("span_image_preview").innerHTML = "<img height=\"50px\" src=\"" + img_path + "\">";
+    }
+    
+    function check_status(){ // 根据复选框的勾选与否决定用户名文本框和密码文本框是否禁用
+        if(document.getElementById("input_use_other_account").checked){
+            document.getElementById("input_user_name").disabled = false;
+            document.getElementById("input_user_pass").disabled = false;
+            document.getElementById("input_user_name").value = "请输入姓名";
+            document.getElementById("input_user_pass").value = "";
+            document.getElementById("input_user_name").focus();
+            document.getElementById("input_user_name").select()
+        }else{
+            document.getElementById("input_user_name").disabled = true;
+            document.getElementById("input_user_pass").disabled = true;
+            document.getElementById("input_user_name").value = "默认用户名";
+            document.getElementById("input_user_pass").value = "something";
+        }
+    }
+    
+    function check_name(){
+    	document.getElementById("input_use_other_account").checked = false;
+    	check_status();
+    }
+    
+    function create_city(){
+        if(document.getElementById("select_province").value=="jiangsu"){
+            document.getElementById("span_city").innerHTML="<select><option>南京</option><option>苏州</option></select>";
+        }else{
+            document.getElementById("span_city").innerHTML="<select><option>广州</option><option>深圳</option></select>";
+        }
+    }
+    
+    function check_keydown(){
+        if(event.ctrlKey && event.keyCode == 13){ 				// 判断按键，13代表的是Enter键
+            document.getElementById("form1").submit(); // 提交表单
+        }
+    }
+</script>
+</head>
+<body style="overflow:auto;">
+<!-- 用户管理页面: 用户资料表单 -->
+<form id="form1">
+    <!-- 其他部分内容省略 -->
+    <input id="input_show_upload" type="button" onclick="show_upload();" value="我要上传头像"><br>
+    <div id="div_upload" style="display:none">
+        请选取头像文件：<input id="input_image_file" type="file" onchange="upload_image_preview();"><br>
+        头像预览：<span id="span_image_preview"></span>
+    </div>
+    <hr>
+    使用其他账户登录：<input id="input_use_other_account" type="checkbox" onclick="check_status();"><br>
+    用户名：<input id="input_user_name" value="默认用户名" onchange="check_name();" disabled>
+    密 码：<input id="input_user_pass" type="password" value="something" disabled><br>
+    <hr>
+    你来自：
+    <select id="select_province" onchange="create_city();">
+        <option value="jiangsu">江苏</option>
+        <option value="guangdong">广东</option>
+    </select>
+    <span id="span_city"><select><option>南京</option><option>苏州</option></select></span><br>
+    <hr>
+    个人简介：<br>
+    <textarea onkeydown="check_keydown();" cols="80" rows="10">按住Ctrl + Enter提交本表单</textarea>
+</form>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=GB2312" />
+<title>14-4  “Alpha”滤镜</title>
+<style>
+* { font-size:12px; font-family:宋体, Arial; } /*规定了所有的字体样式*/
+body { overflow:auto; }
+#hutia {
+    padding:10px; background-color:blue; width:240px;
+    height:180px; font-size:20px; font-weight:bold; color:red;
+    filter:progid:DXImageTransform.Microsoft.Alpha(opacity=80, finishOpacity=20, style=1, enabled=false);
+}
+</style>
+<script>
+window.onload = function(){
+    $("hutia").onmousedown = setStartOpacityPoint;
+    $("hutia").onmouseup = setEndOpacityPoint;
+}
+function setEndOpacityPoint(){
+    this.filters[0].finishX = parseInt((event.x- this.offsetLeft)/this.offsetWidth*100);
+    this.filters[0].finishY = parseInt((event.y- this.offsetTop)/this.offsetHeight*100);
+    this.filters[0].enabled = true;
+}
+function setStartOpacityPoint(){
+    this.filters[0].enabled = false;
+    this.filters[0].startX = parseInt((event.x- this.offsetLeft)/this.offsetWidth*100);
+    this.filters[0].startY = parseInt((event.y- this.offsetTop)/this.offsetHeight*100);
+}
+function $(str){ return(document.getElementById(str)); }
+</script>
+</head>
+<body>
+<div id="hutia"></div>
+</body>
+</html>

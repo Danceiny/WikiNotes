@@ -1,0 +1,49 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=GB2312" />
+<title>9-4  HTML编码转换</title>
+<!-- 样式表 -->
+<style>
+* { font-size:12px; font-family:宋体, Arial; } /*规定了所有的字体样式*/
+body { background-color:buttonface; border-width:0px; margin:0px; padding:5px; }
+textarea { border-width:1px; width:200px; height:100px; margin-bottom:5px; }
+input { border-width:1px; margin-bottom:5px; }
+.output { border:1px inset buttonface; width:200px; height:100px; margin-bottom:5px; background-color:white; overflow:auto; padding:5px; }
+</style>
+<script>
+function parseHTML(){
+    var str, re;
+    str = $("t1").value;
+    re = str.replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/ /g,"&nbsp;").replace(/\t/g,"&nbsp;&nbsp;&nbsp;&nbsp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\r\n/g,"<br>");
+    $("t2").value = re;
+    $("o1").innerHTML = str;
+    $("o2").innerHTML = re;
+}
+
+function $(str){ return(document.getElementById(str)); }
+</script>
+</head>
+<body style="overflow:auto;">
+<table width="100%" >
+    <tr>
+        <td><b>请输入需转换的文本：</b></td>
+        <td><b>HTML编码后的文本：</b></td>
+    </tr>
+    <tr>
+        <td><textarea id="t1"></textarea></td>
+        <td><textarea id="t2"></textarea></td>
+    </tr>
+    <tr>
+        <td colspan=2><input type="button" value="获取网址" onclick="parseHTML();"></td>
+    </tr>
+    <tr>
+        <td><b>未编码的演示：</b></td>
+        <td><b>编码后的演示：</b></td>
+    </tr>
+    <tr>
+        <td><div class="output" id="o1"></div></td>
+        <td><div class="output" id="o2"></div></td>
+    </tr>
+</table>
+</body>
+</html>

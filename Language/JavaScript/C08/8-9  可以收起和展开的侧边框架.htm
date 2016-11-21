@@ -1,0 +1,55 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=GB2312" />
+<title>8-9  可以收起和展开的侧边框架</title>
+<!-- 样式表 -->
+<style>
+* { font-size:12px; font-family:宋体, Arial; font-weight:normal; color:#333; } /*规定了所有的字体样式*/
+html, frameset, frame, body { padding:0px; margin:0px; }
+#collapseButton {
+    position:absolute;
+    display:block;
+    right:0px;
+    top:0px;
+    width:15px;
+    height:100%;
+    overflow:hidden;
+    align:center;
+    border:1px outset buttonface;
+    background-color:buttonface;
+    text-decoration:none;
+}
+
+#collapseButton:hover { background-color:#E0E0E0; font-weight:bold; }
+
+#collapseButton div { position:relative; top:48%; left:2px; }
+</style>
+<script>
+
+function resizeFrame(){
+    var frmElement, frm, obj;
+    frmElement = document.getElementsByTagName("frameset")[0];
+    frm = window.frames[0];
+    obj = frm.document.getElementById("hutia");
+    if(obj.innerHTML == "&lt;"){
+        frmElement.cols = "17,*";
+        obj.innerHTML = "&gt;"
+    }else{
+        frmElement.cols = "20%,*";
+        obj.innerHTML = "&lt;"
+    }
+}
+
+window.onload = function(){
+    var frm;
+    frm = window.frames[0];
+    frm.document.write(document.getElementsByTagName("style")[0].outerHTML);
+    frm.document.write("<a href=\"javascript:void(top.resizeFrame());\" id=\"collapseButton\" hideFocus=\"yes\">");
+    frm.document.write("<div id=\"hutia\">&lt;</div><\/a>");
+}
+</script>
+</head>
+<frameset cols="20%,*" frameBorder="0">
+    <frame></frame>
+    <frame></frame>
+</html>

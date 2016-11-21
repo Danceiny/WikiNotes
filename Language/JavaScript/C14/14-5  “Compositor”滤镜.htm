@@ -1,0 +1,30 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=GB2312" />
+<title>14-5  “Compositor”滤镜</title>
+<style>
+* { font-size:12px; font-family:宋体, Arial; } /*规定了所有的字体样式*/
+body { overflow:auto; }
+#hutia {
+    padding:10px; background-color:buttonshadow; width:590px;
+    height:60px; font-size:40px; font-weight:bold; color:#550000;
+    letter-spacing:6px;
+    filter:progid:DXImageTransform.Microsoft.Compositor(function=9);
+}
+</style>
+<script>
+window.onload = function(){
+    $("hutia").filters[0].apply();
+    $("hutia").innerText = " 我是新文本，即合成输入B";
+    $("hutia").style.color = "#000055";
+    $("hutia").play();
+}
+function $(str){ return(document.getElementById(str)); }
+</script>
+</head>
+<body>
+<div id="hutia">
+    我是原始文本，即合成输入A
+</div>
+</body>
+</html>

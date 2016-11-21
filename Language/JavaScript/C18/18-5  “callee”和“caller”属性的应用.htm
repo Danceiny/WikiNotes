@@ -1,0 +1,81 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=GB2312" />
+<title>18-5  “callee”和“caller”属性的应用</title>
+<style>
+* { font-size:12px; font-family:宋体, Arial; } /*规定了所有的字体样式*/
+body { overflow:auto; }
+</style>
+<script>
+//用于输出的函数
+function print(str){ document.write(str+"<br>"); }
+function println(){ document.write("<hr>"); }
+
+//向字符串对象原型中增加方法“times”，用于将此字符串按指定次数重复的后返回
+String.prototype.times = function(count){
+    return(count<1?"":(new Array(count+1)).join(this));
+}
+
+//向数组对象原型中增加方法“indentJoin”，用于将此数组按顺序增加相应缩进，然后合并成一个字符串返回
+Array.prototype.indentJoin = function(linkStr, indentChar, indentLen){
+    var tmp = new Array();
+    indentChar = indentChar || " ";
+    indentLen = indentLen || 4;
+    for(var i=0; i<this.length; i++){
+        tmp.push(indentChar.times(i*indentLen)+this[i]);
+    }
+    return(tmp.join(linkStr));
+}
+
+//模拟函数之间的相互调用
+function main(){ sub1(1, 3, 5, 7); }
+function sub1(){ sub2(2, "hutia", 6, "humi"); }
+function sub2(){ sub3(1, 1, 2, 3); }
+function sub3(){ sub4("axiang", 8, "hutia", 21); }
+function sub4(){
+    try{
+        //模拟一个错误
+        var ss=tt;
+    }catch(e){
+        //在错误捕获中调用“debug”函数
+        debug(e);
+    }
+}
+
+//使用“callee”和“caller”属性自动获取调试信息
+function debug(e){
+    var f, fname, re, arg, depth;
+    f = arguments.callee.caller;
+    re = new Array();
+    while(f){
+        arg = new Array();
+        fname = f.toString().match(/function\s+([^\(]+)/);
+        fname = fname?fname[1]:"Anonymous";
+        for(var i=0; i<f.arguments.length; i++)arg.push(toJString(f.arguments[i]));
+        re.push("--&gt; "+fname+"("+arg.join(", ")+")");
+        f = f.caller;
+    }
+    re.reverse();
+    print("有一个错误发生");
+    println();
+    for(var i in e)print(i+":"+e[i]);
+    println();
+    print("错误发生位置：<br>"+re.indentJoin("<br>", "&nbsp;", 2));
+}
+
+//将对象序列化
+function toJString(obj){
+    switch(typeof(obj)){
+        case "string": return("\""+obj+"\"");
+        case "object": return("[object]");
+        default: return(String(obj));
+    }
+}
+
+//调用“main”函数
+main();
+</script>
+</head>
+<body>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=GB2312" />
+<title>18-2  利用“prototype”属性向类中添加自定义属性和方法</title>
+<style>
+* { font-size:12px; font-family:宋体, Arial; } /*规定了所有的字体样式*/
+</style>
+<script>
+function User(name){
+    this.name;
+    this.init = function(name){
+        if(!name){
+            this.name = "默认名称";
+        }else{
+            this.name = name;
+        }
+        this.createDate = new Date();
+        this.print("我已初始化结束");
+    }
+    this.print = function(str){
+        document.write("["+this.name+"]："+str+"<br>");
+    }
+    this.init(name);
+}
+
+//向原型中增加新属性
+User.prototype.sex = "男";
+//下面这种写法是错误的
+User.sex = "女";
+
+//创建新的“User”类实例
+user1 = new User("hutia");
+user1.print("我的性别是："+user1.prototype.sex);
+user1.sex = "女";
+user1.print("我的性别是："+user1.sex);
+//创建新的“User”类实例
+user2 = new User("axiang");
+user2.print("我的性别是："+user2.sex);
+//向原型中添加新的方法
+User.prototype.showDate = function(){ this.print("我的创建日期是"+this.createDate.toLocaleString()); }
+//调用“User类”实例的方法
+user1.showDate();
+user2.showDate();
+</script>
+</head>
+<body>
+</body>
+</html>

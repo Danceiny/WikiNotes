@@ -1,0 +1,45 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=GB2312" />
+<title>14-6  “Light”滤镜</title>
+<style>
+* { font-size:12px; font-family:宋体, Arial; } /*规定了所有的字体样式*/
+body { overflow:auto; }
+label { width:500px; }
+#hutia {
+    float:left; height: 300px;
+    filter:progid:DXImageTransform.Microsoft.Light();
+}
+</style>
+<script>
+//页面载入完成后执行
+window.onload = function(){
+    //添加一个灰色的环境光源
+    $("hutia").filters[0].addAmbient(200,200,200,40);
+    //在图片左上角添加一个点光源
+    $("hutia").filters[0].addPoint(30,30,200,250,200,200,100);
+    //在图片中心位置添加一个锥形光源
+    $("hutia").filters[0].addCone(250,180,80,250,180,200,200,200,60,30);
+    //绑定事件
+    $("hutia").onmousemove = move_light;
+    $("hutia").onmousewheel = change_bright;
+}
+//当鼠标移动时，移动相应的锥形光源的焦点
+function move_light(){
+    $("hutia").filters[0].moveLight(2, event.x, event.y, 100, 1);
+}
+//当鼠标滚轮滚动滚动时，相应的改变环境灯光亮度
+function change_bright(){
+    $("hutia").filters[0].changeStrength(0,parseInt(event.wheelDelta/30),0);
+}
+function $(str){ return(document.getElementById(str)); }
+</script>
+</head>
+<body>
+<label>增加滤镜后的效果：</label>
+<img id="hutia" src="..\inc\img\14-6.jpg">
+原始图片（缩略图）：
+<img src="..\inc\img\14-6.jpg" style="float:left; width:240px;">
+</div>
+</body>
+</html>

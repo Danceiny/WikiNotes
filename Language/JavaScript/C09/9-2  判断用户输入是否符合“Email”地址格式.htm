@@ -1,0 +1,81 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=GB2312" />
+<title>9-2  判断用户输入是否符合“Email”地址格式</title>
+<!-- 样式表 -->
+<style>
+* { font-size:12px; font-family:宋体, Arial; font-weight:normal; color:#333; } /*规定了所有的字体样式*/
+</style>
+<script>
+function check(){
+    var str, result1, result2, timecost1, timecost2, timer, msg;
+    str = document.getElementById("txtEmail").value;
+    timecost1 = (new Date()).getTime();
+    for(var i=0; i<1000; i++)validateEmailByReg(str);
+    timecost1 = (new Date()).getTime() - timecost1;
+    timecost2 = (new Date()).getTime();
+    for(var i=0; i<1000; i++)validateEmail(str);
+    timecost2 = (new Date()).getTime() - timecost2;
+    msg = "输入的Email为：“" + str + "”\r\n";
+    msg += "用正则测试的结果为：\t" + (validateEmailByReg(str)?"通过":"不通过") + "，运算1000遍耗时" + timecost1 + "毫秒。\r\n";
+    msg += "不用正则测试的结果为：\t" + (validateEmail(str)?"通过":"不通过") + "，运算1000遍耗时" + timecost2 + "毫秒。\r\n";
+    alert(msg);
+}
+
+function validateEmailByReg(str){
+    return(/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(str));
+}
+
+function validateEmail(str){
+    var flg01, flg02, previousCharType;
+    
+    flg01 = false;
+    flg02 = false;
+    for(var i=0; i<str.length; i++){
+        switch(charType(str.charAt(i))){
+            case "ascii":
+                if(previousCharType!="ascii")previousCharType = "ascii";
+            break;
+            case "-":
+                if(previousCharType!="ascii")return(false);
+                previousCharType = "-";
+            break;
+            case ".":
+                if(previousCharType!="ascii")return(false);
+                if(flg01)flg02=true;
+                previousCharType = ".";
+            break;
+            case "+":
+                if(previousCharType!="ascii" || flg01)return(false);
+                previousCharType = "+";
+            break;
+            case "@":
+                if(previousCharType!="ascii" || flg01)return(false);
+                previousCharType = "@";
+                flg01 = true;
+            break;
+            default:
+                return(false);
+            break;
+        }
+    }
+    if(!flg01 || !flg02)return(false);
+    return(true);
+}
+
+function charType(val){
+    var asciiChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    if(asciiChars.indexOf(val)!=-1){
+        return("ascii");
+    }else{
+        return(val);
+    }
+}
+</script>
+</head>
+<body style="overflow:auto;">
+E-Mail:
+<input id="txtEmail"><br/>
+<input type="button" value="测试" onclick="check()">
+</body>
+</html>

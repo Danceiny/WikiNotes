@@ -1,0 +1,32 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=GB2312" />
+<title>8-6  登录效果</title>
+<!-- 样式表 -->
+<style>
+* { font-size:12px; font-family:宋体, Arial; font-weight:normal; color:#333; } /*规定了所有的字体样式*/
+</style>
+<script>
+var userName, userPass;
+
+function checkLogin(){
+    var str = showModalDialog("8-6-login.htm","","dialogHeight=120px; dialogWidth=200px; status=no; help=no");
+    if(!str){
+        document.write("你已取消了登录");
+        return;
+    }
+    userName = unescape(str.split(":")[0]);
+    userPass = unescape(str.split(":")[0]);
+    document.write("欢迎你" + userName);
+}
+
+</script>
+</head>
+<body style="overflow:auto;">
+<div style="font-size:14px; font-weight:bold; color:white; font-family:Arial, 宋体; background-color:#6090DA; padding:4px 10px;">
+    <script>
+        checkLogin();
+    </script>
+</div>
+</body>
+</html>

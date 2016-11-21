@@ -1,0 +1,25 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=GB2312" />
+<title>8-2  随窗口大小调整位置</title>
+<!-- 样式表 -->
+<style>
+* { font-size:12px; font-family:宋体, Arial; font-weight:normal; color:#333; } /*规定了所有的字体样式*/
+#greenDiv { width:240px; height:160px; border:2px solid #00DD00; background-color:#BBF0BB; } /*定义绿色方块的样式*/
+</style>
+<!-- 脚本部分 -->
+<script>
+function refresh_div(){
+    var div_width = 240, div_height = 160;
+    $("greenDiv").style.position = "absolute";
+    $("greenDiv").style.left = (document.body.offsetWidth - div_width) / 2;
+    $("greenDiv").style.top = (document.body.offsetHeight - div_height) / 2;
+}
+function $(str){ return(document.getElementById(str)); }
+window.onload = window.onresize = refresh_div;
+</script>
+</head>
+<body style="overflow:auto;">
+<div id="greenDiv"></div>
+</body>
+</html>
