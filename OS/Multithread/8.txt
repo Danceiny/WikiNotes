@@ -1,0 +1,144 @@
+4.6.7信号控制器和异步安全
+    有一个类似与线程安全的概念：异步安全。异步安全操作被保证不会和被中断
+的操作相混。
+    如果信号控制器与正被中断的操作冲突，就会有异步安全的问题。例如，假设
+有一个程序正在printf调用的当中，一个信号发生，它的控制器也要调用printf()：
+两个printf()的输出会交织在一起。为了避免这种结果，如果是printf被中断，控
+制器就不应当调用printf。
+    这个问题使用同步原语无法解决，因为试图的同步操作会立即导致死锁。
+    例如，假设printf()用互斥锁来保护它自己。现在假设一个线程正在调用
+printf()，第一个printf就得在互斥锁上等待，但是线程突然被信号中断了。如果
+控制器（被在printf的里面中断的线程调用）也调用printf()，在互斥锁上阻塞的
+线程回再次尝试得到printf的使用权，这就导致了死锁。
+    为了避免控制器和操作之间的干涉，或者保证这种情况永远不会发生（例如在
+可能出问题的时刻封掉所有信号），或者在信号控制器中仅仅使用异步安全操作。
+    因为在用户级操作设置线程的掩模相对代价较小，你可以方便地设计代码使得
+它符合异步安全的范畴。
+
+4.6.8关于条件变量的中断等待
+    如果在线程等待条件变量的时候获得一个信号，过去的做法是（假设进程没有
+终止）被中断的调用返回EINTR。
+    理想的新条件是当cond_wait(3T)和cond_timedwait(3T)返回，将重新获得互斥
+锁。
+    Solaris多线程是这样做的：如果一个线程在cond_wait或cond_timedwait()函
+数上阻塞，而且获得一个没有被屏蔽信号，（信号）控制器将被启用，cond_wait()
+或cond_timedwait()返回EINTR，并且互斥锁加锁。？？？
+    这意味着互斥锁将被信号控制器获得，因为控制器必须清理环境。
+        请看示例4-4
+        Code Example 4-4 条件变量和等待中断
+        Int sig_catcher() {
+                Sigset_t set;
+                Void hdlr();
+                        Mutex_lock(&mut);
+                        Sigemptyset(&set);
+                        Sigaddset(&set,SIGING);
+                        Thr_sigsetmask(SIG_UNBLOCK,&set,0);
+                        If(cond_wait(&cond,&mut) == EINTR){
+                                /* signal occurred and lock is held */
+                                cleanup();
+                                mutex_unlock(&mut);
+                                return(0);
+                        }
+                        normal_processing();
+                        mutex_unlock(&mut);
+                        return(1);
+                }
+                void hdlr() {
+                        /* lock is held in the handler */
+                        ………
+                }
+    假设SIGINT信号在sig_catcher()的入口处被阻塞，而且hdlr()已被建立（通
+过sigaction()调用）成为SIGINT的控制器。
+    如果线程阻塞在cond_wait()的时候，一个没有被屏蔽的信号被送给线程，线
+程首先获得互斥锁，然后调用hdlr()，然后从cond_wait()返回EINTR。
+    注意，在sigaction()中指定SA_RESTART标志是没有效果的--cond_wait(3T)
+不是系统调用，不会被自动重新启动。如果线程在cond_wait()阻塞时，调用总是
+返回EINTR。
+
+4.7 I/O事项
+    多线程的一个优势是它的I/O性能。传统的UNIX API在这一领域没有给程序员
+足够的辅助--你或者使用文件系统的辅助，或者跳过整个文件系统。
+    这部分将介绍怎样在多线程利用I/O并发和多缓冲区来获得更多的灵活性。这
+个部分也探讨了同步I/O（多线程）和异步I/O（可以是也可以不是多线程）的异同
+。
+
+4.7.1 I/O作为远程过程调用
+    在传统的UNIX模型里，I/O表现为同步的，就象你在通过一个远程过程调用
+（RPC）来操纵外设。一旦调用返回，I/O完成（或至少看上去已完成--例如一个写
+请求，也许仅仅是在操作系统内做数据移动）。
+    这个模型的优势在于容易理解，因为程序员对过程调用是很熟悉的。
+    一个代替的办法（在传统的UNIX里没有的）是异步模式，I/O请求仅仅启动一
+个操作。程序要自己来发现操作是否完成。
+    这个办法不象同步方法那样简单，但它的优势在于允许并发的I/O处理和传统
+的单线程进程处理。
+
+4.7.2驯服的异步(Tamed Asynchrony)
+    你可以通过在多线程编程里使用同步I/O来获得异步I/O的大多数好处。在异
+步I/O中，你发出一个请求，过一会儿再去检查请求是否已经完成，你可以用分离
+的线程来同步操作I/O。然后由主线程（也许是thr_join(3T)）检查操作是否完成
+。
+
+4.7.3异步I/O
+    在大多数情况下没有必要使用异步I/O，因为它的效果可以通过线程来实现，
+每个线程使用同步I/O。然而，在少数情况下，线程不能完全实现实现异步I/O的功
+能。
+    最直接的例子是用流的方法写磁带。这种技术在有持续的数据流写向磁带，磁
+带驱动器高速运转时防止磁带驱动器停止。
+    为了作到这点，在磁带驱动程序响应一个标志上一个写操作已经完成的中断时，
+内核里的磁带驱动器必须发出一个写请求队列。
+    线程不能保证异步写被排队，因为线程本身执行的顺序就是不确定的。例如试
+图给磁带的写操作排队是不可能的。
+*异步I/O操作
+        #include 
+        int aioread(int filedes, char *bufp, int bufs, off_t offset,
+                int whence, aio_result_t *resultp);
+        int aiowrite(int filedes, const char *bufp, int bufs,
+                off_t offset, int whence, aio_result_t *resultp);
+        aio_result_t *aiowait(const struct timeval *timeout);
+        int aiocancel(aio_result_t *resultp);
+    aioread(3)和aiowrite(3)在形式上与pread(2)和pwrite(2)，不同的是最后一
+个参数。调用aioread()和aiowrite()导致初始化（或排队）一个I/O操作。
+    调用不会阻塞，调用的状态将返回到由resultp指向的结构。其类型为
+aio_result_t，包含有：
+        int aio_return;
+        int aio_errno;
+    如果一个调用立即失败，错误码被返回到aio_errno。否则，这个域包含
+AIO_INPROGRESS，意味着操作被成功排队。
+    你可以通过调用aiowait(3)来等待一个特定的异步I/O操作结束。它返回一个
+指向aio_result_t数据结构的指针，该结构由最初的aioread(3)或者aiowrite(3)
+提供。如果这些函数被调用，Aio_result包含类似与read(2)和write(2)相似返回
+值，aio_errno包含错误代码，如果有的话。
+    Aiowait()使用一个timeout参数，该参数指定了调用者可以等多久。通常情况
+下，一个NULL指针表示调用者希望等待的时间不确定，如果指针指向的数据结构包
+含零值，表明调用者不希望等待。
+    你可以启动一个异步I/O操作，做一些工作，然后调用aiowait()来等待结束的
+请求。或者你可以在操作结束后，用SIGIO来异步地通知。
+    最后，一个挂起的异步I/O操作可以通过调用aiocancel()来取消。这个过程在
+调用时使用存放结果的地址做参数。这个结果区域标识了要取消哪一个操作。
+
+4.7.4共享的I/O和新的I/O系统调用
+    如果多个线程同时使用同一个文件描述符来进行I/O操作，你会发现传统的
+UNIX I/O接口不安全。在非串行的I/O（即并发）发生时会有问题。它使用
+lseek(2)系统调用来为后续的read(2)和write(2)函数设置文件偏移量。如果两个或
+更多的线程使用lseek(2)来移动同一个文件描述符，就会发生冲突。
+    为了避免冲突，使用新的pread(2)和pwrite(2)系统调用。
+        #include 
+        #include 
+        ssize_t pread(int fildes,void *buf,size_t nbyte,off_t offset);
+        ssize_t pwrite(int filedes,void *buf,size_t nbyte,off_t offset);
+    这些调用效果类似于read(2)和write(2)，不同之处在于多了一个参数，文件
+偏移量。用这个参数，你可以用不着用lseek(2)指定偏移量，多线程可以对同一个
+文件描述符进行安全的操作。
+
+4.7.5 Getc(3S)和putc(3S)的替代函数
+    一个问题会发生在标准I/O的情况下。程序员可以很快地习惯于getc(3S)和
+putc(3S)这样的函数--它们是用宏来实现的。因为如此，他们可以在程序的循环内
+部使用，用不着考虑效率。
+    然而，如果改用线程安全的版本后，代价会突然变的昂贵--它们需要（至少）
+两个内部子程序调用，来给一个互斥锁加锁和解锁。为了解决这个问题，提供了这
+些函数的替代版本--getc_unlocked(3S)和putc_unlocked(3S)。
+    这些函数不给互斥锁加锁，因此速度象非线程安全版本的getc(3S)和putc(3S)
+一样快。然而如果按照线程安全的方法来使用的话，必须用flockfile(3S)和
+funlockfile(3S)显式地给互斥锁加锁和解锁来保护标准的I/O流。这两个调用放在
+
+循环外面，而getc_unlocked()或者putc_unlocked()放在循环内部。

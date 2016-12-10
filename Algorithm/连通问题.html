@@ -1,0 +1,34 @@
+<p>
+    <strong># 快速查找算法：</strong>
+</p>
+<div>
+    <img border="0" src="../~img/连通问题1.png"/>
+</div>
+<div>
+    <pre class="prettyprint linenums prettyprinted" style="">#include&lt;stdio.h&gt;#define N 10000main(){  int i, p, q, t, id[N];  for(i = 0; i &lt; N; i++)  {    id[i] = i;  }  while(scanf(&quot;%d %d\n&quot;,&amp;p,&amp;q) == 2)  {    if(id[p] == id[q]) continue;    for(t = id[p], i =0; i &lt; N; i++){      if (id[i] == t) {        /* code */        id[i] = id[q];      }    }    printf(&quot; %d %d\n&quot;, p, q);  }}</pre>
+</div>
+<p>
+    <em>性质： 对于具有N个对象，每个对象包括M个并集运算的连通性问题，快速查找算法至少要执行MN条指令。</em>
+</p>
+<p>
+    快速查找的树状图：
+</p>
+<div>
+    <img border="0" src="../~img/连通问题2.png"/>
+</div>
+<p>
+    <br/>
+</p>
+<p>
+    <br/>
+</p>
+<p>
+    <strong># 快速并集算法</strong>
+</p>
+<p></p>
+<div>
+    <img border="0" src="../~img/连通问题3.png"/>
+</div>
+<p>
+    <br/>
+</p>
