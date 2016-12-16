@@ -113,10 +113,12 @@ showfeatures函数,输出结果见features.txt.
 调用:
 ```python
 import newsfeatures
-import nmf
+import nnmf
+import numpy
 allw,artw,artt = newsfeatures.getarticlewords()
 wordmatrix,wordvec = newsfeatures.makeMatrix(allw,artw)
-v=matrix(wordmatrix)
-weights,feat = nmf.factorized(v,pc=20,iter=50)
-topp,pn = newsfeatures.showfeatures(weights,feat,artt,wordvec)
+v=numpy.matrix(wordmatrix)
+weights,feat = nnmf.factorize(v,pc=20,iter=50)
+topp,pn = newsfeatures.showfeatures(weights,feat,artt,wordvec,out='features.txt')
+newsfeatures.showarticles(artt,topp,pn,out='articles.txt')
 ```
