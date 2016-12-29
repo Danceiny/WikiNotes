@@ -50,10 +50,10 @@
 						(2)通用context和通用web.xml，所有的<Context>都继承子conf/context.xml,所有的web.xml都继承自conf/web.xml
 						(3)reloadable让tomcat自动加载更新后的web应用，当java程序修改后不用重启，服务器自动从新加载，开发时设为true方便开发，发布时设为false，提高性能
 						(4)Tomcat管理平台，可以在conf/tomcat-users.xml下配置用户名密码及权限
-						
+
 					6.作业
 							配置一个www.google.com这样一台虚拟主机，其中包含news应用和mail应用，news应用中有一个new.html。实现在浏览器中输入www.google.com直接看到new.html中的芙蓉姐姐。
-				
+
 
 二、HTTP协议
 1.HTTP协议概述
@@ -61,7 +61,7 @@
 		HTTP是hypertext transfer protocol（超文本传输协议）的简写，它是TCP/IP协议的一个应用层协议
 		HTTP使用请求-响应的方式进行传输，一个请求对应一个响应，并且请求只能是由客户端发起的。
 		HTTP协议的版本：HTTP/1.0、HTTP/1.1，其中1.0一次请求发起一次连接，响应过后连接自动断开。1.1里每次请求响应后连接将保持一段时间，这段时间内可以再执行请求响应。
-		
+
 2.HTTP请求
 	2.1请求行
 					GET /books/java.html HTTP/1.1
@@ -87,8 +87,8 @@
 
 
 	2.3实体内容
-	
-	
+
+
 3.HTTP响应
 	3.1状态行
 		HTTP/1.1 200 OK
@@ -119,9 +119,9 @@
 			以上三个头都是用来控制缓存的，是因为历史原因造成的，不同的浏览器认识不同的头，我们通常三个一起使用保证通用性。
 			Connection: close/Keep-Alive   是否保持连接
 			Date: Tue, 11 Jul 2000 18:23:51 GMT 当前时间
-	
+
 	3.3实体内容
-	
-	
-	
+
+
+
 *额外作业：重写学生信息管理系统的DAO，用Dom4j去实现

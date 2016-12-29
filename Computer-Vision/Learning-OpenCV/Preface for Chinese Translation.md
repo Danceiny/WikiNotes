@@ -1,1 +1,24 @@
-unsupported reparse point
+---
+date: 2016-02-29 18:08
+status: public
+title: 'Preface for Chinese Translation'
+---
+
+# Preface for Chinese Translation
+Since the writing of book, OpenCV is now actively supported by Willow Garage<http://www.willowgarage.com>, a robotics research institude located in Menlo Park, California, During the time when OpenCV had less support, Shiqi Yu helped out by producing a Chinese translation of OpenCV documentation. It is therefore fitting that Shiqi has continued on to produce the Chinese translation of this book. The Chinese translation timing is also nicely aligned with the new release 2.0 of OpenCV in September 2009. You can find links to current information on OpenCV at the main wiki page at <http://opencv.willowgarage.com> which links to the detailed page at <http://opencv.willowgarage.com/wiki/FullOpenCVWiki>. The new OpenCV releases are detailed in <http://opencv.willowgarage.com/wiki/Welcome/Introduction#Announcements>.
+
+Applications for computer vision and machine perception are growing rapidly. For example, many people are familar with face detection now available on consumer cameras. Many of those face detection techniques are adapted from the face detection algorithms developed in OpenCV. But, many people are not aware of just how important computer vision already is for manufaturing. Almost nothing is manufactured these days without making use of video inspection equipment, cameras now monitor fruits and vegetables for blemishes, make sure that the labels on products are put on in the right place, watch to make sure cloth has no flaws, or that each pixel works on an LCD screen and much more. Many of these applications make use of OpenCV routines, many such systems are deployed in China.
+
+Computer vision also has growing uses in monitoring and safety. Some people are aware of security cameras in airports and train stations, but fewer people know that cameras are also increasingly used to monitor mine equipment, prevent drowings in swimming pools and watch traffic flow and accidents on freeways. OpenCV, with its BSD license, encourages commercial use and so is deployed on many of these monitoring systems. When you search the web, many of the image processing routines run by Google make use of OpenCV.  These uses range from helping stitch satellite and airplane images together in Google Earth and Google Maps, but also to wtitch street scenes toghter and align the imagery with laser scans in Google Street View.
+
+Computer vision has many uses on the Web, such as in the Video Summary produced by Video Surf<http://www.videosurf.com> or for image retrieval by all the major search engines. There is a positive feedback here because the more images there are on web, the more training data becomes available such as LabelMe<http://labelme.csail.mit.edu/>data bases) or Tiny Images<http;//people.csail.mit.edu/torralba/tinyimages/collection>. Additionally, more and more researchers are using Amazon's Mechanical Turk service<https://www.mturk.com/mturk/welcome> to label images databases for pennies per image and tools are appearing to make such labeling tasks easier to run<http://pr.willowgarage.com/wiki/ROS/mturk>. The training data from these databases and servieces helps improve computer vision algorithms.
+
+By coincidence, both authors of the OpenCV book now work in robotics where sensor perception is the main obstacle to enable wide deployment of robotics. Robots will be useful for elderly care, for agriculture, for servieces and for manufacturing. Robots have been doing well at navigation and mapping<http://www.youtube.com/watch?v=qRrMHaO6NpE> but the real key to unleashing a mobile robotics industry is perception for manipulation. Robots need to be albe to see objects reliably in order to manupulate and build things. There is still much work to do to make perception reliable, and that is one of the reasons why OpenCV is open -- to collect the best work of the top people in order to enable seeing machines. Recently there have been many advances in mobile manipulation<http://www.youtube.com/watch?v=0S2dc_B-6Kg> but much more work remains to be done. Fortunately, OpenCV is keeping up and now does a major release every 6 months with daily improvements available from the source code repository<http://sourceforge.net/scm/?type=svn&group_id=22870>.
+
+I thank Shiqi Yu and Ruizhen Liu for their tranlation of this book. People who work in open source do their work for all of humanity and not for any specific country, company or group. OpenCV was designed to accelerate human knowledge and capability by making advances in knowledge available to everyone. This is an optimistic view of humanity but it depends on contributions back. We encourage top scientists and developers in China to learn OpenCV and to contribute their advances back to the effort.
+
+	Gary Bradski
+	Senior Scientist, Willow Garage
+	Consulting Professor, Stanford University, CS Dept.
+	garabradski@gmail.com
+	September 2009
