@@ -9,17 +9,3 @@ title: 'Chapter2-Advanced HTML Parsing'
 * `bsObj.findAll("",{"id":"text"})`
 
 但是class关键字不可用，不过又可以加个_，`bsObj.findAll(class_="green")`
-
-To create a new Scrapy project in the current directory, run from the command line:
-`scrapy startproject wikiSpider`
-
-![](~/15-17-07.jpg)
-file structure:
-* scrapy.cfg
-* wikiSpider
-    * __init__.py
-    * items.py
-    * pipelines.py
-    * settings.py
-    * spiders
-        * __init__.py
