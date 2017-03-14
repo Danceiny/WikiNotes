@@ -152,3 +152,165 @@ public static void main(String[] args){
     list1.addAll(list2);
 }
 ```
+2. 交集
+`list1.retainAll(list2);`
+retainAll方法会删除list1中没有出现在list2中的元素。
+
+3. 差集
+`list1.removeAll(list2);`
+
+4. 无重复的并集
+确保并集结果中只有一份交集（真正的并集）
+```java
+list2.removeAll(list1);
+list1.addAll(list2);
+```
+
+错误方案：求出两个集合的并集，然后转为HashSet剔除重复元素
+错误原因：会把集合A中原本就重复的元素也剔除掉
+
+
+# 使用shuffle打乱列表
+```java
+List<String> tagClouds = new ArrayList<String>(tagCloudNum);
+
+// version 1
+for...
+Collections.swap(tagClouds,i,randomPosition);
+// version 2
+Collections.shuffle(tagClouds);
+```
+
+
+# 减少HashMap中元素的数量
+
+使用缓冲池操作数据时，大批量增删改查操作可能会让内存溢出。下面的模拟程序重现问题：
+```java
+public static void main(String[] args) {
+
+    final Runtime rt = Runtime.getRuntime();
+    //JVM终止前记录内存信息
+    rt.addShutdownHook(new Thread(){
+        @Override
+        public void run(){
+            StringBuffer sb = new StringBuffer();
+            long heapMaxSize = rt.maxMemory()>>20;
+            sb.append("最大可用内存："+heapMaxSize+"M\n");
+            long total = rt.totalMemory()>>20;
+            sb.append("堆内存大小："+total+"M\n");
+            long free = rt.freeMemory()>>20;
+            sb.append("空闲内存："+free+"M");
+            System.out.println(sb);
+        }
+    });
+
+    Map<String,String>map = new HashMap<String,String>();
+    //放入近40万键值对
+    for(int i=0;i<393217;i++){
+        map.put("key"+i,"value"+i);
+    }//内存溢出（事实上我再加3个0，在windows/cmd下要运行特别久才会报错
+
+    List<String>list = new ArrayList<String>();
+    for(int i-0;i<400000;i++){
+        list.add("key"+i);
+        list.add("value"+i);
+    }//不会溢出
+}
+```
+HashMap使用了Entry封装，比ArrayList多一层。
+
+0.75倍数组长度时就要翻倍，此时虽有剩余内存，但是已不够翻倍。
+
+# 集合中的哈希码不要重复
+看看HashMap是如何查找Key值的：
+```java
+public static void main(String[] args) {
+    int size = 10000;
+    List<String>list = new ArrayList<String>(size);
+    //init
+    for(int i=0;i<size;i++){
+        list.add("value"+i);
+    }
+    //record start time, ns as unit.
+    long start = System.nanoTime();
+    //start search
+    list.contains("value"+(size-1));
+    //record end time, ns as unit.
+    long end = System.nanoTime();
+    System.out.println("list执行时间："+(end-start)+"ns");
+    //Map的查找时间
+    Map<String,String>map = new HashMap<String,String>(size);
+    for(int i=0;i<size;i++){
+        map.put("key"+i,"value"+i);
+    }
+    start = System.nanoTime();
+    map.containsKey("key"+(size-1));
+    end = System.nanoTime();
+    System.out.println("map执行时间："+(end-start)+"ns");
+}
+```
+HashMap比ArrayList快很多倍。
+
+```java
+public boolean containsKey(Object key){
+    return getEntry(key)!=null;
+}
+
+final Entry<K,V>getEntry(Object key){
+    int hash = (key==null) ? 0 : hash(key.hashCode());
+    for(Entry<K,V>e=table[indexFor(hash,table.length)]; e!=null; e=e.next){
+        Object k;
+        if (e.hash==hash && ((k=e.key)==key || (key!=null && key.equals(k) ))) {
+            return e;
+        }
+    }
+    return null;
+}
+```
+table数组：
+- 长度永远是2^N。
+- 元素是Entry类型。
+- 元素位置不连续。
+
+HashMap如何插入元素？
+```java
+public V put(K key, V value){
+    if(key==null)return putForNullKey(value);
+
+    int hash = hash(key.hashCode());
+    int i = indexFor(hash,table.length);
+    for(Entry<K,V>e=table[i];e!=null;e=e.next){
+        Object k;
+        if (e.hash==hash && ((k=e.key)==key || (key!=null && key.equals(k) ))) {
+            V oldValue = e.value;
+            e.value = value;
+            e.recordAccess(this);
+            return oldValue;
+        }
+    }
+    modCount++;
+    addEntry(hash,key,value,i);
+    return null;
+}
+```
+
+如果新加入的键值对的hashCode唯一，则直接添加；若不唯一，替换冲突的，但是将所有哈希码相同的键值对组建成单向链表。
+
+
+# 多线程使用Vector或HashTable
+Vector是ArrayList的多线程版本，HashTable是HashMap的多线程版本。
+
+当一个集合在被多个线程修改并访问时，就可能会出现ConcurrentModificatinException异常。
+
+线程安全和线程同步是两码事。
+
+# 非稳定排序使用List
+SortedSet接口（TreeSet实现了该接口）只是定义了在给集合加入元素时对其进行排序，之后的修改概不负责。
+因此TreeSet适用于不变量的集合数据排序。
+
+Solution 1:
+ `set = new TreeSet<Person>(new ArrayList<Person>(set));`
+使用`TreeSet(SortedSet<E>s)`这个构造函数，由于是原set的浅拷贝，若里面有相同元素，则不会重新排序。
+
+Solution 2:
+换用List。

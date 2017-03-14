@@ -2,3 +2,5 @@
 
 
 2. http://www.pythondoc.com/flask-mega-tutorial/email.html
+
+3.  Flask服务器部署 http://wiki.jikexueyuan.com/project/flask-guide/deploy-ways.html
