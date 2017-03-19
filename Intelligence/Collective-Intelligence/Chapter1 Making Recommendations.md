@@ -13,12 +13,12 @@ David Goldberg1992年提出。通常做法是对一大群人进行搜索，并�
 ### 欧几里得距离评价 Euclidean Distance Score
 以物品为坐标轴，构造偏好空间，用户为空间某点。用户是空间内确定的一点（对于多维情况，如有某些维评价值丧失？），两点距离越近，对应的用户偏好越相近。为建立正比例模型，且避免零除数问题，可将距离+1再取倒数构造新函数。函数值（相关系数）介于0到1之间，为1表示偏好一样，为0则完全不一样。
 
-对于多维情况，如有某些维评价值丧失？该算法考虑用户共有的评价对象。 
+对于多维情况，如有某些维评价值丧失？该算法考虑用户共有的评价对象。
 ```python
 def sim_distance(prefs,object1,object2)
 ```
-### 皮尔逊相关度评价 Pearson Correlation Score 
-    
+### 皮尔逊相关度评价 Pearson Correlation Score
+
 ![](~/19-16-09.jpg)
 
 很像线性拟合，相关系数评价值为R。
@@ -112,7 +112,7 @@ transform(), and topMatches()
 critics={'Lisa Rose':{'Lady in the Water':2.5, 'Snakes on a Plane':3.5,'Just My Luck':3.0,'Superman Returns':3.5,'You, Me and Dupree':2.5,'The Night Listener':3.0},
 	'Gene Seymour':{'Lady in the Water':3.0, 'Snakes on a Plane':3.5,'Just My Luck':1.5,'Superman Returns':5.0,'You, Me and Dupree':3.0,'The Night Listener':3.5},
 	'Michael Phillips':{'Lady in the Water':2.5, 'Snakes on a Plane':3.0,'Superman Returns':3.5,'The Night Listener':4.0},
-	'Claudia Puig':{'Snakes on a Plane':3.5,'Just My Luck':3.0,'Superman Returns':4.0, 'The Night Listener':4.5,'You, Me and Dupree':2.5},	
+	'Claudia Puig':{'Snakes on a Plane':3.5,'Just My Luck':3.0,'Superman Returns':4.0, 'The Night Listener':4.5,'You, Me and Dupree':2.5},
 	'Mick LaSalle':{'Lady in the Water':3.0, 'Snakes on a Plane':4.0,'Just My Luck':2.0,'Superman Returns':3.0,'The Night Listener':3.0,'You, Me and Dupree':2.0},
 	'Jack Matthews':{'Lady in the Water':3.0,'Snakes on a Plane':4.0,'The Night Listener':3.0,'Superman Returns':5.0,'You, Me and Dupree':3.5},
 	'Toby':{'Snakes on a Plane':4.5,'You, Me and Dupree':1.0,'Superman Returns':4.0}
@@ -132,13 +132,13 @@ def sim_distance(prefs,person1,person2):
 	# 计算所有差值的平方和（求距离）
 	# 对两者共有的评价，避免一者缺省
 	sum_of_squares=sum([pow(prefs[person1][item]-prefs[person2][item],2)
-		for item in prefs[person1] if item in prefs[person2]]) 
+		for item in prefs[person1] if item in prefs[person2]])
 	# 返回函数值
 	return 1/(1+sqrt(sum_of_squares))
     # 返回p1和p2的皮尔逊 	si={}
 	for item in prefs[p1]:
 		if item in prefs[p2]: si[item]=1
-	
+
 	# 得到列表元素的个数
 	n=len(si)
 

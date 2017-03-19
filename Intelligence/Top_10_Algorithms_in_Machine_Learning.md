@@ -1,0 +1,10 @@
+- C4.5 (trees),
+- k-means,
+-support vector machines,
+- Apriori,
+- Expectation Maximization,
+- PageRank,
+- AdaBoost,
+- k-Nearest Neighbors,
+- Naïve Bayes, 
+- CART .
