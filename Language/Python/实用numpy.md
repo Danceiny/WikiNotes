@@ -14,3 +14,7 @@ https://docs.scipy.org/doc/numpy/reference/generated/numpy.tile.html
 2. 利用numpy计算曼哈顿距离
 案例：http://www.programcreek.com/python/example/75174/scipy.spatial.distance.cityblock
 源码：https://github.com/scipy/scipy/blob/v0.14.0/scipy/spatial/distance.py#L477
+
+
+
+3. np.atleast_2d https://docs.scipy.org/doc/numpy/reference/generated/numpy.atleast_2d.html
