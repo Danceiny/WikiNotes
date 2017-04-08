@@ -1,3 +1,4 @@
+#-*- coding: utf-8 -*-
 '''
 Created on Feb 4, 2011
 Tree-Based Regression Methods
@@ -15,8 +16,19 @@ def loadDataSet(fileName):      #general function to parse tab -delimited floats
     return dataMat
 
 def binSplitDataSet(dataSet, feature, value):
-    mat0 = dataSet[nonzero(dataSet[:,feature] > value)[0],:][0]
-    mat1 = dataSet[nonzero(dataSet[:,feature] <= value)[0],:][0]
+    # I have fixed a bug of this function.
+    #print dataSet
+    print feature,value
+    mat0 = dataSet[nonzero(dataSet[:,feature] > value)[0],:]
+    #print type(mat0),mat0.shape
+    if mat0.shape[0] != 0:# maybe no one > , so get (0l,200l), index [0], get error
+        mat0 = mat0[0]
+    print "mat0",mat0.shape
+    mat1 = dataSet[nonzero(dataSet[:,feature] <= value)[0],:]
+    print type(mat1),mat1.shape
+    if mat1.shape[0] != 0:
+        mat1 = mat1[0]
+    print "mat1",mat1.shape
     return mat0,mat1
 
 def regLeaf(dataSet):#returns the value used for each leaf
@@ -51,11 +63,14 @@ def chooseBestSplit(dataSet, leafType=regLeaf, errType=regErr, ops=(1,4)):
     if len(set(dataSet[:,-1].T.tolist()[0])) == 1: #exit cond 1
         return None, leafType(dataSet)
     m,n = shape(dataSet)
+    #print m,n
     #the choice of the best feature is driven by Reduction in RSS error from mean
     S = errType(dataSet)
     bestS = inf; bestIndex = 0; bestValue = 0
     for featIndex in range(n-1):
-        for splitVal in set(dataSet[:,featIndex]):
+        #for splitVal in set(dataSet[:,featIndex]): ## TypeError: unhashable type: 'matrix'
+        #for splitVal in set((dataSet[:,featIndex].T.A.tolist())[0]):  #网上的解决方案，
+        for splitVal in set((dataSet[:,featIndex].T.A1.tolist())):  # 改了binSplitDataSet函数后，和上面的网上方案效果一样
             mat0, mat1 = binSplitDataSet(dataSet, featIndex, splitVal)
             if (shape(mat0)[0] < tolN) or (shape(mat1)[0] < tolN): continue
             newS = errType(mat0) + errType(mat1)

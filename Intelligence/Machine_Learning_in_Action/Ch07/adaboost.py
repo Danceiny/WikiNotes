@@ -1,3 +1,4 @@
+# -*-coding: utf-8 -*-
 '''
 Created on Nov 28, 2010
 Adaboost is short for Adaptive Boosting
@@ -51,7 +52,8 @@ def buildStump(dataArr,classLabels,D):
                 errArr = mat(ones((m,1)))
                 errArr[predictedVals == labelMat] = 0
                 weightedError = D.T*errArr  #calc total error multiplied by D
-                #print "split: dim %d, thresh %.2f, thresh ineqal: %s, the weighted error is %.3f" % (i, threshVal, inequal, weightedError)
+                print "split: dim %d, thresh %.2f, thresh ineqal: %s, the weighted error is %.3f" % (i, threshVal, inequal, weightedError)
+                # 可能存在其他 = 的最小可能的加权错误率，这里只找第一个
                 if weightedError < minError:
                     minError = weightedError
                     bestClasEst = predictedVals.copy()
@@ -60,7 +62,7 @@ def buildStump(dataArr,classLabels,D):
                     bestStump['ineq'] = inequal
     return bestStump,minError,bestClasEst
 
-
+# DS means decision stump（单层决策树）， adaboost里最流行的弱分类器。
 def adaBoostTrainDS(dataArr,classLabels,numIt=40):
     weakClassArr = []
     m = shape(dataArr)[0]
