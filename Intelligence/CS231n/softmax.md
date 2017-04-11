@@ -1,0 +1,1 @@
+1. [cs231n - assignment1 - softmax 梯度推导](http://blog.csdn.net/yc461515457/article/details/51924604)

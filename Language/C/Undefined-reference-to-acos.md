@@ -1,0 +1,7 @@
+You have compiled your code with references to the correct math.h header file, but when you attempted to link it, you forgot the option to include the math library. As a result, you can compile your .o object files, but not build your executable.
+
+As Paul has already mentioned add "-lm" to include the math library in the step where you are attempting to generate your executable.
+
+why for sin (math.h), we need -lm option explicitly but not for printf() fn defined in stdio.h, I doubt on GNU's linker capabilities. As in VCC it works and on mac too as flarn2006 mentioned. – linuxD Mar 21 '13 at 5:55
+
+Because the math libraries are located in a non-standard to some, yet so commonly accepted it might as well be standard location, and is standard to some. History has conspired to keep it there, as changing it now would break more than it fixes. That's why it's not #include <stdmath.h>, but #include <math.h>. Back then, math implementations might actually be changed for better ones (faster, less memory, more accurate, but likely not all three). So it's really a standardly found not "std" standard library, implemented by libm-version.so in your /usr/lib or /usr/lib64 directory. – Edwin Buck Mar 21 '13 at 15:03 
