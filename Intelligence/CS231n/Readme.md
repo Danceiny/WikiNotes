@@ -1,3 +1,7 @@
+# 项目地址
+[my_cs231n](https://github.com/Danceiny/my_cs231n)
+
+# 参考资料
 
 1. [简书 CS231n(winter2016):Assignment1](http://www.jianshu.com/p/004c99623104)
 
