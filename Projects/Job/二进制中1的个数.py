@@ -2,17 +2,12 @@
 class Solution:
     def NumberOf1(self, n):
         # write code here
+        INT_LENGTH = 32
         if n<0:
-            n = -n	
-            n = ~n
-            n = n + 1            
-
-        binStr = bin(n)[2:]	#'0b0101'
-        cnt = 0
-        for i in binStr:
-            if i=='1':
-                cnt += 1
-        return cnt
+        	binStr = bin(2**INT_LENGTH+n)[-INT_LENGTH:]	#print bin(2**$N+$X)[-$N:]，其实就是强行把bin返回值拉到8个长度以上
+        else:
+            binStr = bin(n)[2:]
+        return binStr.count('1')
 def main():
     sol = Solution()
     result = sol.NumberOf1(10)

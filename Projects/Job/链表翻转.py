@@ -65,6 +65,7 @@ class Solution4:
         new_tail.next = pHead
         pHead.next = None
         return pHead   #最后一次，pHead是尾指针
+        
     def ReverseList2(self,pHead,new_head):
         if pHead == None:
             return None
