@@ -18,6 +18,9 @@ First Commit: 2017-04-23 10:13:27 -m "大致目录，大部分未添加链接。
 
 
 # 归档
+
+* [Arduino](./Embedded/Arduino/README.md)
+
 * [OpenCV](./Intelligence/Computer-Vision/OpenCV/README.md)
 
 * [Digital Image Processing Using MATLAB 2ndEd by Gonzalez](./Intelligence/Computer-Vision/Digital%20Image%20Processing%20Using%20MATLAB%202ndEd%20by%20Gonzalez//README.md)
