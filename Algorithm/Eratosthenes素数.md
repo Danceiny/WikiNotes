@@ -6,9 +6,10 @@
 
 # Example
 
-```C
+```c
 #include<stdio.h>
 #define MAXNUM 1000 // 求1000以内素数
+
 int main(int argc, char const *argv[]) {
     int i,j;
     int c = 0;
@@ -38,5 +39,39 @@ int main(int argc, char const *argv[]) {
         }
     }
     return 0;
+}
+```
+
+
+结构化的实现： 
+```java
+boolean[] sieveOfEratorthenes(int max){
+    boolean[] flags = new boolean[max+1];
+    int count = 0;
+    
+    init(flags);    //将flags中0,1意外的的元素设为默认的true
+    int prime = 2;
+
+    while(prime <= max){
+        crossOff(flags,prime);  //划掉余下为prime倍数的数字
+        prime = getNextPrime(flags,prime);
+        if(prime>=flags.length)break;
+    }
+    return flags;
+}
+
+void crossOff(boolean[] flags, int prime){
+    //从prime*prime开始，因为如果k*prime且k<prime，这个值早就在之前的迭代里被划掉了。
+
+    for(int i=prime*prime; i<flags.length; i+=prime)
+        flags[i] = false;
+}
+
+int getNextPrime(boolean[] flags; int prime){
+    int next = prime + 1;
+    while(next<flags.length && !flags[next]){
+        next++;
+    }
+    return next;
 }
 ```
