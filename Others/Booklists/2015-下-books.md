@@ -1,0 +1,79 @@
+---
+date: 2016-02-29 21:00
+status: public
+title: 2015-下-books
+---
+
+<li><a href="https://book.douban.com/subject/2359003/">1.《沉思录》【古罗马】Marcus Aurelius</a></li>
+                            <li><a href="https://book.douban.com/subject/1059568/">2.《没有任何借口》【美】瑞芬博瑞</a></li>
+                            <li><a href="https://book.douban.com/subject/19920715/">3.《论中国》【美】亨利·基辛格</a></li>
+                            <li><a href="https://book.douban.com/subject/5401989/">4.《自由在高处》熊培云</a></li>
+                            <li><a href="https://book.douban.com/subject/1795079/">5.《乡土中国》费孝通</a></li>
+                            <li><a href="https://book.douban.com/subject/1795079/">6.《大数据时代》【英】Viktor Mayer-Schonberger</a></li>
+                            <li><a href="https://book.douban.com/subject/1041385/">7.《论美国的民主》【法】托克维尔</a></li>
+                            <li><a href="https://book.douban.com/subject/1050339/">8.《文化苦旅》余秋雨</a></li>
+                            <li><a href="https://book.douban.com/subject/6828146/">9.《大学生的坟》刘兴奇</a></li>
+                            <li><a href="https://book.douban.com/subject/25758689/">10.《异类》刘兴奇</a></li>
+                            <li><a href="https://book.douban.com/subject/1046265/">11.《挪威的森林》【日】村上纯属</a></li>
+                            <li><a href="https://book.douban.com/subject/1007433/">12.《红与黑》【法】司汤达</a></li>
+                            <li><a href="https://book.douban.com/subject/1022632/">13.《罪与罚》【俄】陀思妥耶夫斯基 </a></li>
+                            <li><a href="https://book.douban.com/subject/1084336/">14.《小王子》【法】Antoine de Saint-Exupery</a></li>
+                            <li><a href="https://book.douban.com/subject/1069059/">15.《雪国》【日】川端康成</a></li>
+                            <li><a href="https://book.douban.com/subject/1261560/">16.《国富论》【英】亚当·斯密</a></li>
+                            <li><a href="https://book.douban.com/subject/1461903/">17.《何以笙箫默》顾漫</a></li>
+                            <li><a href="https://book.douban.com/subject/1883991/">18.《王小波全集》（第一卷）王小波</a></li>
+                            <li><a href="https://book.douban.com/subject/4889838/">19.《鸟哥的Linux私房菜》鸟哥</a></li>
+                            <li><a href="https://book.douban.com/subject/26246929/">20.《教育正悄悄发生一场革命》魏忠</a></li>
+                            <li><a href="https://book.douban.com/subject/4197857/">21.《C形包围》戴旭</a></li>
+                            <li><a href="https://book.douban.com/subject/20499702/">22.《味道》梁文道</a></li>
+                            <li><a href="https://book.douban.com/subject/20499702/">23.《创业邦201405》</a></li>
+                            <li><a href="https://book.douban.com/subject/25745670/">24.《败因：蒋介石为什么败退台湾》武更斌</a></li>
+                            <li><a href="https://book.douban.com/subject/19951185/">25.《神探伽利略》【日】东野圭吾</a></li>
+                            <li><a href="https://book.douban.com/subject/3693103/">26.《记忆传授人》【美】洛伊丝·劳里</a></li>
+                            <li><a href="https://book.douban.com/subject/1239907/">27.《全国计算机等级考试二级教程-公共基础知识》</a></li>
+                            <li><a href="https://book.douban.com/subject/2585403/">28.《C Programming:A Modern Approach》【美】K.N.King</a></li>
+                            <li><a href="https://book.douban.com/subject/19977005/">29.《忽必烈用兵日本》腊六丸</a></li>
+                            <li><a href="https://book.douban.com/subject/25735992/">30.《《盗梦空间》与亚当·斯密》程实</a></li>
+                            <li><a href="https://book.douban.com/subject/4052716/">31.《鬼望坡》周浩晖</a></li>
+                            <li><a href="https://book.douban.com/subject/1850088/"></a>32.《CEO有话说》Harvard Business Review</li>
+                            <li><a href="https://book.douban.com/subject/1092335/">33.《教父三部曲》【美】马里奥·普佐</a></li>
+                            <li><a href="https://read.douban.com/ebook/5749504/?dcs=book-search">34.《乔布斯的管理课》Harvard Business Review</a></li>
+                            <li><a href="https://book.douban.com/subject/21324311/">35.《气场学》【美】爱德蒙•沙夫茨伯里</a></li>
+                            <li><a href="https://book.douban.com/subject/7015176/">36.《管理的常识》【美】艾伦·默里</a></li>
+                            <li><a href="https://book.douban.com/subject/22993089/">37.《神探伽利略2·预知梦》【日】东野圭吾</a></li>
+                            <li><a href="https://book.douban.com/subject/26378537/">38.《古画里的中国生活》孟晖</a></li>
+                            <li><a href="https://book.douban.com/subject/2567698/">39.《三体》刘慈欣</a></li>
+                            <li><a href="https://book.douban.com/subject/1819478/">40.《微型计算机201508上》</a></li>
+                            <li><a href="https://book.douban.com/subject/25921293/">41.《愿有人陪你颠沛流离》卢思浩</a></li>
+                            <li><a href="https://book.douban.com/subject/24873104/">42.《北美崔哥：中国人来了》北美崔哥</a></li>
+                            <li><a href="https://book.douban.com/subject/25876071/">43.《中外管理201408》</a></li>
+                            <li><a href="https://book.douban.com/subject/25788073/">44.《2013语录》新周刊</a></li>
+                            <li><a href="https://book.douban.com/subject/1022238/">45.《菊与刀》【美】Ruth Benedict</a></li>
+                            <li><a href="https://book.douban.com/subject/10440742/">46.《21世纪中国最佳中篇小说》孟繁华</a></li>
+                            <li><a href="#">47.《微型计算机201508》</a></li>
+                            <li><a href="https://book.douban.com/subject/6712209/">48.《爱与性的实验报告》小庄</a></li>
+                            <li><a href="https://book.douban.com/subject/4820710/">49.《1984》【英】乔治•奥威尔</a></li>
+                            <li><a href="https://book.douban.com/subject/1082150/">50.《白银时代》王小波</a></li>
+                            <li><a href="https://book.douban.com/subject/4319942/">51.《爱情公寓》汪远</a></li>
+                            <li><a href="https://book.douban.com/subject/22182576/">52.《中国缺什么 日本缺什么》【日】近藤大介</a></li>
+                            <li><a href="https://book.douban.com/subject/3602462/">53.《中国工人访谈录》贾樟柯</a></li>
+                            <li><a href="#">54.《一个问题》胡适</a></li>
+                            <li><a href="https://book.douban.com/subject/6010993/">55.《影响你一生的名校励志演讲》方振宇</a></li>
+                            <li><a href="https://book.douban.com/subject/6985557/">56.《有些事现在不做，一辈子都不会做了》韩梅梅</a></li>
+                            <li><a href="https://book.douban.com/subject/1400585/">57.《经典英语谚语赏析》祝宝珠</a></li>
+                            <li><a href="https://book.douban.com/subject/22994105/">58.《一分钟能做什么》【美】杰夫·戴维森 </a></li>
+                            <li><a href="https://book.douban.com/subject/4928387/">59.《单恋》东野圭吾</a></li>
+                            <li><a href="https://book.douban.com/subject/20259879/">60.《不安的生活》何力</a></li>
+                            <li><a href="#">61.《汉唐气魄·鲁迅论文化》鲁迅</a></li>
+                            <li><a href="https://book.douban.com/subject/3081745/">62.《阅读李安》墨娃/付会敏</a></li>
+                            <li><a href="https://book.douban.com/subject/23764874/">63.《影子里的中国》吴敬琏 / 郑永年 / [美]亨利.基辛格 </a></li>
+                            <li><a href="https://book.douban.com/subject/21335029/">64.《鸳鸯谱》东东枪</a></li>
+                            <li><a href="https://book.douban.com/subject/6895313/">65.《原来》辛夷坞</a></li>
+                            <li><a href="https://book.douban.com/subject/24380549/">66.《Arduino电子设计实战指南·零基础篇》程晨</a></li>
+                            <li><a href="https://book.douban.com/subject/4953705/">67.《与时代同行》徐友渔</a></li>
+                            <li><a href="https://book.douban.com/subject/2010284/">68.《春风沉醉的晚上》郁达夫</a></li>
+                            <li><a href="https://book.douban.com/subject/25974698/">69.《30岁后，为梦想寻找现实的出口》李梓新</a></li>
+                            <li><a href="https://book.douban.com/subject/1254588/">70.《城南旧事》林海音</a></li>
+                            <li><a href="https://book.douban.com/subject/1014409/">71.《我所认识的蒋介石》冯玉祥</a></li>
+                            <li><a href="https://book.douban.com/subject/1022727/">72.《月暗吴天秋雨冷》金文明</a></li>
+                            <li><a href="https://book.douban.com/subject/4252081/">73.《雨月物语·春雨物语》【日】上田秋成</a></li>
