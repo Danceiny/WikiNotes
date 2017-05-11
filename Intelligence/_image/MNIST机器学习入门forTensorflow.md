@@ -1,0 +1,1 @@
+http://wiki.jikexueyuan.com/project/tensorflow-zh/tutorials/mnist_beginners.html

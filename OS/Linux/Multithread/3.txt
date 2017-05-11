@@ -1,0 +1,143 @@
+2.1.9简单的例程
+    在例子2-1里，一个运行在顶部的线程，创建一个辅助线程来执行fetch过程，
+
+这个辅助过程涉及到复杂的数据库查询，需要较长的时间。主线程在等待结果的
+时候还有其他事情可做。所以它通过执行thr_join()来等待辅助过程结束。
+    操作结果被当作堆栈参数传送，因为主线程等待spun-off线程结束。在一般
+意义上，用malloc()存储数据比通过线程的堆栈来存储要好一些。？？？？
+Code Example 2-1 A Simple Threads Program
+Void mainline(){
+        Char int result;
+        Thread_t helper;
+        Int status;
+
+        Thr_create(0,0,fetch,&result,0,&helper);
+/* do something else for a while */
+        Thr_join(helper,0,&status);
+        /* it's now safe to use result*/
+}
+void fetch(int * result){
+        /*fetch value from a database */
+        *result=value;
+        thr_exit(0);
+}
+2.1.10维护线程专有数据
+    单线程C程序有两种基本数据--本地数据和全局数据。多线程C程序增加了
+一个特殊类型--线程专有数据（TSD）。非常类似于全局数据，只不过它是线程
+私有的。
+    TSD是以线程为界限的。TSD是定义线程私有数据的唯一方法。每个线程专有
+数据项都由一个进程内唯一的关键字（KEY）来标识。用这个关键字，线程可以
+来存取线程私有的数据。
+    维护TSD的方法通过以下三个函数进行：
+· thr_keycreate()--创建关键字
+· thr_setspecific()--将一个线程绑定在一个关键字上
+· thr_getspecific()--存储指定地址的值
+2.1.10.1 thr_keycreate(3T)
+    thr_keycreate()在进程内部分配一个标识TSD的关键字。关键字是进程内
+部唯一的，所有线程在创建时的关键字值是NULL。
+    一旦关键字被建立，每一个线程可以为关键字绑定一个值。这个值对于绑
+定的线程来说是唯一的，被每个线程独立维护。
+        #include 
+        int thr_keycreate(thread_key_t keyp,
+                void (*destructor)(void *value);
+    如果thr_keycreate()成功返回，分配的关键字被存储在由keyp指向的区
+域里。调用者一定要保证存储和对关键字的访问被正确地同步。
+    一个可选的析构函数，destructor，可以和每个关键字联系起来。如果一
+个关键字的destructor不空而且线程给该关键字一个非空值，在线程退出时该
+析构函数被调用，使用当前的绑定值。对于所有关键字的析构函数执行的顺序
+是不能指定的。
+    返回值--thr_keycreate()在正常执行后返回0，其他值意味着错误。在以
+下情况发生时，函数失败并返回相关值。
+     EAGAIN 关键字的名字空间用尽
+     ENOMEM 内存不够
+2.1.10.2 Thr_setspecific(3T)
+        #include 
+        int thr_setspecific(thread_key_t key,void *value);
+    thr_setspecific()为由key指定的TSD关键字绑定一个与本线程相关的值。
+    返回值--thr_setspecific在正常执行后返回0，其他值意味着错误。在以
+下情况发生时，函数失败并返回相关值。
+    ENOMEM 内存不够
+    EINVAL 关键字非法
+2.1.10.3 Thr_getspecific(3T)
+        #include 
+        int thr_getspecific(thread_key_t key,void **valuep);
+    thr_getspecific()将与调用线程相关的关键字的值存入由valuep指定的区
+域。
+    返回值--thr_getspecific()在正常执行后返回0，其他值意味着错误。在
+以下情况发生时，函数失败并返回相关值。
+    EINVAL 关键字非法。
+2.1.10.5 全局和私有的线程专有数据
+    例程2-2是从一个多线程程序中摘录出来的。这段代码可以被任意数量的线
+程执行，但一定要参考两个全局变量：errno和mywindow，这两个值是因线程而
+异的，就是说是线程私有的。
+Code Example 2-2 线程专有数据--全局且私有的
+Body(){
+……
+                while(srite(fd,buffer,size)==-1){
+                        if(errno!=EINTR){
+                                fprintf(mywindow,"%s\n",
+strerror(errno));
+                                exit(1);
+                        }
+      }
+………
+}
+    本线程的系统错误代码errno可以通过线程的系统调用来获得，而不是通过
+其他线程。所以一个线程获得的错误码与其他线程是不同的。
+    变量mywindow指向一个线程私有的输入输出流。所以，一个线程的mywindow
+和另外一个线程是不同的，因而最终体现在不同的窗口里。唯一的区别在于线程
+库来处理errno，而程序员需要精心设计mywindow。
+    下面一个例子说明了mywindow的设计方法。处理器把mywindow的指针转换
+成为对_mywindow过程的调用。
+    然后调用thr_getspecific()，把全程变量mywindow_key和标识线程窗口的
+输出参数win传递给它。
+Code Example 2-3 将全局参考转化为私有参考
+#define mywindow _mywindow()
+thread_key_t mywindow_key;
+FILE * _mywindow(void){
+                FILE *win;
+                Thr_getspecific(mywindow_key,&win);
+                Return(win);
+}
+void thread_start(…){
+                …
+                make_mywindow();
+                …
+}
+    变量mywindow标识了一类每个线程都有私有副本的变量；就是说，这些变量
+是线程专有数据。每个线程调用make_mywindow()来初始化自己的窗口，并且生
+成一个指向它的实例mywindow。
+    一旦过程被调用，现成可以安全地访问mywindow，在_mywindow函数之后，线
+
+程可以访问它的私有窗口。所以，对mywindow的操作就象是直接操作线程私有
+数据一样。
+Code Example 2-4 显示了怎样设置
+Code Example 2-4 初始化TSD
+Void make_mywindow(void){
+                FILE **win;
+                Static int once=0;
+                Static mutex_t lock;
+                Mutex_lock(&lock);
+                If (!once){
+                        Once=1;
+                        Thr_keycreate(&mywindow_key,free_key);
+                }
+                mutext_unlock(&lock);
+                win=malloc(sizeof(*win));
+                create_window(win,…);
+                thr_setspecific(mywindow_key,win);
+        }
+void freekey(void *win){
+                free(win);
+}
+    首先，给关键字mywindow_key赋一个唯一的值。这个关键字被用于标识
+TSD。所以，第一个调用make_mywindow的线程调用thr_keycreate()，这个函
+数给其第一个参数赋一个唯一的值。第二个参数是一个析构函数，用来在线程
+终止后将TSD所占的空间回收。
+    下一步操作是给调用者分配一个TSD的实例空间。分配空间以后，调用
+create_window过程，为线程建立一个窗口并用win来标识它。最后调用
+thr_setspecific()，把win(即指向窗口的存储区)的值与关键字绑在一起。
+    做完这一步，任何时候线程调用thr_getspecific()，传送全局关键字，
+它得到的都是该线程在调用thr_setspecific时与关键字绑定的值。
+    如果线程结束，在thr_keycreate()中建立的析构函数将被调用，每个析构
+函数只有在终止的线程用thr_setspecific()为关键字赋值之后才会执行。

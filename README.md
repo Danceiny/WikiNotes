@@ -6,9 +6,10 @@
 - Created: 2017-04-23 10:13:10
 
 - First Commit: 2017-04-23 10:13:27 -m "大致目录，大部分未添加链接。每个单项以README.md文件作子目录导航。"
+- 2nd Commit: 2017-05-12 06:46:30 -m "又一次重构目录，web拆分前端后台，新增开源项目收藏夹OpenSource，OS丰富内涵。"
 
 # 近期(update: 2017.04.23)
-* [中国电子商务师考证平台后台](./Projects/)
+* [中国电子商务师考证平台后台](https://github.com/Danceiny/iview-admin/tree/dev)
 * [找工作刷题](./Projects/Job/README.md)
 
 * [社交APP](./Projects/匿名社交应用_秘密_安卓/README.md) or [安卓客户端项目地址](https://github.com/Danceiny/Secret_app)
@@ -78,6 +79,51 @@
 
 * [Hadoop/Spark]()
 
+
+
+# 目录索引
+
+
+- Android
+- Booklists
+- Bookmarks
+- Language
+- OpenSource
+- Algorithm
+- Intelligence
+    - Big_Data
+    - Data-Analysis
+    - Web-Data-Mining
+    - ProfessionalHadoopSolutions
+    - Machine_Learning_in_Action
+    - Collective-Intelligence
+    - CS231n
+- OS
+    - Computer-Vision
+    - Embedded
+    - Hacker
+    - Linux
+    - Network
+    - Qt
+    - Windows
+- Projects
+    - Job
+    - 匿名社交应用_秘密_安卓
+    - 匿名社交应用_秘密_后台
+- Tools
+    - functional_scripts
+    - IDE
+    - Softwares
+    - VCS
+    - Notebook
+- BackEnd
+    - MySQL
+    - Flask
+- FrontEnd
+    - AJAX
+    - VueJS
+    - NodeJS
+- Others
 
 # 声明
 
