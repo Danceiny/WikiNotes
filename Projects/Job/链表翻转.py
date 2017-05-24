@@ -29,10 +29,13 @@ class Solution3:
 
         newNode.next = pHead
         #print '闭环',newNode.val
+
         pHead = newNode.next.next
         #print '新头变成原头的next',pHead.val
+
         newNode.next.next = None 
         #print '解环',newNode.next.val
+        
         printListNode(pHead)
         return pHead
 class Solution2:
