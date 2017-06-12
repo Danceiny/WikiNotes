@@ -1,0 +1,1 @@
+https://foofish.net/python_str_inplements.html

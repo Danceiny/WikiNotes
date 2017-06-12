@@ -1,0 +1,1 @@
+http://docs.jinkan.org/docs/celery/getting-started/first-steps-with-celery.html
