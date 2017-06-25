@@ -7,8 +7,11 @@
 
 - First Commit: 2017-04-23 10:13:27 -m "大致目录，大部分未添加链接。每个单项以README.md文件作子目录导航。"
 - 2nd Commit: 2017-05-12 06:46:30 -m "又一次重构目录，web拆分前端后台，新增开源项目收藏夹OpenSource，OS丰富内涵。"
+- 3nd Commit:2017-06-14 00:31:37 -m "vue相关项目停止，后续将重构，保留有意思的部分。进行HackGirlfriend项目立项，一期主要做QQ和微信的登录和消息推送接口，二期是爬虫，三期是数据持久化存储解决方案，四期是管理后台，五期是用户系统，六期做客户端（Web/Android/iOS)，七期做文本统计分析系统（主要针对聊天记录），八期做聊天机器人。各期无特定先后顺序。"
 
 # 近期(update: 2017.04.23)
+* [HackGirlfriend](https://github.com/Danceiny/HackGirlfriend)
+
 * [中国电子商务师考证平台后台](https://github.com/Danceiny/iview-admin/tree/dev)
 * [找工作刷题](./Projects/Job/README.md)
 
@@ -18,8 +21,8 @@
 或 [仓库地址](https://github.com/Danceiny/my_cs231n)
 
 * [DIP课设项目：滤镜]()
-
 * [Booklists 我的书单](./Others/Booklists/README.md)
+
 
 # 归档
 
