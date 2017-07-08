@@ -1,1 +1,0 @@
-https://www.openfoundry.org/tw/foss-forum/9266-why-git-better
