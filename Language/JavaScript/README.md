@@ -3,14 +3,17 @@ date: 2016-07-22 15:00
 status: public
 title: 2016-07-22
 ---
+# More
+[Danceiny's JavaScript Learning Process](https://github.com/Danceiny/learn_javascript)
 
+# 要点
 JavaScript中没有块级作用域，语句块中声明的变量并非语句块私有。
 
 with语句用于临时扩展作用域链。`with(object)statement`，该语句将object添加到作用域链的**头部**，然后执行statement， 最后恢复作用域链到原始状态。
 **在对象嵌套层次很深的时候通常会使用with语句来简化代码编写。**
 
 
-# apply && call
+## apply && call
 call和apply的功能是一致的，两者细微的差别在于call以参数表来接受被调用函数的参数，而apply以数组来接受被调用函数的参数。
 
 ```js

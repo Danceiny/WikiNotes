@@ -10,10 +10,17 @@
 - 3nd Commit:2017-06-14 00:31:37 -m "vue相关项目停止，后续将重构，保留有意思的部分。进行HackGirlfriend项目立项，一期主要做QQ和微信的登录和消息推送接口，二期是爬虫，三期是数据持久化存储解决方案，四期是管理后台，五期是用户系统，六期做客户端（Web/Android/iOS)，七期做文本统计分析系统（主要针对聊天记录），八期做聊天机器人。各期无特定先后顺序。"
 
 # 近期(update: 2017.04.23)
+* [阅读：Flask-源码](./BackEnd/Flask/源码分析.md)
+* [阅读：深入理解并行编程](./BackEnd/深入理解并行编程.md)
+
+* [阅读：大型集群上的快速和通用数据处理架构](./BackEnd/大型集群上的快速和通用数据处理架构.md)
+
+* [HG-admin](https://github.com/Danceiny/HG-admin)
 * [HackGirlfriend](https://github.com/Danceiny/HackGirlfriend)
 
-* [中国电子商务师考证平台后台](https://github.com/Danceiny/iview-admin/tree/dev)
-* [找工作刷题](./Projects/Job/README.md)
+* [中国电子商务师考证平台后台](http://www.cecctm.com)
+
+* [找工作刷题](./Algorithm/README.md)
 
 * [社交APP](./Projects/匿名社交应用_秘密_安卓/README.md) or [安卓客户端项目地址](https://github.com/Danceiny/Secret_app)
 
