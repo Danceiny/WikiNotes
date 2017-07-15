@@ -16,7 +16,7 @@ class Hanoi:
         
     def move(self,n,s1,s2):
         self.cur_status[n-1] = s2
-        #print self.cur_status
+        print(self.cur_status)
         self.moves.append(self.cur_status[:])
 
     def solve(self,n,s1,s2,s3):
@@ -30,10 +30,10 @@ def main():
     sol = Hanoi()
     input = [3,3]
     result = sol.chkStep(input,2)
-    print result
+    print(result)
 
     input2 = [1]
     result2 = sol.chkStep(input2,1)
-    print result2
+    print(result2)
 if __name__ == '__main__':
     main()
