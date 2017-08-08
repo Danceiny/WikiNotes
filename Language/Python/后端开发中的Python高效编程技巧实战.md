@@ -243,6 +243,80 @@
 	线程安全的queue。
 
 - 如何在线程间进行事件通知？
+	Threading.Event。两个线程同时持有该event对象。
+	1. 等待事件一端调用wait，等待事件。
+	2. 通知事件一端调用set，通知事件。
+
+- 如何使用线程本地数据？
+	threading.local函数可以创建线程本地数据空间，其下属性对每个线程独立存在。
+- 如何使用线程池？
+ 对于Python3，使用concurrent.futures下的ThreadPoolExecutor。 
+ 	```python
+ 	executor = ThreadPoolExecutor(3)
+ 	def f(a,b):return a**b
+ 	submit = executor.submit(f,2,3)
+ 	submit.result() -> 8
+ 	# 传参：2&4， 3&5， 5&6, 三个线程。
+ 	executor.map(f,[2,3,5],[4,5,6])
+- 如何使用多进程？
+	GIL锁是线程锁，锁不住进程。
+- 如何使用函数装饰器？
+	例如fibonacci函数的缓存功能。
+	```python
+	def fibonacci(n,cache=None):
+		if cache is None:
+			cache = {}
+		if n in cache:
+			return cache[n]
+		if n <= 1:
+			return 1
+		cache[n] = fibnacci(n-1,cache)+fibonacci(n-2,cache)
+		return cache[n]
+
+	def memo(func):
+		cache = {}
+		def wrap(*args):
+			if args not in cache:
+				cache[args] = func(*args)
+			return cache[args]
+		return wrap
+	@memo
+	def fibonacci(n):
+		if n<= 1:
+			return 1
+		return fibonacci(n-1) + fibonacci(n-2)
+
+	```
+
+- 如何为被装饰的函数保存元数据？
+	使用装饰器装饰后函数元数据改变了（变成了wrapper的）。
+	`funcname.__closure__[0].cell_contents` 访问闭包元数据。
+	使用标准库functools.wraps,update_wrapper, 可以将原函数的元数据绑定到wrapper装饰器上。
+	`update_wrapper(wrapper,func,('__name__','__doc__'),('__dict__',));#合并元数据 return wrapper; `
+	这两个元组可以使用默认参数 `WRAPPER_ASSIGNMENTS, WRAPPER_UPDATES`.
+- 如何定义带参数的装饰器？
+	```python
+	from inspect import signature
+	def typeassert(*ty_args, **ty_kwargs):
+		def decorator(func):
+			# func -> a,b
+			# d = {'a':int, 'b':str}
+			sig = signature(func)
+			btypes = sig.bind_partial(*ty_args,**ty_kargs).arguments
+			def wrapper(*args,**kwargs):
+				for name,obj in sig.bind(*args,**kwargs).arguments.items():
+					if name in btypes:
+						if not isinstance(obj,btypes[name]):
+							raise TypeError('"%s" must be "%s"' %(name,btypes[name]))
+				return func(*args,**kwargs)
+			return wrapper	
+		return decorator
+
+	@typeassert(int,str,list)
+	def f(a,b,c):
+		print(a,b,c)
+	```
+- 如何实现属性可修改的函数装饰器？
 	
 # 注意事项
 
