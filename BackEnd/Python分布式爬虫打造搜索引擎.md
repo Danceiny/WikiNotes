@@ -20,6 +20,13 @@
 4. scrapy进阶
 - scrapy原理
 - 基于scrapy的中间件开发
+![](http://opkk27k9n.bkt.clouddn.com/17-8-12/79037700.jpg)
+
+**User-agent的处理**：
+写到downloadmiddleware里，成为全局的，不用写到每个spider里去。覆盖`class RandomUserAgentMiddleware(object): dclassmethod def from_crawler`方法。BTW,classmethod是绑定类到类方法，而普通的是绑定方法到类的实例，staticmethod就只是方法。推荐开源的fake-useragent.
+
+**ip代理**：
+
 - 动态网站的抓取处理
 - 将selenium和phantomjs集成到scrapy中
 - scrapy log配置
@@ -28,4 +35,6 @@
 
 5. scrapy redis 分布式爬虫
 - 集成
+request队列集中管理（单机爬虫是放在内存里） + 去重集中管理
+
 6. elasticsearch django实现搜索引擎
