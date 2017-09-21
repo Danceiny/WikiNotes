@@ -64,7 +64,7 @@ class Solution4:
         if pHead.next == None:
             self.m_pHead = pHead
             return pHead    #????
-        new_tail = self.ReverseList(pHead.next);
+        new_tail = self.ReverseList(pHead.next)
         new_tail.next = pHead
         pHead.next = None
         return pHead   #最后一次，pHead是尾指针
@@ -104,7 +104,7 @@ def main():
 
 
     sol4 = Solution4()
-    _ = sol4.ReverseList2(listNode1)
+    _ = sol4.ReverseList2(listNode1, listNode1)
     result3 = sol4.m_pHead
     #print result.val
     while result3 != None:
