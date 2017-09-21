@@ -5,6 +5,13 @@
 # 信号控制
 https://nginx.org/en/docs/control.html
 
+- HUP 开启新进程重读配置文件，关掉旧进程。
+- INT, TERM
+- QUIT 等完成请求后再关闭
+- USR1 日志分割
+- USR2 nginx升级
+- WINCH
+kill -TYPE master-pid
 # 整合PHP、Python等
 
 # 虚拟主机配置
