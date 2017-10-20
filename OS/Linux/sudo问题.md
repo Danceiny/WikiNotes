@@ -1,1 +1,0 @@
-`alias sudo='sudo env PATH=$PATH'`可以解决大部分sudo问题.

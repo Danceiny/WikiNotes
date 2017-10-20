@@ -3,6 +3,8 @@ date: 2016-01-30 01:09
 status: public
 title: 2016-01-30
 ---
+# 环境
+`alias sudo='sudo env PATH=$PATH'`可以解决大部分sudo问题.
 
 # sudo 无法解析主机
 
