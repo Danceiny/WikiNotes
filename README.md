@@ -2,27 +2,25 @@
 
 记录的一些笔记。
 
+# 近期(update: 2017.10.29)
+* [RussellCloud server & cli] 实习/创业团队
+* [计划：用Java重写RussellCloud Server](https://github.com/Danceiny/java-russell-cloud)
+* [计划：利用listen1打造自己的专属音乐世界](https://github.com/listen1/listen1)
+* [计划：阅读Flask-源码](./BackEnd/Flask/源码分析.md)
 
-# 近期(update: 2017.04.23)
-* [基于vue的后台管理系统 HG-vue](https://github.com/Danceiny/HG-admin)
-* [基于flask的web服务器后台 HackGirlfriend](https://github.com/Danceiny/HackGirlfriend)
-* [中国电子商务师考证平台后台](http://www.cecctm.com)
-
-* [社交APP安卓客户端项目地址](https://github.com/Danceiny/Secret_app)
-
+## 最近阅读
 * [学习数据结构与算法](./Algorithm/README.md)
 * [学习计算机网络](./OS/Network/README.md)
 * [学习操作系统](./OS/README.md)
 * [学习多线程多进程编程](./OS/进程线程.md)
 * [学习设计模式](./Algorithm/设计模式.md)
-
-* [计划：利用listen1打造自己的专属音乐世界](https://github.com/listen1/listen1)
-* [计划：阅读Flask-源码](./BackEnd/Flask/源码分析.md)
-
-## 最近阅读
-* [阅读：深入理解并行编程](./BackEnd/深入理解并行编程.md)
-* [阅读：大型集群上的快速和通用数据处理架构](./BackEnd/大型集群上的快速和通用数据处理架构.md)
 * [Booklists 我的书单](./Others/Booklists/README.md)
+
+## 项目经历
+* [基于vue的后台管理系统 HG-vue](https://github.com/Danceiny/HG-admin)
+* [基于flask的web服务器后台 HackGirlfriend](https://github.com/Danceiny/HackGirlfriend)
+* [中国电子商务师考证平台后台](http://www.cecctm.com)
+* [社交APP安卓客户端项目地址](https://github.com/Danceiny/Secret_app)
 
 # 目录索引
 
@@ -141,6 +139,8 @@
 * [大数据统计]()
 
 * [Hadoop/Spark]()
+* [阅读：深入理解并行编程](./BackEnd/深入理解并行编程.md)
+* [阅读：大型集群上的快速和通用数据处理架构](./BackEnd/大型集群上的快速和通用数据处理架构.md)
 
 # 更新历史
 - Created: 2017-04-23 10:13:10

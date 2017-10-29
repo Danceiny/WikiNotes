@@ -81,3 +81,39 @@ BTW:
 项目属性页，C/C++，预处理器，预处理器定义，编辑添加_CRT_SECURE_NO_WARNINGS
 
 **FIXED~**
+
+
+---
+date: 2016-03-05 23:01
+status: public
+title: 2016-03-05
+---
+
+# 误删Microsoft Help Viewer 2.x` 解决办法
+1. 在ios镜像安装文件中找到 packages\Help 路径。
+
+2. 打开控制台命令，cd到这个路径下
+
+3. 在控制台中键入以下命令进行安装
+
+>msiexec /i help3_vs_net.msi vs_setup=1
+
+亲测可以。
+
+在这里看到的：<http://social.msdn.microsoft.com/Forums/zh-CN/0b96225c-d195-4f94-914e-a52bde2b39f4/vs-2012hlpviewer?forum=visualstudio2012zhcn>
+
+有个网友给出下面的答案：
+>解压到C盘根目录运行run this
+>基本原理与linlin tong的答案相同
+链接: <http://pan.baidu.com/s/1gdLbBGn> 密码: 6asf
+
+
+---
+date: 2016-04-04 22:20
+status: public
+title: 2016-04-04
+---
+
+# fatal error C1189: #error : ＂No Target Architecture＂ 解决办法一
+最后调整了以下include文件的顺序，问题解决了。
+<http://www.ithao123.cn/content-183865.html>
