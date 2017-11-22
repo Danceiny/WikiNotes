@@ -149,11 +149,14 @@
 # ch5 文件
 - 在Py2和Py3中分别如何读取文本文件？
 	字符串语义发生变化！ 
-	|Python2|Python3|
-	|---|---|
-	|str|bytes|
-	|unicode|str|
-	|写入文件前对unicode编码，读入文件后对二进制字符串解码|open函数指定文本模式，encoding指定编码格式|
+
+|Python2|Python3|six|
+|---|---|---|
+|str|bytes|six.binary_type|
+|unicode|str|six.text_type|
+|写入文件前对unicode编码，读入文件后对二进制字符串解码|open函数指定文本模式，encoding指定编码格式|
+
+
 - 如何处理二进制文件？
 	使用struct.unpack解析二进制数据。
 	![](http://opkk27k9n.bkt.clouddn.com/17-8-5/37516391.jpg)

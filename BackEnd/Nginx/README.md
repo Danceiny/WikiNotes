@@ -41,5 +41,13 @@ more /proc/sys/net/core/somaxconn
 cat /proc/sys/net/ipv4/tcp_tw_recycle
 改成1。
 
+
+# URL重写
+location -> rewrite
+
+
+# Nginx + Memcache
+memcache_pass
+
 # 参考文档
 - http://tengine.taobao.org/book/chapter_02.html#id1
