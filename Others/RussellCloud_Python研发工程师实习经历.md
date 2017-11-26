@@ -27,3 +27,26 @@ CREATE TABLE IF NOT EXISTS `project`(
    `latest_version` VARCHAR(32),
    PRIMARY KEY ( `id` )
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+#### Celery Priority, How to define and set up?
+必读：http://docs.celeryproject.org/en/latest/faq.html
+
+优先级分类
+task + queue + worker + redis/ambq
+
+task priority 
+```python
+@celery_app.task
+def fun():
+   pass
+PRIORITY = random.randInt(0,9)   # do machine learning here
+fun.apply_async(priority=PRIORITY)
+```
+
+
+queue priority
+
+worker priority
+
+redis priority

@@ -24,10 +24,13 @@ class Same:
 def main():
     sol = Same()
     #"This is nowcoder","is This nowcoder"
-    if sol.checkSam("Here you are","Are you here"):
+    if sol.checkSam("here you are","are you here"):
         
         print 'true'
     else:
         print 'false'
+    if sol.checkSam("This is nowcoder","is This nowcoder"):
+        print True
+        
 if __name__ == '__main__':
     main()
