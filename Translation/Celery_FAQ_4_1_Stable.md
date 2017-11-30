@@ -1,9 +1,28 @@
+---
+date: 2017-11-25 01:41:16
+status: public
+title: Celery常见问题
+keywords: 
+- RabbitMQ
+- Redis
+- Celery
+- Python
+- 中间件
+- 消息队列
+tags: 
+
+categories: 翻译
+---
+
 # 译文出处
 http://docs.celeryproject.org/en/latest/faq.html
+
 This document describes the current stable version of Celery (4.1).
 
+本文长期更新地址： [Celery4.1常见问题](http://blog.cannot.cc/Celery_FAQ_4_1_Stable.html)
 
 **术语翻译对照**
+
 |英文|中文|
 |---|---|
 |celery|celery|
@@ -11,68 +30,6 @@ This document describes the current stable version of Celery (4.1).
 |queue|队列|
 |message|消息|
 |task|任务|
-
-## 常见问题
-- 常规
-	- 应该用Celery来处理什么样的事情？
-- 一些误解
-	- Celery真的有50000行代码吗？
-	- Celery有很多依赖吗？
-		- celery
-		- kombu
-	- Celery是heavy-weight，很重的吗？
-	- Celery依赖于pickle（序列化库）吗？
-	- Celery只支持Django吗？
-	- 我必须使用AMQP/RabbitMQ吗？
-	- Celery是多语言的吗？
-- 解决问题
-	- MySQL抛出死锁错误，怎么办？
-	- worker什么都不做，hanging挂起了
-	- 任务结果返回不可靠
-	- 为什么`task.delay/apply*`这些调用之后worker只是挂起？
-	- 兼容FreeBSD系统吗？
-	- 遇到了完整性错误(IntegrityError)：Duplicate Key errors，什么原因？
-	- 我的任务为什么没有被处理？
-	- 我的任务为什么不会运行？
-	- 我的定时任务为什么不会运行？
-	- 我应该清理所有的等待中任务吗？
-	- 我怎么清理所有的等待中任务？
-	- 我清理了消息，但是队列中仍然有消息残留？
-- 结果
-	- 如果我有一个id指向一个任务，怎么得到任务结果？
-- 安全
-	- 使用pickle不是有安全隐患吗？
-	- message是否可以加密？
-	- 以root用户运行worker是安全的吗？
-- Brokers
-	- 为什么RabbitMQ崩溃了？
-	- Celery可以和ActiveMQ/STOMP一起使用吗？
-	- 不使用AMQP broker时，哪些特征不支持了？
-- Tasks
-	- 调用任务时如何复用连接？
-	- 子进程中sudo反回了None
-	- 为什么workers不能处理任务的时候还能将任务从队列中删除？
-	- 我可以通过任务名称调用任务吗？
-	- 我如何获得当前任务的id？
-	- 我如何指定一个自定义的任务_id？
-	- 任务上可以使用装饰器吗？
-	- 我能使用自然数作为任务 ids吗？
-	- 我能指定，一旦另一个任务结束，马上运行一个任务吗？
-	- 我能取消任务的执行吗？
-	- 为什么我的远程控制命令被所有的workers接收到了？
-	- 我能发送一些任务到限定的一些服务器上吗？
-	- 我能禁掉任务的预取prefetching吗？
-	- Celery支持任务优先级吗？
-	- 我应该使用重试retry还是acks_late？
-	- 我可以计划让任务在特定的时间执行吗？
-	- 我可以安全地关闭worker吗？
-	- 我可以在平台的后端运行worker吗？
-- Django
-	- django-celery-beat创建的数据库表有什么目的？
-	- django-celery-results创建的数据库表有什么目的？
-- Windows
-	- Celery支持Windows吗？
-
 
 ## 常规
 ### 应该用Celery来处理什么样的事情？
@@ -477,3 +434,68 @@ Django的数据库结果后端扩展需要两个额外的数据模型：TaskResu
 ## Windows
 ### Celery支持Windows吗？
 答案：不。4.x版本以上就不支持Windows了。
+
+
+# 欢迎扫码加群交流
+![](http://opkk27k9n.bkt.clouddn.com/17-11-26/19293813.jpg)
+
+#### 常见问题目录
+- 常规
+	- 应该用Celery来处理什么样的事情？
+- 一些误解
+	- Celery真的有50000行代码吗？
+	- Celery有很多依赖吗？
+		- celery
+		- kombu
+	- Celery是heavy-weight，很重的吗？
+	- Celery依赖于pickle（序列化库）吗？
+	- Celery只支持Django吗？
+	- 我必须使用AMQP/RabbitMQ吗？
+	- Celery是多语言的吗？
+- 解决问题
+	- MySQL抛出死锁错误，怎么办？
+	- worker什么都不做，hanging挂起了
+	- 任务结果返回不可靠
+	- 为什么`task.delay/apply*`这些调用之后worker只是挂起？
+	- 兼容FreeBSD系统吗？
+	- 遇到了完整性错误(IntegrityError)：Duplicate Key errors，什么原因？
+	- 我的任务为什么没有被处理？
+	- 我的任务为什么不会运行？
+	- 我的定时任务为什么不会运行？
+	- 我应该清理所有的等待中任务吗？
+	- 我怎么清理所有的等待中任务？
+	- 我清理了消息，但是队列中仍然有消息残留？
+- 结果
+	- 如果我有一个id指向一个任务，怎么得到任务结果？
+- 安全
+	- 使用pickle不是有安全隐患吗？
+	- message是否可以加密？
+	- 以root用户运行worker是安全的吗？
+- Brokers
+	- 为什么RabbitMQ崩溃了？
+	- Celery可以和ActiveMQ/STOMP一起使用吗？
+	- 不使用AMQP broker时，哪些特征不支持了？
+- Tasks
+	- 调用任务时如何复用连接？
+	- 子进程中sudo反回了None
+	- 为什么workers不能处理任务的时候还能将任务从队列中删除？
+	- 我可以通过任务名称调用任务吗？
+	- 我如何获得当前任务的id？
+	- 我如何指定一个自定义的任务_id？
+	- 任务上可以使用装饰器吗？
+	- 我能使用自然数作为任务 ids吗？
+	- 我能指定，一旦另一个任务结束，马上运行一个任务吗？
+	- 我能取消任务的执行吗？
+	- 为什么我的远程控制命令被所有的workers接收到了？
+	- 我能发送一些任务到限定的一些服务器上吗？
+	- 我能禁掉任务的预取prefetching吗？
+	- Celery支持任务优先级吗？
+	- 我应该使用重试retry还是acks_late？
+	- 我可以计划让任务在特定的时间执行吗？
+	- 我可以安全地关闭worker吗？
+	- 我可以在平台的后端运行worker吗？
+- Django
+	- django-celery-beat创建的数据库表有什么目的？
+	- django-celery-results创建的数据库表有什么目的？
+- Windows
+	- Celery支持Windows吗？
