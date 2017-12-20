@@ -71,7 +71,7 @@ FOR EACH ROW SELECT NEW.order_num
 # 数据库维护
 - `ANALYZE TABLE table_name`
 - `CHECK TABLE table_name`
--
+  -
 
 
 # mysql
@@ -99,24 +99,24 @@ SHOW GRANTS FOR 'username'@'hostname'
 
 ## 权限级别
 1. Global level
-`GRANT SELECT,UPDATE ON *.* TO username@hostname`
+  `GRANT SELECT,UPDATE ON *.* TO username@hostname`
 
 2. Database level
-`GRANT SELECT,UPDATE ON database.* TO username@hostname, username2@hostname`
+  `GRANT SELECT,UPDATE ON database.* TO username@hostname, username2@hostname`
 
 Database Level 的权限授予，可以在当前不存在该
 数据库的时候就完成授权。
 `SHOW GRANTS FOR username@hostname`
 
 3. Table level
-`GRANT INDEX ON database.table TO username@hostname`
+  `GRANT INDEX ON database.table TO username@hostname`
 
 4. Column level
-只支持SELECT、UPDATE、INSERT。
-`GRANT SELECT(id,value) ON database.table TO username@hostname`
+  只支持SELECT、UPDATE、INSERT。
+  `GRANT SELECT(id,value) ON database.table TO username@hostname`
 
 5. Routine level
-只支持EXECUTE和ALTER  ROUTINE两种，针对procedure、function。
+  只支持EXECUTE和ALTER  ROUTINE两种，针对procedure、function。
 
 
 那内存结构中的权限信息更新之后对已经连接上的用户何时生效呢？
@@ -183,22 +183,51 @@ mysqlhotcopy db_name[./table_regex/] [new_db_name | directory]
 
 # 以下几类数据都是不适合在数据库中存放的：
 1. 二进制多媒体数据
-将二进制多媒体数据存放在数据库中，一个问题是数据库空间资源耗用非常严重，另一个问题
-是这些数据的存储很消耗数据库主机的 CPU 资源。这种数据主要包括图片，音频、视频和其他一些
-相关的二进制文件。这些数据的处理本不是数据的优势，如果我们硬要将他们塞入数据库，肯定会
-造成数据库的处理资源消耗严重。
+  将二进制多媒体数据存放在数据库中，一个问题是数据库空间资源耗用非常严重，另一个问题
+  是这些数据的存储很消耗数据库主机的 CPU 资源。这种数据主要包括图片，音频、视频和其他一些
+  相关的二进制文件。这些数据的处理本不是数据的优势，如果我们硬要将他们塞入数据库，肯定会
+  造成数据库的处理资源消耗严重。
 2. 流水队列数据
-我们都知道，数据库为了保证事务的安全性（支持事务的存储引擎）以及可恢复性，都是需要
-记录所有变更的日志信息的。而流水队列数据的用途就决定了存放这种数据的表中的数据会不断的
-被 INSERT，UPDATE 和 DELETE，而每一个操作都会生成与之对应的日志信息。在 MySQL 中，如果是支
-持事务的存储引擎，这个日志的产生量更是要翻倍。而如果我们通过一些成熟的第三方队列软件来
-实现这个 Queue 数据的处理功能，性能将会成倍的提升。
+  我们都知道，数据库为了保证事务的安全性（支持事务的存储引擎）以及可恢复性，都是需要
+  记录所有变更的日志信息的。而流水队列数据的用途就决定了存放这种数据的表中的数据会不断的
+  被 INSERT，UPDATE 和 DELETE，而每一个操作都会生成与之对应的日志信息。在 MySQL 中，如果是支
+  持事务的存储引擎，这个日志的产生量更是要翻倍。而如果我们通过一些成熟的第三方队列软件来
+  实现这个 Queue 数据的处理功能，性能将会成倍的提升。
 3. 超大文本数据
-对于 5.0.3 之前的 MySQL 版本，VARCHAR 类型的数据最长只能存放 255 个字节，如果需要存储更
-长的文本数据到一个字段，我们就必须使用 TEXT 类型（最大可存放 64KB）的字段，甚至是更大的
-LONGTEXT 类型（最大 4GB）。而 TEXT 类型数据的处理性能要远比 VARCHAR 类型数据的处理性能低下
-很多。从 5.0.3 版本开始，VARCHAR 类型的最大长度被调整到 64KB 了，但是当实际数据小于 255
-Bytes 的时候，实际存储空间和实际的数据长度一样，可一旦长度超过 255 Bytes 之后，所占用的存
-储空间就是实际数据长度的两倍。
-所以，超大文本数据存放在数据库中不仅会带来性能低下的问题，还会带来空间占用的浪费问
-题。
+  对于 5.0.3 之前的 MySQL 版本，VARCHAR 类型的数据最长只能存放 255 个字节，如果需要存储更
+  长的文本数据到一个字段，我们就必须使用 TEXT 类型（最大可存放 64KB）的字段，甚至是更大的
+  LONGTEXT 类型（最大 4GB）。而 TEXT 类型数据的处理性能要远比 VARCHAR 类型数据的处理性能低下
+  很多。从 5.0.3 版本开始，VARCHAR 类型的最大长度被调整到 64KB 了，但是当实际数据小于 255
+  Bytes 的时候，实际存储空间和实际的数据长度一样，可一旦长度超过 255 Bytes 之后，所占用的存
+  储空间就是实际数据长度的两倍。
+  所以，超大文本数据存放在数据库中不仅会带来性能低下的问题，还会带来空间占用的浪费问
+  题。
+
+
+
+## 隔离
+
+- READ UNCOMMITTED 脏读、不可重复读、虚读都可能发生
+- READ COMMITTED 防止脏读，不可重复读、虚读可能发生
+- REPEATABLE READ 防止脏读、不可重复读，虚读可能发生
+- SERIALIZABLE 防止脏读、不可重复读、虚读
+
+
+
+脏读：一个事务读到另一个事务中未提交的数据
+
+不可重复读：一个事务读到 另一个事务中已提交的数据
+
+虚读：一个事务读到了另一个事务insert的数据
+
+
+
+查看当前隔离级别
+
+`select @@version; select @@tx_isolation;`
+
+
+
+更改隔离级别
+
+`set TRANSACTION ISOLATION LEVEL read uncommitted;`

@@ -17,7 +17,21 @@ kill -TYPE master-pid
 # 虚拟主机配置
 
 # 日志切割
+定时任务做日志切割。
 
+```bash
+#!/bin/bash
+
+LOGPATH=/usr/local/nginx/logs/access.log
+BASEPATH=/data
+bak = $BASEPATH/$(data -d yesterday +%Y%m%d).accesss.log
+mkdir -p $BASEPATH/%(data -d yesterday +%Y%m)
+mv $LOGPATH $bak
+touch $LOGPATH
+kill -USR1 `cat /usr/local/nginx/logs/nginx.pid`
+```
+
+`crontab e`
 # gzip设置
 
 # 浏览器缓存配置

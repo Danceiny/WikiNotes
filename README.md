@@ -82,7 +82,7 @@
 
 # 归档
 * [cs231n](./Intelligence/CS231n/README.md)
-或 [仓库地址](https://github.com/Danceiny/my_cs231n)
+  或 [仓库地址](https://github.com/Danceiny/my_cs231n)
 
 * [Arduino](./Embedded/Arduino/README.md)
 

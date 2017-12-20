@@ -5,7 +5,7 @@ https://yeasy.gitbooks.io/docker_practice/content/index.html
 - 镜像 Image
 - 容器 Container
 - 仓库 Repository
-仓库和Git类似。
+  仓库和Git类似。
 
 docker pull registry.hub.docker.com/ubuntu:12.04
 sudo docker pull dl.dockerpool.com:5000/ubuntu:12.04
@@ -50,3 +50,9 @@ cat ubuntu.tar | sudo docker import - test/ubuntu:v1.0 #快照
 
 # 删除已经退出的容器（镜像被容器占用，无法删除，则需先删除容器）
  docker ps -a | grep "Exited" | awk '{print $1 }'|xargs docker rm
+
+
+
+### 进入正在运行的容器
+
+docker exec -it ed688f12d336 /bin/bash
