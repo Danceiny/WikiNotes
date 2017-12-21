@@ -55,4 +55,4 @@ cat ubuntu.tar | sudo docker import - test/ubuntu:v1.0 #快照
 
 ### 进入正在运行的容器
 
-docker exec -it ed688f12d336 /bin/bash
+sdocker exec -it ed688f12d336 /bin/bash
