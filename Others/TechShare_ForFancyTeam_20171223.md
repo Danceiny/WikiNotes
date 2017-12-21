@@ -10,6 +10,8 @@
 
 ## Python简介
 
+import this
+
 ## Python高级特性
 ### 迭代器 && 生成器
 ### 线程 && 进程 && 协程 && 并发
@@ -57,4 +59,4 @@ vue
 
 
 
-参考：[RussellCloud面试](./)
+参考：[RussellCloud面试](./RussellCloud_Python研发工程师实习面经.md)
