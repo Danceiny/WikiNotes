@@ -1,14 +1,44 @@
 ## 自我介绍
-“半吊子”后端程序员。学过N门语言。包括但不限于C,C++,HTML,CSS,Javascript,PHP,C#,Python,Java,Scala,Lua,Objective-C,Verilog, Go,Lisp,Shell,Markdown。
-项目七零八落：
-做过视觉方面的，
-- 自动化学院机器人实验室的双目立体相机预研项目，Dian团队与释码大华公司合作的虹膜算法组的项目。
-  做过创业公司方面的，
-- 魅果科技的马上赚钱APP客户端（不想打杂，被老板嫌弃了）
-- 魅果科技的承包项目中国电子商务师协会官网后台（第一个非demo的后端项目）
-- 慕姝（上海）信息科技有限公司的RussellCloud项目后端，从0.5到1.0的后端开发。公司和Dian团队达成合作，成立了项目组。
+- 弹簧振子
+- Danceiny
+  - danceiny@gmail.com
+  - https://github.com/Danceiny
+  - http://blog.cannot.cc
 
-## Python简介
+# 入门级（大一）
+
+1. 工欲善其事必先利其器
+   1. Pycharm
+   2. 终端的折腾
+      1. Windows选手：cmd，powershell，cmder，pycharm的terminal..
+   3. python环境
+      1. 推荐使用conda（miniconda即可）管理多版本（python2，python3）
+      2. 了解pip
+      3. 使用jupyter notebook， ipython
+   4. 翻墙
+   5. 学会使用Google
+2. 计算机网络架构：从物理层，到浏览器（可通过知乎了解）
+3. 熟悉语法 + 关键字
+   1. 对比学习C语言
+4. 熟悉內建函数(built-in functions)，熟悉常用的一些标准库函数
+5. W3cschool 了解最基础的html+css+js
+6. 动手搭建最小的投票网站（不一定要使用数据库噢~写文件也行！）
+7. 调试！通过看终端输出来debug。
+   1. 打断点，看变量状态
+   2. print 变量，dir(变量)， type(变量)
+
+# 上手级（大二）
+
+1. 使用flask或django
+2. 使用restful
+3. 使用http（有各种花式玩法）
+4. 使用sqlalchemy，mysql或mongodb
+5. 使用redis
+6. 动手搭建高性能、可扩展、代码整洁、逻辑清晰的投票网站（用数据库~）
+
+# 应用级（大三）
+
+## Python哲学
 
 import this
 
@@ -21,6 +51,126 @@ https://github.com/Danceiny/WikiNotes/blob/master/Language/Python/%E9%AB%98%E8%B
 ### 迭代器 && 生成器
 
 ### 线程 && 进程 && 协程 && 并发
+
+Java的nio。 CPU >> Disk
+
+- 协程
+
+  - 协程是一个线程执行，那怎么利用多核CPU呢？最简单的方法是多进程+协程，既充分利用多核，又充分发挥协程的高效率，可获得极高的性能。
+
+    Python对协程的支持是通过generator实现的。
+
+    ```python
+    def consumer():
+        r = ''
+        while True:
+            n = yield r
+            if not n:
+                return
+            print('[CONSUMER] Consuming %s...' % n)
+            r = '200 OK'
+
+    def produce(c):
+        c.send(None)
+        n = 0
+        while n < 5:
+            n = n + 1
+            print('[PRODUCER] Producing %s...' % n)
+            r = c.send(n)
+            print('[PRODUCER] Consumer return: %s' % r)
+        c.close()
+
+    c = consumer()
+    produce(c)
+    ```
+
+    注意到`consumer`函数是一个`generator`，把一个`consumer`传入`produce`后：
+
+    1. 首先调用`c.send(None)`启动生成器；
+    2. 然后，一旦生产了东西，通过`c.send(n)`切换到`consumer`执行；
+    3. `consumer`通过`yield`拿到消息，处理，又通过`yield`把结果传回；
+    4. `produce`拿到`consumer`处理的结果，继续生产下一条消息；
+    5. `produce`决定不生产了，通过`c.close()`关闭`consumer`，整个过程结束。
+
+    整个流程无锁，由一个线程执行，`produce`和`consumer`协作完成任务，所以称为“协程”，而非线程的抢占式多任务。
+
+- 异步IO
+
+  ```python
+  loop = get_event_loop()
+  while True:
+      event = loop.get_event()
+      process_event(event)
+  ```
+
+  ​
+
+```
+用asyncio提供的@asyncio.coroutine可以把一个generator标记为coroutine类型，然后在coroutine内部用yield from调用另一个coroutine实现异步操作。
+
+为了简化并更好地标识异步IO，从Python 3.5开始引入了新的语法async和await，可以让coroutine的代码更简洁易读。
+
+请注意，async和await是针对coroutine的新语法，要使用新的语法，只需要做两步简单的替换：
+
+把@asyncio.coroutine替换为async；
+把yield from替换为await。
+
+async def hello():
+    print("Hello world!")
+    r = await asyncio.sleep(1)
+    print("Hello again!")
+```
+
+```
+import asyncio
+
+@asyncio.coroutine
+def hello():
+    print("Hello world!")
+    # 异步调用asyncio.sleep(1):
+    r = yield from asyncio.sleep(1)
+    print("Hello again!")
+
+# 获取EventLoop:
+loop = asyncio.get_event_loop()
+# 执行coroutine
+loop.run_until_complete(hello())
+loop.close()
+```
+
+`@asyncio.coroutine`把一个generator标记为coroutine类型，然后，我们就把这个`coroutine`扔到`EventLoop`中执行。
+
+`hello()`会首先打印出`Hello world!`，然后，`yield from`语法可以让我们方便地调用另一个`generator`。由于`asyncio.sleep()`也是一个`coroutine`，所以线程不会等待`asyncio.sleep()`，而是直接中断并执行下一个消息循环。当`asyncio.sleep()`返回时，线程就可以从`yield from`拿到返回值（此处是`None`），然后接着执行下一行语句。
+
+把`asyncio.sleep(1)`看成是一个耗时1秒的IO操作，在此期间，主线程并未等待，而是去执行`EventLoop`中其他可以执行的`coroutine`了，因此可以实现并发执行。
+
+
+
+```
+import asyncio
+
+@asyncio.coroutine
+def wget(host):
+    print('wget %s...' % host)
+    connect = asyncio.open_connection(host, 80)
+    reader, writer = yield from connect
+    header = 'GET / HTTP/1.0\r\nHost: %s\r\n\r\n' % host
+    writer.write(header.encode('utf-8'))
+    yield from writer.drain()
+    while True:
+        line = yield from reader.readline()
+        if line == b'\r\n':
+            break
+        print('%s header > %s' % (host, line.decode('utf-8').rstrip()))
+    # Ignore the body, close the socket
+    writer.close()
+
+loop = asyncio.get_event_loop()
+tasks = [wget(host) for host in ['www.sina.com.cn', 'www.sohu.com', 'www.163.com']]
+loop.run_until_complete(asyncio.wait(tasks))
+loop.close()
+```
+
 ## 设计模式
 
 - 面向对象
@@ -88,6 +238,11 @@ http_basic_auth = HTTPBasicAuth()
 def Unauthorized_Handler():
     return jsonify({"code": 403, "data":"账号或密码错误，请重试"})
 
+@check_api_cost_time
+def func():
+    pass
+
+func()
 
 def check_api_cost_time(method):
     @wraps(method)
@@ -118,9 +273,201 @@ def check_api_cost_time(method):
     return _decorator
 ```
 
+- 单例
+
+  - 锁
+
+    ```python
+    #!/usr/bin/env python
+    #-*- coding:utf-8 -*-
+
+    # https://github.com/reyoung/singleton
+    __author__ = 'reyoung'
+    ```
 
 
-### 单例
+    class Singleton(object):
+        """
+        The Singleton class decorator.
+        Like:
+            from singleton.singleton import Singleton
+    
+            @Singleton
+            class IntSingleton(object):
+                def __init__(self):
+                    pass
+        Use IntSingleton.instance() get the instance
+        """
+    
+        def __init__(self, cls):
+            """
+            :param cls: decorator class type
+            """
+            self.__cls = cls
+            self.__instance = None
+    
+        def initialize(self, *args, **kwargs):
+            """
+            Initialize singleton object if it has not been initialized
+            :param args: class init parameters
+            :param kwargs: class init parameters
+            """
+            if not self.is_initialized():
+                self.__instance = self.__cls(*args, **kwargs)
+    
+        def is_initialized(self):
+            """
+            :return: true if instance is initialized
+            """
+            return self.__instance is not None
+    
+        def instance(self):
+            """
+            Get singleton instance
+            :return: instance object
+            """
+            if not self.is_initialized():
+                self.initialize()
+            return self.__instance
+    
+        def __call__(self, *args, **kwargs):
+            """
+            Disable new instance of original class
+            :raise TypeError:
+            """
+            raise TypeError("Singletons must be access by instance")
+    
+        def __instancecheck__(self, inst):
+            """
+            Helper for isinstance check
+            """
+            return isinstance(inst, self.__cls)
+
+
+    from threading import Lock
+
+
+    class ThreadSafeSingleton(object):
+        def __init__(self, cls):
+            self.__cls = cls
+            self.__instance = None
+            self.__mutex = Lock()
+    
+        def is_initialized(self):
+            self.__mutex.acquire()
+            try:
+                return self.__instance is not None
+            finally:
+                self.__mutex.release()
+    
+        def initialize(self, *args, **kwargs):
+            self.__mutex.acquire()
+            try:
+                if self.__instance is None:
+                    self.__instance = self.__cls(*args, **kwargs)
+            finally:
+                self.__mutex.release()
+    
+        def instance(self):
+            self.__mutex.acquire()
+            try:
+                if self.__instance is None:
+                    self.__instance = self.__cls()
+                return self.__instance
+            finally:
+                self.__mutex.release()
+    
+        def __call__(self, *args, **kwargs):
+            """
+            Disable new instance of original class
+            :raise TypeError:
+            """
+            raise TypeError("Singletons must be access by instance")
+    
+        def __instancecheck__(self, inst):
+            """
+            Helper for isinstance check
+            """
+            return isinstance(inst, self.__cls)
+    ​```
+    
+    
+
+- 观察者模式
+
+  - 消费者-订阅者
+
+    ```python
+    # coding: utf-8
+
+    class Publisher(object):
+
+        def __init__(self):
+            self.observers = []
+        def add(self, observer):
+            if observer not in self.observers:
+                self.observers.append(observer)
+            else:
+                print("Failed to add: {}".format(observer))
+        def remove(self, observer):
+            try:
+                self.observers.remove(observer)
+            except ValueError:
+                print("Failed to remove: {}".format(observer))
+        def notify(self):
+            [o.notify(self) for o in self.observers]
+
+    class DefaultFormatter(Publisher):
+        def __init__(self, name):
+            Publisher.__init__(self)
+            self.name = name
+            self._data = 0
+        def __str__(self):
+            return "{}: '{}' has data = {}".format(type(self).__name__, self.name, self._data)
+        
+        @property
+        def data(self):
+            return self._data
+        
+        @data.setter
+        def data(self, new_value):
+            try:
+                self._data = int(new_value)
+            except ValueError as e:
+                print("Error: {}".format(e))
+            else:
+                self.notify()
+
+    class HexFormatter(object):
+        def notify(self, publisher):
+            print("{}: '{}' has now hex data = {}".format(type(self).__name__,
+            publisher.name, hex(publisher.data)))
+
+    class BinaryFormatter(object):
+        def notify(self, publisher):
+            print("{}: '{}' has now bin data = {}".format(type(self).__name__,
+            publisher.name, bin(publisher.data)))
+
+    def main():
+        df = DefaultFormatter("test1")
+        print(df)
+        
+        print()
+        hf = HexFormatter()
+        df.add(hf)
+        df.data = 3
+        print()
+        print(df)    
+        
+        print()
+        bf = BinaryFormatter()
+        df.add(bf)
+        df.data = 21
+        print(df)
+
+    if __name__ == '__main__':
+        main()
+    ```
 
 ## 深入理解Flask
 
@@ -144,7 +491,7 @@ def check_api_cost_time(method):
         date_created = fields.DateTime(allow_none=True)
         date_modified = fields.DateTime(allow_none=True)
         is_deleted = fields.Int()
-        
+    BaseSchema.id=1
     class BaseModel(db.Model):
         """
         Base for all model classes
@@ -293,6 +640,7 @@ def check_api_cost_time(method):
   ## apply async
   check_task = checkInstance.apply_async(args=[experiment.id, task_longest_limit],
                                          queue="cpu")
+  ```
 
 
   ## config celery
@@ -335,7 +683,7 @@ def check_api_cost_time(method):
   stderr_logfile=/root/russell-cloud/logs/uwsgi_err_supervisor.log
   ```
 
-#### MySQL数据库
+## MySQL数据库
 
 - 关系表设计范式
   - 第一范式
@@ -460,7 +808,7 @@ def check_api_cost_time(method):
       docker-compose up -d
       ```
 
-      ​
+      https://cr.console.aliyun.com/?spm=5176.2020520152.210.d103.3d5bb184Bxc5qG#/dockerImage/45333/layers/1.4.0-gpu.cuda9cudnn7-py2_aws.18
 
   - go
 
@@ -476,6 +824,8 @@ def check_api_cost_time(method):
 
   - vue
 
+## CodingHub
 
+借鉴RussellCloud，个人编程学习中心。
 
 参考：[RussellCloud面试](./RussellCloud_Python研发工程师实习面经.md)
