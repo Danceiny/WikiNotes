@@ -105,9 +105,6 @@ Java的nio。 CPU >> Disk
       process_event(event)
   ```
 
-  ​
-
-```
 用asyncio提供的@asyncio.coroutine可以把一个generator标记为coroutine类型，然后在coroutine内部用yield from调用另一个coroutine实现异步操作。
 
 为了简化并更好地标识异步IO，从Python 3.5开始引入了新的语法async和await，可以让coroutine的代码更简洁易读。
@@ -117,13 +114,14 @@ Java的nio。 CPU >> Disk
 把@asyncio.coroutine替换为async；
 把yield from替换为await。
 
+```python
 async def hello():
     print("Hello world!")
     r = await asyncio.sleep(1)
     print("Hello again!")
 ```
 
-```
+```python
 import asyncio
 
 @asyncio.coroutine
@@ -211,7 +209,6 @@ loop.close()
           a, b = b, a + b
   ```
 
-  ​
 
 ```python
 def auth_error_handler(auth):
@@ -278,12 +275,9 @@ def check_api_cost_time(method):
 - 单例
 
   - 锁
-
-
-
+```python
     #!/usr/bin/env python
     #-*- coding:utf-8 -*-
-    
     # https://github.com/reyoung/singleton
     __author__ = 'reyoung'
     class Singleton(object):
@@ -385,7 +379,7 @@ def check_api_cost_time(method):
             Helper for isinstance check
             """
             return isinstance(inst, self.__cls)
-
+```
 - 观察者模式
 
   - 消费者-订阅者
@@ -509,8 +503,6 @@ def check_api_cost_time(method):
             return cls.schema.load(dct).data
     ```
 
-    ​
-
   - CURD
 
     - create
@@ -535,8 +527,6 @@ def check_api_cost_time(method):
   supervisorctl restart celery_fork
   supervisorctl restart celery_sys
   ```
-
-  ​
 
 - flask特有的变量和函数
 
@@ -637,22 +627,17 @@ def check_api_cost_time(method):
 
 
   ## config celery
-  celery_queues = (
-      Queue('file', exchange='file', routing_key='task.user.file.#'),
-      Queue('cpu', exchange='user', routing_key='task.user.compute.cpu'),
-      Queue('gpu', exchange='user', routing_key='task.user.compute.gpu'),
-      Queue('sys', exchange='sys', routing_key='task.sys.#'),
-  )
+  ```python
+celery_queues = (Queue('file', exchange='file', routing_key='task.user.file.#'),
+				 Queue('cpu', exchange='user', routing_key='task.user.compute.cpu'),
+				 Queue('gpu', exchange='user', routing_key='task.user.compute.gpu'),
+				 Queue('sys', exchange='sys', routing_key='task.sys.#'),)
+timezone = 'Asia/Shanghai'
+CELERY_TASK_ALWAYS_EAGER = False
+ ```
 
-  # timezone = 'Asia/Shanghai'
-  CELERY_TASK_ALWAYS_EAGER = False
-
-  ```
-
-  ​
-
-  ```conf
-  [program:celery_sys]
+```conf
+[program:celery_sys]
   command=/usr/local/bin/celery -A App.aliyun_api worker -E -n worker_sys -Q sys -B --autoscale=2,1 -s /root/russell-cloud/celerybeat-schedule
 
   directory=/root/russell-cloud
@@ -661,7 +646,7 @@ def check_api_cost_time(method):
   loglevel=debug
   stdout_logfile=/root/russell-cloud/logs/celery_sys_supervisor.log
   stderr_logfile=/root/russell-cloud/logs/celery_sys_err_supervisor.log
-  ```
+```
 
 - uwsgi
 
