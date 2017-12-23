@@ -17,6 +17,7 @@
       3. 使用jupyter notebook， ipython
    4. 翻墙
    5. 学会使用Google
+   6. 简单了解git，github
 2. 计算机网络架构：从物理层，到浏览器（可通过知乎了解）
 3. 熟悉语法 + 关键字
    1. 对比学习C语言
@@ -34,7 +35,8 @@
 3. 使用http（有各种花式玩法）
 4. 使用sqlalchemy，mysql或mongodb
 5. 使用redis
-6. 动手搭建高性能、可扩展、代码整洁、逻辑清晰的投票网站（用数据库~）
+6. 使用git管理代码
+7. 动手搭建高性能、可扩展、代码整洁、逻辑清晰的投票网站（用数据库~）
 
 # 应用级（大三）
 
@@ -277,15 +279,13 @@ def check_api_cost_time(method):
 
   - 锁
 
-    ```python
+
+
     #!/usr/bin/env python
     #-*- coding:utf-8 -*-
-
+    
     # https://github.com/reyoung/singleton
     __author__ = 'reyoung'
-    ```
-
-
     class Singleton(object):
         """
         The Singleton class decorator.
@@ -342,11 +342,7 @@ def check_api_cost_time(method):
             Helper for isinstance check
             """
             return isinstance(inst, self.__cls)
-
-
     from threading import Lock
-
-
     class ThreadSafeSingleton(object):
         def __init__(self, cls):
             self.__cls = cls
@@ -389,9 +385,6 @@ def check_api_cost_time(method):
             Helper for isinstance check
             """
             return isinstance(inst, self.__cls)
-    ​```
-    
-    
 
 - 观察者模式
 
