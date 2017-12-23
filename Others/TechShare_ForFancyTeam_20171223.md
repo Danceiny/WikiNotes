@@ -23,6 +23,7 @@
    1. 对比学习C语言
 4. 熟悉內建函数(built-in functions)，熟悉常用的一些标准库函数
 5. W3cschool 了解最基础的html+css+js
+6. 廖雪峰教程简单过一遍
 6. 动手搭建最小的投票网站（不一定要使用数据库噢~写文件也行！）
 7. 调试！通过看终端输出来debug。
    1. 打断点，看变量状态
@@ -805,5 +806,15 @@ CELERY_TASK_ALWAYS_EAGER = False
 ## CodingHub
 
 借鉴RussellCloud，个人编程学习中心。
+
+- https://github.com/zuiwan/CodingHub 大后端主项目
+- https://github.com/zuiwan/CodingHub-Web 网站
+- https://github.com/zuiwan/CodingHub-CLI 终端命令行工具
+
+如何贡献代码：
+1. 在你感兴趣的项目中提issue说明基本情况，我会邀请你加入organization-team，请查收github绑定的邮箱接受邀请。
+2. 加入贡献者团队后，建立一个专属于你的branch，这将由你维护。一些比较小的开发工作，在该branch上进行。
+3. 对于一些比较大规格的改动，建议fork一份到你自己的仓库，测试完成后cross-fork来提交pull request。
+4. 代码能力比较强的同学承担code-review和merge-pr的工作。
 
 参考：[RussellCloud面试](./RussellCloud_Python研发工程师实习面经.md)
