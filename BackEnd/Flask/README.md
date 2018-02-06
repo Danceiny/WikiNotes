@@ -18,7 +18,7 @@ For:
 
 2. http://www.pythondoc.com/flask-mega-tutorial/email.html
 
-3.  Flask服务器部署 http://wiki.jikexueyuan.com/project/flask-guide/deploy-ways.html
+3. Flask服务器部署 http://wiki.jikexueyuan.com/project/flask-guide/deploy-ways.html
 
 
 # 入门
@@ -30,10 +30,10 @@ For:
 激活：
 
 1. Win
-`ENVNAME\Scripts\activate.bat`
+  `ENVNAME\Scripts\activate.bat`
 
 2. Linux/Mac
-`source ENVNAME/bin/activate`
+  `source ENVNAME/bin/activate`
 
 然后pip安装flask。
 
@@ -196,58 +196,63 @@ SQLite（Windows） sqlite:///c:/absolute/path/to/database
 |SmallInteger |int 取值范围小的整数，一般是 16 位|
 |BigInteger| int 或 long |不限制精度的整数|
 
-Float
-float 浮点数
-Numeric
-decimal.Decimal 定点数
-String
-str 变长字符串
-Text
+- Float
+|float |浮点数|
+|Numeric||
+|decimal.Decimal |定点数|
+
+- String
+|str |变长字符串
+
+- Text
 str 变长字符串，对较长或不限长度的字符串做了优化
 Unicode
 unicode 变长 Unicode 字符串
 UnicodeText
 unicode 变长 Unicode 字符串，对较长或不限长度的字符串做了优化
-Boolean
+- Boolean
 bool 布尔值
-Date
+- Date
 datetime.date 日期
-Time
+- Time
 datetime.time 时间
-DateTime
+- DateTime
 datetime.datetime 日期和时间
-Interval
+- Interval
 datetime.timedelta 时间间隔
-Enum
-str 一组字符串
-PickleType 任何 Python 对象 自动使用 Pickle 序列化
-LargeBinary
+- Enum
+|str| 一组字符串
+|PickleType| 任何 Python 对象 自动使用 Pickle 序列化
+- LargeBinary
 str 二进制文件
 
 
 ### 常用的SQLAlchemy关系选项：
-|选项名 |说　　明|
-|---|-----|
-backref |在关系的另一个模型中添加反向引用
-primaryjoin |明确指定两个模型之间使用的联结条件。只在模棱两可的关系中需要指定
-lazy |指定如何加载相关记录。可选值有 select （首次访问时按需加载）、 immediate （源对象加载后就加载）、 joined （加载记录，但使用联结）、 subquery （立即加载，但使用子查询），
-noload |（永不加载）和 dynamic （不加载记录，但提供加载记录的查询）
-uselist |如果设为 Fales ，不使用列表，而使用标量值
-order_by |指定关系中记录的排序方式
-secondary |指定多对多关系中关系表的名字
-secondaryjoin |SQLAlchemy 无法自行决定时，指定多对多关系中的二级联结条件
+
+
+| 选项名         | 说　　明                                     |
+| ----------- | ---------------------------------------- |
+| backref     | 在关系的另一个模型中添加反向引用                         |
+| primaryjoin | 明确指定两个模型之间使用的联结条件。只在模棱两可的关系中需要指定|
+|lazy |指定如何加载相关记录。可选值有 select （首次访问时按需加载）、 immediate （源对象加载后就加载）、 joined （加载记录，但使用联结）、 subquery （立即加载，但使用子查询），noload（永不加载）和 dynamic （不加载记录，但提供加载记录的查询）|
+|uselist |如果设为 Fales ，不使用列表，而使用标量值 |
+|order_by |指定关系中记录的排序方式|
+|secondary |指定多对多关系中关系表的名字|
+| secondaryjoin | SQLAlchemy 无法自行决定时，指定多对多关系中的二级联结条件|
+
+
 
 
 ### 最常使用的SQLAlchemy查询执行函数
-方　法 |说　　明
-----|---
-all() |以列表形式返回查询的所有结果
-first() |返回查询的第一个结果，如果没有结果，则返回 None
-first_or_404() |返回查询的第一个结果，如果没有结果，则终止请求，返回 404 错误响应
-get() |返回指定主键对应的行，如果没有对应的行，则返回 None
-get_or_404() |返回指定主键对应的行，如果没找到指定的主键，则终止请求，返回 404 错误响应
-count() |返回查询结果的数量
-paginate()| 返回一个 Paginate 对象，它包含指定范围内的结果
+| 方　法            | 说　　明                                    |
+| -------------- | --------------------------------------- |
+| all()          | 以列表形式返回查询的所有结果                          |
+| first()        | 返回查询的第一个结果，如果没有结果，则返回 None              |
+| first_or_404() | 返回查询的第一个结果，如果没有结果，则终止请求，返回 404 错误响应     |
+| get()          | 返回指定主键对应的行，如果没有对应的行，则返回 None            |
+| get_or_404()   | 返回指定主键对应的行，如果没找到指定的主键，则终止请求，返回 404 错误响应 |
+| count()        | 返回查询结果的数量                               |
+| paginate()     | 返回一个 Paginate 对象，它包含指定范围内的结果            |
 
 
 ### 集成Python shell
@@ -320,8 +325,8 @@ app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
 	|-requirements.txt
 	|-config.py
 	|-manage.py
-	
-	
+
+
 开发、测试和生产环境要使用不同的数据库，这样才不会彼此影响。
 
 config.py：程序的配置
@@ -396,10 +401,10 @@ def create_app(config_name):
 
 Blueprint解决的问题：
 >转换成程序工厂函数的操作让定义路由变复杂了。在单脚本程序中，程序实例存在于全
-局作用域中，路由可以直接使用 app.route 修饰器定义。但现在程序在运行时创建，只
-有调用 create_app() 之后才能使用 app.route 修饰器，这时定义路由就太晚了。和路由
-一样，自定义的错误页面处理程序也面临相同的困难，因为错误页面处理程序使用 app.
-errorhandler 修饰器定义。
+>局作用域中，路由可以直接使用 app.route 修饰器定义。但现在程序在运行时创建，只
+>有调用 create_app() 之后才能使用 app.route 修饰器，这时定义路由就太晚了。和路由
+>一样，自定义的错误页面处理程序也面临相同的困难，因为错误页面处理程序使用 app.
+>errorhandler 修饰器定义。
 
 ## 需求文件
 `(venv) $ pip freeze >requirements.txt`

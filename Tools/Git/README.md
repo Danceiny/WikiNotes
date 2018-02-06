@@ -56,3 +56,20 @@ git commit --amend -CHEAD
 https://git-lfs.github.com/
 
 >Git Large File Storage (LFS) replaces large files such as audio samples, videos, datasets, and graphics with text pointers inside Git, while storing the file contents on a remote server like GitHub.com or GitHub Enterprise.
+
+
+
+
+
+## git hook
+
+在`git`中，任何时候当前版本库中出现如`commit`、`push`等特殊的事件时，都会触发执行一个或多个任意的`shell`脚本，我们称之为git钩子，它存放在`.git/hooks`目录下，我们可以看到目录下有`commit-msg.sample`、`pre-commit.sample`等文件，这些都是案例文件，不会执行，要想执行的话把后面的`.sample`后缀去掉就可以了。
+
+钩子从执行顺序上分为两类：
+
+- 前置（pre）钩子，在动作完成前调用
+- 后置（post）钩子，在动作完成后执行
+
+通常情况下，**如果前置钩子一非零状态下退出，那么git动作就会终止**，这样我们就可以在`commit`前对提交的内容做一些校验，如果不符合规定就不让提交。
+
+钩子默认是不会继承的，也就是说如果你从仓库`clone`下来的版本库是没有这些钩子的，必须手动复制钩子脚本使其生效，我们可以再根目录建一个`.hook`的目录，然后把脚本放进去加入版本库管理，`clone`下版本库后执行一下拷贝命令就好了，可以把拷贝命令放入`npm scripts`。

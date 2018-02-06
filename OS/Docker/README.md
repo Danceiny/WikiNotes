@@ -56,3 +56,11 @@ cat ubuntu.tar | sudo docker import - test/ubuntu:v1.0 #快照
 ### 进入正在运行的容器
 
 sdocker exec -it ed688f12d336 /bin/bash
+
+
+
+
+
+限制容器内存资源：
+
+http://blog.opskumu.com/docker-memory-limit.html

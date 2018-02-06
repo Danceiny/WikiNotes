@@ -6,15 +6,23 @@
 3. 数据结构算法与应用-C++语言描述 p77
 4. 第一卷：基础、数据结构、排序和搜索.djvu p107
 5. 第二卷：图算法.djvu p122
-#6. 算法设计与分析基础.djvu p180
-#7. 学习Go语言(Golang).pdf p15
+6. 算法设计与分析基础.djvu p180
+7. 学习Go语言(Golang).pdf p15
+
+
 8. Java数据结构和算法(2ndEdition).pdf p140
-#9. C_C++趣味程序百例.pdf p34
+9. C_C++趣味程序百例.pdf p34
+
+
 10. openssl编程.pdf p106
-#12. 搜索引擎：原理、技术与系统 p81
-#13. Linux系列教程/vim.pdf p47
+11. 搜索引擎：原理、技术与系统 p81
+12. Linux系列教程/vim.pdf p47
+
+
 14. MongoDB: The Definitive Guide p139
-#15. aptitude简明手册
+15. aptitude简明手册
+
+
 16. 熟悉Linux系统的安全和优化 Gerhard Mourani /备份amanda /du -sh /home查询磁盘空间 /lsof列出已开端口 
 17. Professional_Linux_Programming.pdf p430
 18. Linux应用程序开发指南：使用GTK+GNOME库 p10
@@ -23,23 +31,27 @@
 21. Python灰帽子 p89
 22. 用TCP/IP进行网际互连 第一卷第四版 p81
 23. 网络技术大赛学习资料/大数据/FusionInsight
-						/云计算
-						/WLAN
-#24. 黑客入门新手特训.pdf 
+  					/云计算
+  					/WLAN
+
+
+24. 黑客入门新手特训.pdf
+
+
 25. 黑客X元素-《黑客X元素》终极版pdf p26
-Display 手机变电脑的扩展屏， ip网络访问实现。
+   Display 手机变电脑的扩展屏， ip网络访问实现。
 
-ls
+
 26. Programming in Scala 2nd Edition [Martin Odersky & Lex Spoon & Bill Venners] p108
-26. Programming in Scala A Comprehensive Step by step Guide[Martin Odersky & Lex Spoon & Bill Venners] p351
-27. 程序员羊皮卷下载版.pdf 
-F:/kindle/P060核对完 linux-Calibre 已导入
+27. Programming in Scala A Comprehensive Step by step Guide[Martin Odersky & Lex Spoon & Bill Venners] p351
+28. 程序员羊皮卷下载版.pdf 
+   F:/kindle/P060核对完 linux-Calibre 已导入
 
-28. Linux系列教程/Linux进程管理.pdf
+29. Linux系列教程/Linux进程管理.pdf
 
-29. TCP_IP Illustrated Volume 3 TCP for Transactions, HTTP,NNTP,and the UNIX Domain Protocols.pdf p21
+30. TCP_IP Illustrated Volume 3 TCP for Transactions, HTTP,NNTP,and the UNIX Domain Protocols.pdf p21
 
-30. 并行计算导论 张林波等 p265
+31. 并行计算导论 张林波等 p265
 > 并行计算不同于分布式计算，后者主要是指通过网络相互连接的两个以上的处理机相互协调，各自执行相互依赖的不同应用，从而达到协调资源访问，提高资源使用效率的目的，但是无法达到并行计算所倡导的提高求解同一应用的速度，或者提高求解同一应用的问题规模的目的。
 > `file /usr/bin/* |grep 'shell script' `学习shell编程最好的方法是参考阅读这些linux系统自带的脚本文件。
 
@@ -71,10 +83,10 @@ F:/kindle/P060核对完 linux-Calibre 已导入
 > 文件名-> inode -> 文件的二进制流
 > 硬链接,两个文件名指向同一个inode.为了保证所有的硬链接移除后才彻底删除文件,每个inode使用一个link count. 
 > 因为inode编号在自己文件系统之外无意义,故不能跨文件系统建立硬链接.符号链接解决该问题,但开销更大.
-36. 
+36. ​
 
 37. Scala By Example p75
-Martin Odersky
+   Martin Odersky
 
 38. 20世纪最伟大的心理学实验 劳伦`斯莱特 p36
 

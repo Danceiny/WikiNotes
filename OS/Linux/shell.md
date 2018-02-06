@@ -34,3 +34,8 @@ Ctrl+r,搜索命令
 
 `echo -e "\ndjfa\n"` -e开启转义。
 
+
+
+# shell脚本中切换用户
+
+https://www.cnblogs.com/bodhitree/p/6018369.html

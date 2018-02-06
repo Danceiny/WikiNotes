@@ -1,1 +1,0 @@
-http://www.20thingsilearned.com/zh-CN/

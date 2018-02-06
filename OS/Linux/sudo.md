@@ -35,3 +35,9 @@ The IP address 127.0.1.1 in the second line of this example may not be found on 
 9. 执行`chmod u=r,g=r,o= /etc/sudoers.d/*`;
 
 Over.
+
+
+
+# 限制sudoers权限
+
+http://desert3.iteye.com/blog/1663995
