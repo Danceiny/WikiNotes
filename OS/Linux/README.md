@@ -8,10 +8,14 @@ https://www.ibm.com/developerworks/cn/linux/l-cn-nohup/index.html
 
 ## ; && || 操作符的区别
 
-| cmd1 ; cmd2    | cmd1 和 cmd2 **都会** 被执行                   |
-| -------------- | ---------------------------------------- |
-| cmd1 && cmd2   | 如果 cmd1 执行 **成功** 则执行 cmd2               |
-| cmd1 \|\| cmd2 | 如果 cmd1 执行 **失败** 则执行 cmd22. 使用netstat来看看系统的监听端口 |
+| cmd1 ; cmd2    | cmd1 和 cmd2 **都会** 被执行       |
+| -------------- | ---------------------------- |
+| cmd1 && cmd2   | 如果 cmd1 执行 **成功** 则执行 cmd2   |
+| cmd1 \|\| cmd2 | 如果 cmd1 执行 **失败** 则执行 cmd22. |
+
+
+
+- 使用netstat来看看系统的监听端口
 
 ```
 # netstat -antp       //所有连接、数字显示主机、端口、TCP连接、监听的程序
