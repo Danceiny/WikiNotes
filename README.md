@@ -3,6 +3,7 @@
 记录的一些笔记。
 
 # 近期(update: 2017.10.29)
+* [毕业设计]()
 * [RussellCloud server & cli] 实习/创业团队
 * [计划：用Java重写RussellCloud Server](https://github.com/Danceiny/java-russell-cloud)
 * [计划：利用listen1打造自己的专属音乐世界](https://github.com/listen1/listen1)

@@ -231,3 +231,15 @@ mysqlhotcopy db_name[./table_regex/] [new_db_name | directory]
 更改隔离级别
 
 `set TRANSACTION ISOLATION LEVEL read uncommitted;`
+
+
+
+
+
+#### 如何监控数据库的并发请求数量
+
+`show global status like 'Threads_running'`
+
+
+
+![](http://opkk27k9n.bkt.clouddn.com/18-3-8/85736014.jpg)
