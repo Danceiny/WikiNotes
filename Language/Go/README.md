@@ -167,3 +167,8 @@ https://github.com/avelino/awesome-go
 
 https://vimeo.com/53221558
 
+
+
+### IDE
+
+- VSCode https://github.com/wonsikin/wonsikin.github.io/issues/2
