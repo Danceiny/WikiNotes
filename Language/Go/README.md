@@ -172,3 +172,7 @@ https://vimeo.com/53221558
 ### IDE
 
 - VSCode https://github.com/wonsikin/wonsikin.github.io/issues/2
+
+#### 第三方工具
+
+- [**gomodifytags**](https://github.com/fatih/gomodifytags) 的工具，根据字段名称自动填充结构体标签字段。具体实现：https://juejin.im/post/59f29894f265da43333da41e

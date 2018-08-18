@@ -175,3 +175,7 @@ public class AdvisedSupport {
 - AopProxy 对目标对象做代理， 在调用目标方法前先调用它
 - JdkDynamicAopProxy 使用JDK动态代理对接口做代理
 - ReflectiveMethodInvocation 将反射的Method封装为Joinpoint
+
+## JPA
+
+![image-20180805113836277](../../../../../../var/folders/yg/970wg1c52yx09b03wf32m9p80000gn/T/abnerworks.Typora/image-20180805113836277.png)

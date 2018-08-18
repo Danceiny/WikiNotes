@@ -48,7 +48,9 @@ cat ubuntu.tar | sudo docker import - test/ubuntu:v1.0 #快照
 • 卷会一直存在，直到没有容器使用 *数据卷的使用，类似于 Linux 下对目录或文件进行 mount。
 
 
-# 删除已经退出的容器（镜像被容器占用，无法删除，则需先删除容器）
+
+删除已经退出的容器（镜像被容器占用，无法删除，则需先删除容器）：
+
  docker ps -a | grep "Exited" | awk '{print $1 }'|xargs docker rm
 
 
@@ -64,3 +66,7 @@ sdocker exec -it ed688f12d336 /bin/bash
 限制容器内存资源：
 
 http://blog.opskumu.com/docker-memory-limit.html
+
+**Attach a volume to a container while it is running**：
+
+http://www.open-open.com/lib/view/open1421996521062.html
