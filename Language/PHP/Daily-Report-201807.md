@@ -591,10 +591,14 @@ THINKING
 ## 2018-08-21
 DONE 
 - 商品模块在profilecontroller中的java化以及参数对齐bug修复
+
 TODO
+
 - 小程序客服消息测试
 - 评价服务接入前期准备
+
 THINKING
+
 - 一直对小程序的线下测试感到疑惑不解，之前想的用自己的小程序来做线下测试的方案，折腾一番后还是夭折了。顺便吐槽一下现在项目里魔鬼数字和字符串满天飞，有空需要统一梳理改造一下。
 - 并行多个需求的时候容易慌乱中出错，以后注意。
 - 商品模块java化过程中在php这边的代码感觉还是非常丑陋，一方面php的controller，blade和js这三个的耦合度过高，不太熟悉代码的人很难进行统一的改造（改其中一个就必须得改其他几个，既麻烦也容易出错），基本上只能改动从数据库拉数据这一层。平时工作中在这方面还是要多加思考，坚决避免此类问题。
@@ -603,10 +607,458 @@ THINKING
 DONE
 - javaapi商品模块查询性能优化（一对多设置优化，一次http请求查询从2500ms左右优化到800ms）
 - php里加上商品权限判断，判断商品是否为用户所有
-ProductContext + DataFetcher 中的商品模块java化开发
+  ProductContext + DataFetcher 中的商品模块java化开发
+
 TODO
+
 - 小程序客服消息测试（拖了好久了……）
 - ProductContext + DataFetcher 中的商品模块java化测试
+
 THINKING
+
 - 性能问题源自小米说backstage页面加载需要8s，我的local环境这个页面实质上会502，之前把请求size从50条降到10条即解决，但是今天测试发现，50条情况下，走javaapi查询的耗时大概在2.5~3.0s以内，虽然耗时较长，但并不是主要瓶颈。检查发现是php这边的查询过于粗放，优化后耗时降低三四十倍，java调用成为主要耗时来源。
 - hibernate不太好用，面向对象的优势在不想仔细读文档的情况下可以说是累赘，其次性能也不好。想起之前有用过一些自造的orm（python里的）直接把一行映射到一个dict就完事了，sql几乎裸写（自己封装函数生成sql），这样可控性很高而且用起来也非常方便。
+## 2018-08-23
+
+DONE
+
+- backstage 商品模块空数据bug修复
+- 小程序客服消息测试完成
+- 评价服务接入task拆分
+  - UserProfile表结构设计
+    - id 业务id（评论服务可用），long
+    - openid 小程序授权之后获取的用户openid, varchar(32)
+    - unionid varchar(32)
+    - headimgurl 小程序授权之后获取的用户头像地址, varchat(256)
+    - nickname varchar(32)
+  - 商品评论接口设计
+    - Base URL: **/api/bxapplets/javaapi/v1/comment**
+    - 创建商品评论  **POST /api/bxapplets/javaapi/v1/product/comment**
+    - 查询用户评论 **GET /api/bxapplets/javaapi/v1/user/comment**
+    - 查询商品评论 **GET /api/bxapplets/javaapi/v1/product/{productId}/comment**
+  - javaapi的httpclient util
+
+TODO
+
+- 评价服务接口数据对齐，表设计对齐，以及完成接口设计
+- 评价服务开发
+
+THINKING
+
+- 微服务架构下哪个服务做哪些事，调用链如何设计以求最合理，是个值得思考的问题（现实问题就是，面对一个评价服务，BXApplets（php）需要用，现阶段评价是在商品和用户（此用户与php里的user还不太一样）下面的，商品在javaapi，是php直接打评价服务呢，还是php打javaapi，javaapi再打评价服务？显然后者更合理也更合乎java化迁移的初衷，不过显然调用链变长，不可控因素也变多了。
+
+## 2018-08-24
+
+DONE
+
+- 在javaapi上完成开发user的id-mapping（新建一张mysql表）
+- php里对javaapi调用的重构，补充评论相关接口
+
+TODO
+
+- 在两个工作日内完成评论服务接入的后端开发，然后在一个工作日内完成评论服务接入接口联调测试，最后在一到两个工作日内完成前端联调
+
+THINKING
+
+- 模块间依赖导致有些纠结的地方，评论服务已经独立，我作为服务使用者，评论附属于商品和用户，我是把评论分别放到商品下面和用户下面，还是独立于商品和用户，让商品和用户来调用呢？对于javaapi和php这两个主体，考虑到可扩展性，需要分别考虑吗……
+
+## 2018-08-27
+
+DONE
+
+- 协助富帅修复店铺内商品搜索的bug
+- 继续接入评论服务，给前端写接口文档。
+
+TODO
+
+- 测试一下php里的商品java化
+- 评论服务的回调接口开发
+
+THINKING
+
+
+
+## 2018-08-28
+
+DONE
+
+- javaapi接入redis，增加商品已售数量查询支持
+- 店铺评分bug跟踪修复：查明是javaapi统计接口性能太差导致超时，已改进；php侧增加超时异常处理。
+- 继续开发评论服务，增加删除（下架）接口，开发进度60%。
+
+TODO
+
+- 完成评论服务申请，开始javaapi一侧的联调：增加、查询、下架以及删除，以及php侧的联调：评论审核回调以及调javaapi
+
+THINKING
+
+- 联表查询尽量自定义，原生sql掌控性好啊。彻底弃用onetomany吧。
+
+
+
+## 2018-08-29
+
+DONE
+
+- javaapi 去关联化改造，商品数量统计接口优化，评价服务联调
+- manage后台editor页面商品设置改调javaapi完成自测
+
+TODO
+
+- 评价服务问题汇总
+  - 删除评论：
+    - 情形一：没有报错，显示删除条数为0，但实际未删除（查询评论可以查到）。
+    - 情形二：没有报错，显示删除条数大于0。（删除评论id为1的，显示条数为3）
+  - 查询用户所有评论：改变用户id等参数，响应结果永远不变（共计5条，id依次为91~95）
+
+THINKING
+
+- 暂无
+
+## 2018-08-30
+
+DONE
+
+- 评价服务跟进
+  - 确认：评价状态的影响，根据运营后台接口需求，委托服务方开发新的查询接口
+  - 开发：评价审核回调发送模板消息、短信；接入服务方新的查询接口；用户的订单中商品是否被评论相关接口
+
+- javaapi商品相关优化提测
+
+- 和尚霖确认前后端开发分工事项
+
+TODO
+
+- 根据与尚霖的沟通结果，开发发表评论和后台查询评论的两个controller接口，并测试今明两天开发的新代码
+- 与交易服务方就订单状态与评价相关的事宜进行沟通确认，并完成相关开发
+
+THINKING
+
+- 评价服务接入做下来比预想的要复杂很多，一开始只是以为作为一个外部api的接入，感觉工作量不是很大，重心都放在java开发的一些常用工具使用上面。越到后面越发现与非常多业务关联密切，甚而需要反馈评价服务方有针对性地提供一些接口，理论上来说，这些工作我还是应该更提前去完成，即在动手写代码之前考虑所有的业务情况，对现有的不明确的地方尽早找pm确认。
+
+## 2018-08-31
+
+DONE
+
+- 完成评价服务php接口代码开发，准备联调
+- 参加java集合技术分享
+
+TODO
+
+- 评价服务联调
+
+THINKING
+
+- 学过语言比较多了，每门语言的基本、常用数据结构相关的原理和函数林林总总，可以规范整理一下，有一个对照，方便做语言切换的时候心中有数，避免语言切换开销。
+
+## 2018-09-03
+
+DONE
+
+- 本地测试评价服务回调接口，各项处理基本跑通
+
+TODO
+
+- 评价联调送测
+
+THINKING
+
+- 暂无
+
+## 2018-09-04
+
+DONE
+
+- 店铺推荐：修复一个店铺筛选bug和一个分页bug；增加测试号过滤和关键词过滤。
+- 修改订单状态流转与评价相关的逻辑；联调创建、查询评价；发现评价服务一个排序bug，已反馈。
+
+TODO
+
+- 评价联调backstage部分
+
+THINKING
+
+- 店铺推荐的店铺筛选bug是一个for循环的递进写错了，回顾排查过程非常坎坷，分析主要原因有三：程序无致命bug，无错误日志；程序依赖太多，一开始的排查重点在各种依赖上面；变量名词不达意，主观上马虎大意。以后提交代码前一定要上个洗手间再来一行一行读代码！
+
+## 2018-09-05
+
+DONE
+
+- 粗略过了一遍通道服务的文档和代码
+- 评价服务javaapi代码bug修复：2个；完成联调
+
+TODO
+
+- 评价送测修bug
+- 深入了解通道服务
+
+THINKING
+
+- 有空总结一个方法，处理下述情形：java里面字段非常多的类，初始化时避免遗漏初始化某些字段。
+
+
+
+## 2018-09-06
+
+DONE
+
+- 评价送测
+- 阅读了通道服务rule，po等部分的代码，以及haojing发送短信相关调用
+- 商品数量统计接口性能排查：线上mysql数据库添加索引
+
+TODO
+
+- 继续商品数量统计接口性能排查
+- 继续熟悉通道服务
+- 跟进评价测试结果
+
+THINKING
+
+- 之前用laravel的migration来创建索引，线上执行过migrate操作显示成功，实际检查发现未生效，遂直接在线上mysql数据库添加了product.site_id, product.created_at, sku.product_id三个索引，接口调用耗时降低了约400~500ms；实际排查发现瓶颈不在数据库查询（数据库查询时间在0.0025s的级别），而实际接口调用耗时稳定在3.8s左右。这超出了之前的预料范围，由于线下数据库无对等数据可供查询，所以线下接口速度比较快也无法反映出问题。接口中使用了hashmap结构，线上接口稳定返回一个capacity约等于50的结构，而代码中没有显示设定initCapacity值，默认为16，显然需要重新分配。但是这似乎并不能解释3.8s的耗时是怎么来的……
+
+1. 手机端商户后台商品详情页
+2. 店铺装修页面商品列表
+3. 小程序内部商品详情页
+
+
+
+线上测试：
+
+- 不使用having
+
+```
+select product.site_id, product.created_at, count(product.id) from product
+            where product.deleted_at is null
+            and product.created_at >  '2018-08-16 17:16:38.111111'
+            and (select sum(sku.stock)>0 from sku
+            where sku.product_id=product.id
+            group by sku.product_id)
+group by product.site_id;
+```
+
+0.0028 + 0.0022+0.0023
+
+
+
+### Detailed profile
+
+| Order | State[![文档](http://weapp.baixing.com.cn:7100/themes/dot.gif)](http://weapp.baixing.com.cn:7100/url.php?url=https%3A%2F%2Fdev.mysql.com%2Fdoc%2Frefman%2F5.7%2Fen%2Fgeneral-thread-states.html) | 时间   |
+| ----- | ------------------------------------------------------------ | ------ |
+| 1     | Statistics                                                   | 13 µs  |
+| 2     | Preparing                                                    | 12 µs  |
+| 3     | Sorting Result                                               | 2 µs   |
+| 4     | Executing                                                    | 2 µs   |
+| 5     | Sending Data                                                 | 91 µs  |
+| 6     | Executing                                                    | 2 µs   |
+| 7     | Sending Data                                                 | 74 µs  |
+| 8     | Executing                                                    | 3 µs   |
+| 9     | Sending Data                                                 | 14 µs  |
+| 10    | Executing                                                    | 1 µs   |
+| 11    | Sending Data                                                 | 81 µs  |
+| 12    | Executing                                                    | 1 µs   |
+| 13    | Sending Data                                                 | 26 µs  |
+| 14    | Executing                                                    | 1 µs   |
+| 15    | Sending Data                                                 | 34 µs  |
+| 16    | Executing                                                    | 1 µs   |
+| 17    | Sending Data                                                 | 85 µs  |
+| 18    | Executing                                                    | 1 µs   |
+| 19    | Sending Data                                                 | 80 µs  |
+| 20    | Executing                                                    | 1 µs   |
+| 21    | Sending Data                                                 | 34 µs  |
+| 22    | Executing                                                    | 1 µs   |
+| 23    | Sending Data                                                 | 80 µs  |
+| 24    | Executing                                                    | 1 µs   |
+| 25    | Sending Data                                                 | 27 µs  |
+| 26    | Executing                                                    | 3 µs   |
+| 27    | Sending Data                                                 | 13 µs  |
+| 28    | Executing                                                    | 1 µs   |
+| 29    | Sending Data                                                 | 8 µs   |
+| 30    | Executing                                                    | 1 µs   |
+| 31    | Sending Data                                                 | 46 µs  |
+| 32    | Executing                                                    | 2 µs   |
+| 33    | Sending Data                                                 | 54 µs  |
+| 34    | Executing                                                    | 1 µs   |
+| 35    | Sending Data                                                 | 9 µs   |
+| 36    | Executing                                                    | 1 µs   |
+| 37    | Sending Data                                                 | 24 µs  |
+| 38    | Executing                                                    | 1 µs   |
+| 39    | Sending Data                                                 | 13 µs  |
+| 40    | Executing                                                    | 1 µs   |
+| 41    | Sending Data                                                 | 77 µs  |
+| 42    | Executing                                                    | 1 µs   |
+| 43    | Sending Data                                                 | 30 µs  |
+| 44    | Executing                                                    | 3 µs   |
+| 45    | Sending Data                                                 | 27 µs  |
+| 46    | Executing                                                    | 1 µs   |
+| 47    | Sending Data                                                 | 159 µs |
+| 48    | Executing                                                    | 1 µs   |
+| 49    | Sending Data                                                 | 9 µs   |
+| 50    | Executing                                                    | 1 µs   |
+| 51    | Sending Data                                                 | 22 µs  |
+| 52    | Executing                                                    | 1 µs   |
+| 53    | Sending Data                                                 | 8 µs   |
+| 54    | Executing                                                    | 1 µs   |
+| 55    | Sending Data                                                 | 9 µs   |
+| 56    | Executing                                                    | 1 µs   |
+| 57    | Sending Data                                                 | 6 µs   |
+| 58    | Executing                                                    | 1 µs   |
+| 59    | Sending Data                                                 | 7 µs   |
+| 60    | Executing                                                    | 1 µs   |
+| 61    | Sending Data                                                 | 17 µs  |
+| 62    | Executing                                                    | 1 µs   |
+| 63    | Sending Data                                                 | 8 µs   |
+| 64    | Executing                                                    | 1 µs   |
+| 65    | Sending Data                                                 | 7 µs   |
+| 66    | Executing                                                    | 1 µs   |
+| 67    | Sending Data                                                 | 7 µs   |
+| 68    | Executing                                                    | 1 µs   |
+| 69    | Sending Data                                                 | 7 µs   |
+| 70    | Executing                                                    | 1 µs   |
+| 71    | Sending Data                                                 | 194 µs |
+| 72    | Executing                                                    | 1 µs   |
+| 73    | Sending Data                                                 | 8 µs   |
+| 74    | Executing                                                    | 1 µs   |
+| 75    | Sending Data                                                 | 7 µs   |
+| 76    | Executing                                                    | 1 µs   |
+| 77    | Sending Data                                                 | 7 µs   |
+| 78    | Executing                                                    | 1 µs   |
+| 79    | Sending Data                                                 | 26 µs  |
+| 80    | Executing                                                    | 1 µs   |
+| 81    | Sending Data                                                 | 30 µs  |
+| 82    | Executing                                                    | 4 µs   |
+| 83    | Sending Data                                                 | 104 µs |
+| 84    | Executing                                                    | 1 µs   |
+| 85    | Sending Data                                                 | 26 µs  |
+| 86    | Executing                                                    | 1 µs   |
+| 87    | Sending Data                                                 | 8 µs   |
+| 88    | Executing                                                    | 1 µs   |
+| 89    | Sending Data                                                 | 8 µs   |
+| 90    | Executing                                                    | 1 µs   |
+| 91    | Sending Data                                                 | 8 µs   |
+| 92    | Executing                                                    | 1 µs   |
+| 93    | Sending Data                                                 | 7 µs   |
+| 94    | Executing                                                    | 1 µs   |
+| 95    | Sending Data                                                 | 11 µs  |
+| 96    | End                                                          | 2 µs   |
+| 97    | Query End                                                    | 6 µs   |
+| 98    | Closing Tables                                               | 4 µs   |
+| 99    | Freeing Items                                                | 47 µs  |
+| 100   | Cleaning Up                                                  | 12 µs  |
+
+### Summary by state
+
+| State[![文档](http://weapp.baixing.com.cn:7100/themes/dot.gif)](http://weapp.baixing.com.cn:7100/url.php?url=https%3A%2F%2Fdev.mysql.com%2Fdoc%2Frefman%2F5.7%2Fen%2Fgeneral-thread-states.html) | Total Time | % Time | Calls | ø Time |
+| ------------------------------------------------------------ | ---------- | ------ | ----- | ------ |
+| Statistics                                                   | 13 µs      | 0.73%  | 1     | 13 µs  |
+| Preparing                                                    | 12 µs      | 0.67%  | 1     | 12 µs  |
+| Sorting Result                                               | 2 µs       | 0.11%  | 1     | 2 µs   |
+| Executing                                                    | 2 µs       | 0.11%  | 1     | 2 µs   |
+| Sending Data                                                 | 91 µs      | 5.08%  | 1     | 91 µs  |
+| End                                                          | 2 µs       | 0.11%  | 1     | 2 µs   |
+| Query End                                                    | 6 µs       | 0.33%  | 1     | 6 µs   |
+| Closing Tables                                               | 4 µs       | 0.22%  | 1     | 4 µs   |
+| Freeing Items                                                | 47 µs      | 2.62%  | 1     | 47 µs  |
+| Cleaning Up                                                  | 12 µs      | 0.67%  | 1     | 12 µs  |
+
+
+
+2. 使用having
+
+```
+select product.site_id, product.created_at, count(product.id) from product
+            where product.deleted_at is null
+            and product.created_at >  '2018-08-16 17:16:38.111111'
+            and exists (select sku.id from sku
+            where sku.product_id=product.id
+            group by sku.product_id
+            having sum(sku.stock) > 0)
+group by product.site_id;
+```
+
+0.0025+0.0023+0.0023
+
+
+
+
+
+## 2018-09-10 
+
+DONE
+
+- 评价服务bugfix：系统默认好评；模板消息跳转小程序；评论时间的时区问题；backstage的评论列表排序问题。
+- 逛逛本地发现页的文案修改
+
+TODO
+
+- 投入到通道服务开发
+
+THINKING
+
+- 进公司两月以来第一次向haojing提代码。感觉对微信相关的封装过度了，不然这次就没有必要提交代码，因为只是多支持一个微信接口参数而已啊。
+
+## 2018-09-11
+
+DONE
+
+- 昨天的评论服务bugfix：一是时间问题，发现评论服务方返回的时间戳就有问题，我方无法修复，已反馈；二是微信模板消息又挂了，同时商品详情页也时长会挂，查看日志发现是javaapi连接redis的异常，初步尝试升级spring-xxx-redis的版本。
+- 分类信息的营收业务接入通道服务，对于新手礼、返券通知、一卡通过期提醒三个具体业务，在线上通道服务创建了对应模板，并完成相关开发
+
+TODO
+
+- 逛逛本地发现页测试（被delay了）
+
+THINKING
+
+- 暂无
+
+## 2018-09-12
+
+DONE
+
+- 继续跟进评论的bug：针对dev环境，评论审核不通过（包括下架）用户未收到短信通知（staging的smslog），原因是BXApplets项目这边的短信暂不支持smslog；有图评价收不到微信模板消息，原因是评论服务的回调不稳定（debug）；评论的时区问题，已确认修复；商品详情页偶发性挂掉的问题，今天未复现。
+- 镐京的营收业务短信部分重构，更改短信模板。
+
+TODO
+
+- dev环境修改商品的内容审核thrift调用挂了，本地未复现，dev稳定复现，暂不清楚原因，急需排查。
+
+THINKING
+
+- 修改商品的thrift调用bug非常迷……匪夷所思
+- 商品详情页的bug（javaapi的redis连接报错）在升级spring-xxx-redis版本、以及把redis访问从forEach挪到普通for循环里之后，几乎不可复现，基本上可以说是解决了问题，但没有找到原因。有空还是要好好探索一下。
+- 今天碰了一下教育培训新项目的事情，按照志超的想法，我们先做一些项目的基础建设，包括一些环境搭建、接入服务的事情。对于第三方服务（包括云服务商和自建的中台服务），如何能在已知项目行业背景、但业务方向不明确、产品需求还没有的前提下，做好一个快速接入的准备工作，值得探究。从我已有的经验来看，每次接入这种第三方服务，做一些与具体业务和产品需求无关的基础性工作（比如设置token和url这种事情）总是不可避免的，理论上这些工作应当可以提前做，但是通常因为业务逻辑的耦合特性，导致这种工作几乎没有提前开展的必要（写业务的时候很有可能要推倒重来）。希望可以以提高开发效率为目标，慢慢摸索经验。
+- 对音视频图片等有兴趣，这次以新项目为契机，要探讨出一些常用、通用经验。
+
+## 2018-09-13~2018-09-14
+
+DONE
+
+- 解决了商品发布、修改的线上bug
+- 上线了javaapi的评价功能，完成所有上线前测试
+
+TODO
+
+- 评价上线验收
+- 视频解决方案调研
+
+THINKING
+
+- 昨天早上追商品发布、修改的bug，初步定位是thrift模板不一致，同步模板相关代码后，仍然报错。由于我最近改动过镐京那边的thrift，而商品也涉及thrift调用，一直怀疑是这个原因。下午因为这个线上问题还发现了javaapi的一些bug，最终揪出来9天前的javaapi一次上线其实根本没有成功，掩盖了一些bug。今天从thrift调用的服务端和客户端着手，在发布系统界面上看到12号以后质量模块有多处更新上线，而最早的一条报错信息就是12号，根据这个信息找到西瓜在线下做了联调，总算是解决了这个幽灵问题。西瓜反馈我说应该要catch住调用报错，不能百分百相信这个服务。这是一个教训。另外，javaapi的线下线上环境不一致的问题，也引发了很多连锁反应，而我在以下几个方面是存在一些疏漏和不足的：一是对spring time和consule不熟，几乎处于无知状态，不会配置不懂部署；二是对线上线下日志系统无知，都不知道在哪里可以看日志；三是上代码的时候太不小心了，bug往往出在合代码的时候……除了质量审核这个thrift的bug，接入评论服务的过程中，同样存在类似的问题。反思下来还是对情况复杂度预估不足，以后还是要把这些情况分析以文档的形式留存下来，出问题了也方便check和debug。
+
+
+
+## 2018-09-17
+
+DONE
+
+- 修复微信公众号模板消息的小程序跳转bug；联调评价的模板消息跳转小程序。
+- 初步调研又拍云和腾讯云
+
+TODO
+
+- 音视频解决方案碰头会
+
+THINKING
+
+- 最近debug常常需要看dev或者online环境的laravel日志文件，整个操作流程还是非常麻烦，所以抽空写了一个小服务器，登录到这些服务器拉取日志在浏览器里显示，虽然还不完善，但是感觉非常便利。
+- 基础设施产品选型需要考虑的因素非常多，对我现阶段来说还是很有难度。

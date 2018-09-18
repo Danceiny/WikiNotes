@@ -1,0 +1,5 @@
+New Input/Output，基于通道和缓冲区的io方式，可以使用native函数库直接分配堆外内存，然后通过一个存储在java堆中的DirectByteBuffer对象作为这块内存的引用进行操作，这样避免了在java堆和native堆中来回复制数据。
+
+
+
+由DirectMemory导致的内存溢出，一个明显特征是heap dump文件中没有明显异常，若OOM之后Dump文件很小，程序中又直接或间接使用了nio，则可能是directmemory导致的内存溢出。
