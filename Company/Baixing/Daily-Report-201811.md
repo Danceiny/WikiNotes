@@ -1,0 +1,7 @@
+## 2018-11-01
+
+DONE
+
+TODO
+
+THINKING
