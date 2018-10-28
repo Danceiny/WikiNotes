@@ -843,122 +843,122 @@ group by product.site_id;
 ### Detailed profile
 
 | Order | State[![文档](http://weapp.baixing.com.cn:7100/themes/dot.gif)](http://weapp.baixing.com.cn:7100/url.php?url=https%3A%2F%2Fdev.mysql.com%2Fdoc%2Frefman%2F5.7%2Fen%2Fgeneral-thread-states.html) | 时间   |
-| ----- | ------------------------------------------------------------ | ------ |
-| 1     | Statistics                                                   | 13 µs  |
-| 2     | Preparing                                                    | 12 µs  |
-| 3     | Sorting Result                                               | 2 µs   |
-| 4     | Executing                                                    | 2 µs   |
-| 5     | Sending Data                                                 | 91 µs  |
-| 6     | Executing                                                    | 2 µs   |
-| 7     | Sending Data                                                 | 74 µs  |
-| 8     | Executing                                                    | 3 µs   |
-| 9     | Sending Data                                                 | 14 µs  |
-| 10    | Executing                                                    | 1 µs   |
-| 11    | Sending Data                                                 | 81 µs  |
-| 12    | Executing                                                    | 1 µs   |
-| 13    | Sending Data                                                 | 26 µs  |
-| 14    | Executing                                                    | 1 µs   |
-| 15    | Sending Data                                                 | 34 µs  |
-| 16    | Executing                                                    | 1 µs   |
-| 17    | Sending Data                                                 | 85 µs  |
-| 18    | Executing                                                    | 1 µs   |
-| 19    | Sending Data                                                 | 80 µs  |
-| 20    | Executing                                                    | 1 µs   |
-| 21    | Sending Data                                                 | 34 µs  |
-| 22    | Executing                                                    | 1 µs   |
-| 23    | Sending Data                                                 | 80 µs  |
-| 24    | Executing                                                    | 1 µs   |
-| 25    | Sending Data                                                 | 27 µs  |
-| 26    | Executing                                                    | 3 µs   |
-| 27    | Sending Data                                                 | 13 µs  |
-| 28    | Executing                                                    | 1 µs   |
-| 29    | Sending Data                                                 | 8 µs   |
-| 30    | Executing                                                    | 1 µs   |
-| 31    | Sending Data                                                 | 46 µs  |
-| 32    | Executing                                                    | 2 µs   |
-| 33    | Sending Data                                                 | 54 µs  |
-| 34    | Executing                                                    | 1 µs   |
-| 35    | Sending Data                                                 | 9 µs   |
-| 36    | Executing                                                    | 1 µs   |
-| 37    | Sending Data                                                 | 24 µs  |
-| 38    | Executing                                                    | 1 µs   |
-| 39    | Sending Data                                                 | 13 µs  |
-| 40    | Executing                                                    | 1 µs   |
-| 41    | Sending Data                                                 | 77 µs  |
-| 42    | Executing                                                    | 1 µs   |
-| 43    | Sending Data                                                 | 30 µs  |
-| 44    | Executing                                                    | 3 µs   |
-| 45    | Sending Data                                                 | 27 µs  |
-| 46    | Executing                                                    | 1 µs   |
-| 47    | Sending Data                                                 | 159 µs |
-| 48    | Executing                                                    | 1 µs   |
-| 49    | Sending Data                                                 | 9 µs   |
-| 50    | Executing                                                    | 1 µs   |
-| 51    | Sending Data                                                 | 22 µs  |
-| 52    | Executing                                                    | 1 µs   |
-| 53    | Sending Data                                                 | 8 µs   |
-| 54    | Executing                                                    | 1 µs   |
-| 55    | Sending Data                                                 | 9 µs   |
-| 56    | Executing                                                    | 1 µs   |
-| 57    | Sending Data                                                 | 6 µs   |
-| 58    | Executing                                                    | 1 µs   |
-| 59    | Sending Data                                                 | 7 µs   |
-| 60    | Executing                                                    | 1 µs   |
-| 61    | Sending Data                                                 | 17 µs  |
-| 62    | Executing                                                    | 1 µs   |
-| 63    | Sending Data                                                 | 8 µs   |
-| 64    | Executing                                                    | 1 µs   |
-| 65    | Sending Data                                                 | 7 µs   |
-| 66    | Executing                                                    | 1 µs   |
-| 67    | Sending Data                                                 | 7 µs   |
-| 68    | Executing                                                    | 1 µs   |
-| 69    | Sending Data                                                 | 7 µs   |
-| 70    | Executing                                                    | 1 µs   |
-| 71    | Sending Data                                                 | 194 µs |
-| 72    | Executing                                                    | 1 µs   |
-| 73    | Sending Data                                                 | 8 µs   |
-| 74    | Executing                                                    | 1 µs   |
-| 75    | Sending Data                                                 | 7 µs   |
-| 76    | Executing                                                    | 1 µs   |
-| 77    | Sending Data                                                 | 7 µs   |
-| 78    | Executing                                                    | 1 µs   |
-| 79    | Sending Data                                                 | 26 µs  |
-| 80    | Executing                                                    | 1 µs   |
-| 81    | Sending Data                                                 | 30 µs  |
-| 82    | Executing                                                    | 4 µs   |
-| 83    | Sending Data                                                 | 104 µs |
-| 84    | Executing                                                    | 1 µs   |
-| 85    | Sending Data                                                 | 26 µs  |
-| 86    | Executing                                                    | 1 µs   |
-| 87    | Sending Data                                                 | 8 µs   |
-| 88    | Executing                                                    | 1 µs   |
-| 89    | Sending Data                                                 | 8 µs   |
-| 90    | Executing                                                    | 1 µs   |
-| 91    | Sending Data                                                 | 8 µs   |
-| 92    | Executing                                                    | 1 µs   |
-| 93    | Sending Data                                                 | 7 µs   |
-| 94    | Executing                                                    | 1 µs   |
-| 95    | Sending Data                                                 | 11 µs  |
-| 96    | End                                                          | 2 µs   |
-| 97    | Query End                                                    | 6 µs   |
-| 98    | Closing Tables                                               | 4 µs   |
-| 99    | Freeing Items                                                | 47 µs  |
-| 100   | Cleaning Up                                                  | 12 µs  |
+| ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------ |
+| 1     | Statistics                                                                                                                                                                                       | 13 µs  |
+| 2     | Preparing                                                                                                                                                                                        | 12 µs  |
+| 3     | Sorting Result                                                                                                                                                                                   | 2 µs   |
+| 4     | Executing                                                                                                                                                                                        | 2 µs   |
+| 5     | Sending Data                                                                                                                                                                                     | 91 µs  |
+| 6     | Executing                                                                                                                                                                                        | 2 µs   |
+| 7     | Sending Data                                                                                                                                                                                     | 74 µs  |
+| 8     | Executing                                                                                                                                                                                        | 3 µs   |
+| 9     | Sending Data                                                                                                                                                                                     | 14 µs  |
+| 10    | Executing                                                                                                                                                                                        | 1 µs   |
+| 11    | Sending Data                                                                                                                                                                                     | 81 µs  |
+| 12    | Executing                                                                                                                                                                                        | 1 µs   |
+| 13    | Sending Data                                                                                                                                                                                     | 26 µs  |
+| 14    | Executing                                                                                                                                                                                        | 1 µs   |
+| 15    | Sending Data                                                                                                                                                                                     | 34 µs  |
+| 16    | Executing                                                                                                                                                                                        | 1 µs   |
+| 17    | Sending Data                                                                                                                                                                                     | 85 µs  |
+| 18    | Executing                                                                                                                                                                                        | 1 µs   |
+| 19    | Sending Data                                                                                                                                                                                     | 80 µs  |
+| 20    | Executing                                                                                                                                                                                        | 1 µs   |
+| 21    | Sending Data                                                                                                                                                                                     | 34 µs  |
+| 22    | Executing                                                                                                                                                                                        | 1 µs   |
+| 23    | Sending Data                                                                                                                                                                                     | 80 µs  |
+| 24    | Executing                                                                                                                                                                                        | 1 µs   |
+| 25    | Sending Data                                                                                                                                                                                     | 27 µs  |
+| 26    | Executing                                                                                                                                                                                        | 3 µs   |
+| 27    | Sending Data                                                                                                                                                                                     | 13 µs  |
+| 28    | Executing                                                                                                                                                                                        | 1 µs   |
+| 29    | Sending Data                                                                                                                                                                                     | 8 µs   |
+| 30    | Executing                                                                                                                                                                                        | 1 µs   |
+| 31    | Sending Data                                                                                                                                                                                     | 46 µs  |
+| 32    | Executing                                                                                                                                                                                        | 2 µs   |
+| 33    | Sending Data                                                                                                                                                                                     | 54 µs  |
+| 34    | Executing                                                                                                                                                                                        | 1 µs   |
+| 35    | Sending Data                                                                                                                                                                                     | 9 µs   |
+| 36    | Executing                                                                                                                                                                                        | 1 µs   |
+| 37    | Sending Data                                                                                                                                                                                     | 24 µs  |
+| 38    | Executing                                                                                                                                                                                        | 1 µs   |
+| 39    | Sending Data                                                                                                                                                                                     | 13 µs  |
+| 40    | Executing                                                                                                                                                                                        | 1 µs   |
+| 41    | Sending Data                                                                                                                                                                                     | 77 µs  |
+| 42    | Executing                                                                                                                                                                                        | 1 µs   |
+| 43    | Sending Data                                                                                                                                                                                     | 30 µs  |
+| 44    | Executing                                                                                                                                                                                        | 3 µs   |
+| 45    | Sending Data                                                                                                                                                                                     | 27 µs  |
+| 46    | Executing                                                                                                                                                                                        | 1 µs   |
+| 47    | Sending Data                                                                                                                                                                                     | 159 µs |
+| 48    | Executing                                                                                                                                                                                        | 1 µs   |
+| 49    | Sending Data                                                                                                                                                                                     | 9 µs   |
+| 50    | Executing                                                                                                                                                                                        | 1 µs   |
+| 51    | Sending Data                                                                                                                                                                                     | 22 µs  |
+| 52    | Executing                                                                                                                                                                                        | 1 µs   |
+| 53    | Sending Data                                                                                                                                                                                     | 8 µs   |
+| 54    | Executing                                                                                                                                                                                        | 1 µs   |
+| 55    | Sending Data                                                                                                                                                                                     | 9 µs   |
+| 56    | Executing                                                                                                                                                                                        | 1 µs   |
+| 57    | Sending Data                                                                                                                                                                                     | 6 µs   |
+| 58    | Executing                                                                                                                                                                                        | 1 µs   |
+| 59    | Sending Data                                                                                                                                                                                     | 7 µs   |
+| 60    | Executing                                                                                                                                                                                        | 1 µs   |
+| 61    | Sending Data                                                                                                                                                                                     | 17 µs  |
+| 62    | Executing                                                                                                                                                                                        | 1 µs   |
+| 63    | Sending Data                                                                                                                                                                                     | 8 µs   |
+| 64    | Executing                                                                                                                                                                                        | 1 µs   |
+| 65    | Sending Data                                                                                                                                                                                     | 7 µs   |
+| 66    | Executing                                                                                                                                                                                        | 1 µs   |
+| 67    | Sending Data                                                                                                                                                                                     | 7 µs   |
+| 68    | Executing                                                                                                                                                                                        | 1 µs   |
+| 69    | Sending Data                                                                                                                                                                                     | 7 µs   |
+| 70    | Executing                                                                                                                                                                                        | 1 µs   |
+| 71    | Sending Data                                                                                                                                                                                     | 194 µs |
+| 72    | Executing                                                                                                                                                                                        | 1 µs   |
+| 73    | Sending Data                                                                                                                                                                                     | 8 µs   |
+| 74    | Executing                                                                                                                                                                                        | 1 µs   |
+| 75    | Sending Data                                                                                                                                                                                     | 7 µs   |
+| 76    | Executing                                                                                                                                                                                        | 1 µs   |
+| 77    | Sending Data                                                                                                                                                                                     | 7 µs   |
+| 78    | Executing                                                                                                                                                                                        | 1 µs   |
+| 79    | Sending Data                                                                                                                                                                                     | 26 µs  |
+| 80    | Executing                                                                                                                                                                                        | 1 µs   |
+| 81    | Sending Data                                                                                                                                                                                     | 30 µs  |
+| 82    | Executing                                                                                                                                                                                        | 4 µs   |
+| 83    | Sending Data                                                                                                                                                                                     | 104 µs |
+| 84    | Executing                                                                                                                                                                                        | 1 µs   |
+| 85    | Sending Data                                                                                                                                                                                     | 26 µs  |
+| 86    | Executing                                                                                                                                                                                        | 1 µs   |
+| 87    | Sending Data                                                                                                                                                                                     | 8 µs   |
+| 88    | Executing                                                                                                                                                                                        | 1 µs   |
+| 89    | Sending Data                                                                                                                                                                                     | 8 µs   |
+| 90    | Executing                                                                                                                                                                                        | 1 µs   |
+| 91    | Sending Data                                                                                                                                                                                     | 8 µs   |
+| 92    | Executing                                                                                                                                                                                        | 1 µs   |
+| 93    | Sending Data                                                                                                                                                                                     | 7 µs   |
+| 94    | Executing                                                                                                                                                                                        | 1 µs   |
+| 95    | Sending Data                                                                                                                                                                                     | 11 µs  |
+| 96    | End                                                                                                                                                                                              | 2 µs   |
+| 97    | Query End                                                                                                                                                                                        | 6 µs   |
+| 98    | Closing Tables                                                                                                                                                                                   | 4 µs   |
+| 99    | Freeing Items                                                                                                                                                                                    | 47 µs  |
+| 100   | Cleaning Up                                                                                                                                                                                      | 12 µs  |
 
 ### Summary by state
 
 | State[![文档](http://weapp.baixing.com.cn:7100/themes/dot.gif)](http://weapp.baixing.com.cn:7100/url.php?url=https%3A%2F%2Fdev.mysql.com%2Fdoc%2Frefman%2F5.7%2Fen%2Fgeneral-thread-states.html) | Total Time | % Time | Calls | ø Time |
-| ------------------------------------------------------------ | ---------- | ------ | ----- | ------ |
-| Statistics                                                   | 13 µs      | 0.73%  | 1     | 13 µs  |
-| Preparing                                                    | 12 µs      | 0.67%  | 1     | 12 µs  |
-| Sorting Result                                               | 2 µs       | 0.11%  | 1     | 2 µs   |
-| Executing                                                    | 2 µs       | 0.11%  | 1     | 2 µs   |
-| Sending Data                                                 | 91 µs      | 5.08%  | 1     | 91 µs  |
-| End                                                          | 2 µs       | 0.11%  | 1     | 2 µs   |
-| Query End                                                    | 6 µs       | 0.33%  | 1     | 6 µs   |
-| Closing Tables                                               | 4 µs       | 0.22%  | 1     | 4 µs   |
-| Freeing Items                                                | 47 µs      | 2.62%  | 1     | 47 µs  |
-| Cleaning Up                                                  | 12 µs      | 0.67%  | 1     | 12 µs  |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- | ------ | ----- | ------ |
+| Statistics                                                                                                                                                                                       | 13 µs      | 0.73%  | 1     | 13 µs  |
+| Preparing                                                                                                                                                                                        | 12 µs      | 0.67%  | 1     | 12 µs  |
+| Sorting Result                                                                                                                                                                                   | 2 µs       | 0.11%  | 1     | 2 µs   |
+| Executing                                                                                                                                                                                        | 2 µs       | 0.11%  | 1     | 2 µs   |
+| Sending Data                                                                                                                                                                                     | 91 µs      | 5.08%  | 1     | 91 µs  |
+| End                                                                                                                                                                                              | 2 µs       | 0.11%  | 1     | 2 µs   |
+| Query End                                                                                                                                                                                        | 6 µs       | 0.33%  | 1     | 6 µs   |
+| Closing Tables                                                                                                                                                                                   | 4 µs       | 0.22%  | 1     | 4 µs   |
+| Freeing Items                                                                                                                                                                                    | 47 µs      | 2.62%  | 1     | 47 µs  |
+| Cleaning Up                                                                                                                                                                                      | 12 µs      | 0.67%  | 1     | 12 µs  |
 
 
 
@@ -1306,3 +1306,74 @@ TODO
 THINKING
 - kv存储是个造轮子的热点领域。
 - 在做音视频服务化demo的过程中，有几点经验和思考。这类事情本身的工作重点在于两方面，一是对我们的用户的需求进行“协议”抽象，二是给云服务厂商写“驱动”以实现该抽象。其中“驱动”是比较简单但是繁杂琐碎的工作，而“协议”是非常考验可扩展性与向后兼容性设计能力的事情。此外，目前已经做的工作，相当一部分是在给厂商写第三方sdk，由于是屏蔽底层厂商的设计，也就是“通用驱动”，因此以开源的方式来做也挺好。
+
+## 2018-10-22
+
+DONE
+
+- 逛逛需求会
+- 音视频服务第五次碰头会
+- 音视频关于业务方配置信息的重构
+  
+TODO
+- 逛逛需求开发
+  
+THINKING
+- 在spring爬坑中……
+
+## 2018-10-23
+
+DONE
+- 过了Q4的okr
+- 音视频Demo项目业务配置改造，引入swagger-ui，完善接口文档
+  
+TODO
+- 音视频Demo项目业务配置改造测试（已知问题：jar包运行读不到配置）
+- 完成三个逛逛需求开发
+
+THINKING
+待续
+
+## 2018-10-24
+DONE
+- 参与内容服务（音视频）第一次外部评审以及内部review
+- 第一次参加技术大会
+- 完成本周的三个逛逛需求开发
+  
+TODO
+- 逛逛提测上线
+
+THINKING
+- 建硕强调了我们的自我定位应该是提供问题解决方案的工程师而不是程序员，对此深表赞同。对另一位讲话者提到的使命感，我的理解是作为真正为人类社会创造价值的工程师，天然就有将科技作为第一生产力驱动社会前进的使命感。
+- java的属性名、方法名规范有些几乎是强制的，比如bean的属性名前两个字母不能出现大写，jackson在这里是个巨大的坑；另外@Data注解的类方法如果是getXXX或者getxxx()，jackson直接就解析成属性了，然后如果这个属性又不存在的话就凉了，fastjson就没有这个问题，所以能不用jackson就不用jackson吧……
+
+## 2018-10-25
+
+DONE
+- 逛逛提测，UIbug修复
+- 梳理内容服务的音视频默认处理流程以及处理模板参数，并修改相关代码
+  
+TODO
+- 逛逛需求上线
+
+THINKING
+- 七牛云音视频的文档有很多语焉不详的叙述，慢慢发现很多还是跟音视频专业相关的，比如hls加密的URI参数，如果有这方面的背景知识的话无论是看文档还是直接跟七牛云的工程师沟通都会便利一些。
+- Java不支持多继承，但是总有些场景会想要一个多继承，比如七牛的转码和水印公用一个接口，原本分开写的类，现在如果能多继承显然会便利很多。不过不支持就不支持吧，少一些坑，多写几行代码就行了。
+
+
+# 2018-10-26
+
+DONE
+
+- 解决昨天遗留的一个UI问题，完成上线
+- 内容服务视频加密播放以及demo代码重构，完成了默认任务流的配置文件加载到提交任务执行，且在七牛控制台看到预期结果（还差七牛的回调没有check）
+  
+TODO
+
+- 内容服务的回调check
+- 内容服务的关键步骤check（比如转码+水印+加密的任务流）
+
+THINKING
+
+- UI的兼容适配确实需要比较“高深”的技巧和经验……
+- 现在的模板任务流是，先对源文件转码加水印（一个操作内完成)，然后对源文件进行加密。直到我同时播放带水印的转码文件和加密后的源文件之后才恍然大悟，加密应该也需要对转码后的文件加密吧？现在的流程里，转码未指定另存为的文件名，那么这个文件名是要在七牛的回调里才能拿到，而文件名是进行这些操作所必须的参数，因此转码后不能立即拿到文件名，那什么时候能对转码后的文件进行加密呢？如果在回调里做显然打断了任务流。想起来七牛提供了管道操作，之前在做功能拆分的时候并没有用到这个，下周可以重点看看这个。
