@@ -63,5 +63,11 @@ location -> rewrite
 # Nginx + Memcache
 memcache_pass
 
+# 自动列目录
+```
+location / {
+  autoindex on;
+ }
+```
 # 参考文档
 - http://tengine.taobao.org/book/chapter_02.html#id1
