@@ -3,7 +3,7 @@
 - 1996年出生 2018年本科毕业 0.5年工作经验 
 - 学习、适应、抗压能力强
 - https://github.com/Danceiny
-- danceiny@gmail.com
+- 18602170534 danceiny@gmail.com
 
 ## 求职意向
 云产品研发 上海
