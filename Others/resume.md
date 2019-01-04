@@ -3,10 +3,12 @@
 - 1996年出生 2018年本科毕业 0.5年工作经验 
 - 学习、适应、抗压能力强
 - https://github.com/Danceiny
-- 18602170534 danceiny@gmail.com
+- phone:18602170534 email:danceiny@gmail.com wechat:tanceiny
 
 ## 求职意向
-云产品研发 上海
+prefer 云产品研发 上海 python/go/java/js
+
+对其他岗位或城市持开放态度^_^
 
 ## 教育背景
 
