@@ -24,6 +24,7 @@
 ## 项目经历
 |时间|项目名称|项目组|角色|内容|
 |---|---|---|---|---|
+|2018.12~至今|百姓网主站重构|牧野系统组|核心开发者|百姓网主站作为一个单体应用，需要进行微服务化拆分，牧野系统的角色是主站中极为核心的底层可配置化数据服务以及相关的后台管理系统。牧野系统的底层服务采用spring体系开发，支持高并发层级数据查询，预估查询QPS为10000；后台管理系统采用Nuxt前后端同构解决方案开发。|
 |2017.08~2018.05|[RussellCloud深度学习云平台（russellcloud.com）](https://russellcloud.com/)|上海慕姝信息科技有限公司|核心开发者|作为项目后端核心开发者参与了RussellCloud项目（2017年成立的深度学习云平台创业公司），负责官网的后台服务器、任务调度系统以及russell-cli终端命令行工具的相关工作等，团队项目通过[GitHub](https://github.com/RussellCloud)托管，后端开发工作主要有russell-cloud（后端应用服务器，使用 flask+celery+mysql+redis），russell-fs-server（文件服务器，使用tornado+websocket），russell- cli（终端命令行工具代码仓库，python实现）。|
 |2017.05~2017.08|[电商协会官网（cecctm.com）](https://www.cecctm.com/)|武汉魅果科技有限公司|项目组成员|参与中国电子商务师协会官方网站开发，主要负责网站后台管理系统的全栈式开发。采用的技术栈为前端VueJS（iVIew+Element）+后端Python- Flask。|
 |2016.09~2017.03|[马上赚钱APP（imeigoo.cn）](https://www.imeigoo.cn/)|武汉魅果科技有限公司|项目组成员|参与百万用户级的“马上赚钱”主应用以及“小星星看图学英语”等插件应用的iOS+Android客户端开发。主要负责内容：“马上赚钱”app的第三方广告平台接入。|
