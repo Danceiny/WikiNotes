@@ -7,7 +7,7 @@ mysql> LOAD DATA LOCAL INFILE '/path/pet.txt' INTO TABLE pet LINES TERMINATED BY
 
 
 
-# 查看帮助
+## 查看帮助
 `mysql> ? contents`
 
 查看列出的项（不区分大小写）：
@@ -18,8 +18,12 @@ mysql> LOAD DATA LOCAL INFILE '/path/pet.txt' INTO TABLE pet LINES TERMINATED BY
 
 `DELIMITER //`告诉命令行，使用`//`作为临时的语句结束分隔符。
 
+## 自增 
+- 自增默认从0开始。
+- 只允许有一个列自增。
+- 插入一个自增列为0的数据，默认会抛弃这个0，而是启用自增逻辑，该行为可以通过会话级别的设置来改变。
 
-# Procedure
+## Procedure
 ```mysql
 CREATE PROCEDURE productpricing(
     OUT pl DECIMAL(8,2),
@@ -63,39 +67,32 @@ FOR EACH ROW SELECT NEW.order_num
 - 提交 commit 指将未存储的sql语句结果写入数据库表
 - 保留点 savepoint 指事务处理中设置的临时占位符placeholder，用以回退。
 
-
-# 管理用户
-`show grants for danceiny@localhost`
-
-
-# 数据库维护
+## 数据库维护
 - `ANALYZE TABLE table_name`
 - `CHECK TABLE table_name`
-  -
 
-
-# mysql
+## mysql-cli
 `--prompt="\u@\h : \d \r:\m:\s> "`
 
 `--tee="./record.txt"` 将所有输入和输出内容都记录进文件。
 
-# mysqladmin
+## mysqladmin
 检测 MySQL Server 是否还能正常提供服务:
-sky@sky:~# mysqladmin -usky -ppwd -h localhost ping
+`mysqladmin -usky -ppwd -h localhost ping`
 
 获取当前 MySQL Server 的几个基本的状态值：
-sky@sky:~# mysqladmin -u sky -ppwd -h localhost status
+`mysqladmin -u sky -ppwd -h localhost status`
 
 获取当前数据库的连接线程信息：
-sky@sky:~# mysqladmin -u sky -ppwd -h localhost processlist
+`mysqladmin -u sky -ppwd -h localhost processlist`
 
-# mysqlimport
+## mysqlimport
 csv
 
 # mysqldump
 
-# 权限
-SHOW GRANTS FOR 'username'@'hostname'
+## 权限
+`SHOW GRANTS FOR 'username'@'hostname'`
 
 ## 权限级别
 1. Global level
@@ -130,7 +127,8 @@ Database Level 的权限授予，可以在当前不存在该
 后立刻就生效了，而不会需要执行“KILL”命令。
 
 
-# 备份
+## 备份
+```
 root@localhost : test 10:02:02> SELECT * INTO OUTFILE '/tmp/dump.text'
 -> FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"'
 -> LINES TERMINATED BY '\n'
@@ -139,8 +137,7 @@ root@localhost : test 10:02:02> SELECT * INTO OUTFILE '/tmp/dump.text'
 
 mysqldump -uroot -T/tmp/mysqldump test test_outfile --fields-
 enclosed-by=\" --fields-terminated-by=,
-
-
+```
 # 恢复备份
 
 逻辑备份能做什么？不能做什么？
@@ -157,8 +154,6 @@ enclosed-by=\" --fields-terminated-by=,
 清楚的知道这样的一个备份能否满足自己的预期，是否确实是自己想要的。
 1、逻辑备份无法让数据恢复到备份时刻以外的任何一个时刻；
 
-
-
 ## 如果我们是备份的以特殊分隔符分隔的纯数据文本文件
 a、第一步和 INSERT 备份文件没有区别，就是将最接近崩溃时刻的备份文件准备好；
 b、通过特定工具或者命令将数据导入如到数据库中：
@@ -173,7 +168,7 @@ LOAD DATA INFILE '/tmp/test_outfile.txt' INTO TABLE test_outfile FIELDS
 TERMINATED BY '"' ENCLOSED BY ',';
 后面的步骤就和备份文件为 INSERT 语句备份的恢复完全一样了，这里就不再累述。（source backup.sql）
 
-# 热备份
+## 热备份
 MySQL 自己提供了一个使用程序 mysqlhotcopy，这个程序就是专门用来备份 MyISAM 存
 储引擎的。不过如果你有除了 MyISAM 之外的其他非事务性存储引擎，也可以通过合适的参
 数设置，或者微调该备份脚本，也都能通过 mysqlhotcopy 程序来完成相应的备份任务，基
@@ -220,27 +215,18 @@ mysqlhotcopy db_name[./table_regex/] [new_db_name | directory]
 
 虚读：一个事务读到了另一个事务insert的数据
 
-
-
 查看当前隔离级别
 
 `select @@version; select @@tx_isolation;`
-
-
 
 更改隔离级别
 
 `set TRANSACTION ISOLATION LEVEL read uncommitted;`
 
 
-
-
-
 #### 如何监控数据库的并发请求数量
 
 `show global status like 'Threads_running'`
-
-
 
 ![](http://opkk27k9n.bkt.clouddn.com/18-3-8/85736014.jpg)
 

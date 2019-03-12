@@ -50,3 +50,6 @@ var foo2 = new Foo();
 console.log(foo1.func1 == foo2.func1);  //false
 console.log(foo1.func2 == foo2.func2);  //true
 ```
+
+## 数值的坑
+https://wangdoc.com/javascript/types/number.html
