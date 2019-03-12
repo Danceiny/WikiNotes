@@ -1,0 +1,86 @@
+1.由数组构建多项式(标准类型)
+poly2sym( )	//参数为系数数组===系数数组,从最高阶开始,依次降阶至0阶,即常数项
+
+2.由多项式的根(数组)逆推多项式
+poly( )	
+
+3.多项式的求值
+polyval(P,A)	//P是系数数组,A为未知数的取值,函数返回多项式在该点的值
+polyvalm(P,X)	//X是方阵(行列式具有值),函数返回以P为系数的多项式在方阵X的值
+		//polyvalm是polyval的matrix形式
+
+4.求多项式的根(解方程)
+roots( ) 	//参数为系数数组
+
+5.求多项式的积
+conv(A,B)
+
+6.控制有值表达式精度
+vpa(A,D)	//A为表达式,D是精度,若省略则为当前默认精度(可用digits指令查看\设置)
+
+7.符号表达式
+sym('STRING')直接生成符号表达式,syms空格加上符号变量,即定义相应符号变量.
+collect( )合并符号多项式同类项 
+horner( )分解符号多项式因式
+simple( )简化符号多项式	//比simplify更优
+//[R,how]=simple(S)返回最简结果并返回一个描述简化方法的字符串how
+
+8.subs函数替换求值
+subs(S,old,new)	//符号表达式S,符号变量old,数值型变量或表达式new.后两个参数可省略.
+
+9.反函数运算
+finverse(f,v) 	//f为函数,v为自变量(若f多变量最好指定v)
+
+10.复合函数
+compose(f,g)
+compose(f,g,z)	//z指定返回函数的自变量
+compose(f,g,x,z)	//x是f的独立变量,例如:f=cos(x/t),那么compose(f,g,x,z)返回cos(g(z)/t),compose(f,g,t,z)返回cos(x/g(z)).
+...
+
+11.方阵的逆
+inv(X) 	//X奇异或范数很小,给出出错信息
+
+12.方阵的行列式
+det(X)	
+
+13.符号极限
+Limit(F,x,a)	//计算x==>a时F=F(x)的极限值 
+Limit(F,a)		//以命令findsym(x)确定F中的自变量,设为变量x,再计算极限值
+Limit(F)		//同上,a默认为0
+Limit(F,x,a,'right')	//单侧极限('right' or 'left')
+
+14.符号微分
+diff(S,n)	//S的n阶导数,省略n默认为1
+diff(S,'v',n)		//找到符号变量v,求n阶导数	//v的引号可有可无
+
+15.jacobian(f,v)	//计算数量或向量f对于向量v的Jacobi矩阵.f是数量则返回的是f的梯度;v是数量则等价于diff(f,v)
+
+16符号积分
+int(S,v)	//求S(符号矩阵或符号数量)关于v的不定积分,v若省略则findsym(S).不带任意常数C
+int(S,v,a,b)		//求定积分
+
+17.傅里叶变换及其逆变换
+F=fourier(f,v)		//返回一个函数,该函数以v为自变量,代替默认符号w.
+F=fourier(f,u,v)	//以u为自变量代替默认独立变量值x
+f=ifourier( ) 		//逆变换
+
+18.Laplace变换及其逆变换
+L=laplace(F,t)	//返回关于t的函数,代替默认的关于s
+L=laplace(F,w,z)	//返回关于z的函数
+l=ilaplace		//逆变换
+
+19.符号线性方程组的求解
+linsolve(A,B)	//结果与sym(A)/sym(B)相同
+
+20.符号非线性方程组的求解
+X=fsolve(fun,x)	//以x为初始矩阵求解方程fun,fun接受输入量X并返回一个向量(矩阵),使得F=fun(X).
+
+21.一般符号代数方程组的求解
+solve('eqn1','eqn2',......,'eqnN')
+solve('eqn1','eqn2',......,'eqnN','var1','var2',...,'varN')	//vars是一些未知的符号变量或未知的字符串,eqns是具体方程的符号表达式或字符串
+[x,y]=solve('eqn1','eqn2')可求解x,y
+
+22.符号微分方程的求解
+dsolve('eqn1','eqn2',....)
+//D=d/dx,	D2=d^2/dx^2......D表示对自变量(设为x)的微分算子
+//初始和边界条件由字符串表示

@@ -1,0 +1,40 @@
+1.对于C-style字符串,有3种方式:
+char info[100];
+cin>>info;	//read a word
+cin.getline(info,100);		//read a line,discard \n
+cin.get(info,100);	read a line,leave \n in queue
+对于string对象,有两种方式:
+string stuff;
+cin>>stuff;	//read a word
+getline(cin,stuff);	//read a line,discard \n
+两个版本的getline()都有一个可选参数,用于指定哪个字符来确定输入的边界
+cin.getline(info,100,':');	//read up to :,discard :
+getline(stuff,':');	//read up to :,discard :
+
+
+2.重载的find()方法
+--find(const string &str,pos=0)const;
+--find(const char *s,pos=0)const;
+--find(const char *s,pos=0,n);	//前n个字符组成的字符串
+--find(char ch,pos=0)const;	
+//以上,从pos位置开始查找,返回首次出现(首字符)的位置索引
+--rfind()	//查找子字符串或字符最后一次出现的位置
+--find_first_of()	//查找参数中'任何'一个字符首次出现的位置
+--find_last_of()
+--find_first_not_of()
+--find_last_not_of()
+
+
+3.
+capacity()返回当前分配给字符串的内存块的大小;
+reserve()方法能够请求内存块的最小长度;
+c_str()方法返回一个指向C-style字符串的指针:fout.open(filename.c_str());
+
+4.智能指针(必须包含头文件memory)
+auto_ptr<double>pd(new double);//pd an anto_ptr to double(use in place of double *pd
+auto_ptr<string>ps(new string);//ps an auto_ptr to string(use in place of string *ps)
+unique_ptr方法和shared_ptr方法同上auto_ptr
+如果程序要使用多个指向同一个对象 的指针,应选择shared_ptr.
+如果程序不需要多个...,则可使用unique_ptr.(若函数使用new分配内存,并返回指向该内存的指针,则将其返回类型声明为unique_ptr是不错的选择)
+
+

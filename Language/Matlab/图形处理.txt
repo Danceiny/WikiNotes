@@ -1,0 +1,19 @@
+1.图形的多次叠放
+hold函数
+
+2.设置默认的曲线形式
+set( )
+
+3.对数比例坐标轴
+loglog,semilogx,semilogy
+
+4.双Y轴
+plotyy
+
+5.极坐标图形
+polar
+
+6.多子图(将多个图形在同一窗口显示)
+subplot
+
+7.图形注释

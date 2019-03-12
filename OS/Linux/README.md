@@ -1,3 +1,16 @@
+## shell
+`file /usr/bin/* |grep 'shell script'`学习shell编程最好的方法是参考阅读这些linux系统自带的脚本文件。
+
+cp file22.{txt,backup} # 拷贝file22.txt到file22.backup中(大括号中不许有空白）
+
+whatis, apropos, whereis, whereis -b, head/tail -n, less打开多个文件时:N跳到下一个文件, 
+
+mkdir -p donotexistDIR/dir
+
+mv -b afileordir bfileordir //备份
+
+cp -p a/b/c d //拷贝整个目录结构
+
 ## 1. Linux 技巧：让进程在后台可靠运行的几种方法
 
 https://www.ibm.com/developerworks/cn/linux/l-cn-nohup/index.html
@@ -34,6 +47,12 @@ https://www.ibm.com/developerworks/cn/linux/l-cn-nohup/index.html
 ```
 iptables -t filter -A INPUT -p tcp --dport 8098 -j ACCEPT
 ```
+/备份amanda 
+
+｀du -sh /home｀查询磁盘空间
+
+lsof -i:PORT 列出端口占用 
+
 1.查看主机名
 hostname
 
@@ -425,3 +444,6 @@ history
 grep hadoop /etc/password
 
 
+文件名-> inode -> 文件的二进制流
+硬链接,两个文件名指向同一个inode.为了保证所有的硬链接移除后才彻底删除文件,每个inode使用一个link count. 
+因为inode编号在自己文件系统之外无意义,故不能跨文件系统建立硬链接.符号链接解决该问题,但开销更大.

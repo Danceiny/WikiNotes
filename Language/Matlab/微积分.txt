@@ -1,0 +1,49 @@
+1.gradient求近似梯度
+[fx,fy]=gradient(f)命令返回矩阵f的数值梯度//f是一个向量时,df=gradient(f)返回一维向量
+[fx,fy]=gradient(f,h)使用h作为各个方向的间隔点,h为一个数量,默认为1.
+
+2.jacobian求多元函数的导数
+jacobian(f,v)计算向量f对向量v的Jacobian矩阵.f为数量时,得到f的梯度.
+
+3.矩形求积
+cumsum(x):
+对向量x,返回一个第N个向量是x的前N个元素的和的向量
+对矩阵x,返回一个和x同型的列为对x的每一列的累计和的矩阵
+对N维数组x,从第一个非独立维开始操作
+cumsum(x,DIM),参数DIM指明是从第一个非独立维开始的
+
+4.梯形求积
+z=trapz(y)
+z=trapz(x,y)
+
+5.dblquad求任意区域(矩形区域)的积分
+dblquad(fun,XMIN,XMAX,YMIN,YMAX,tol)调用函数quad在矩形区域计算二元函数fun(x,y)的二重积分.tol为精度,省略则默认为10e-6.
+
+6,triplequad求三元函数的积分
+triplequad(fun,XMIN,XMAX,YMIN,YMAX,ZMIN,ZMAX,tol)
+
+7.polyfit最小二乘法拟合
+polyfit(x,y,n)	//n阶多项式拟合,返回拟合多项式p(x)
+[p,s]=polyfit(x,y,n)	//拟合,并返回polyval获得的误差分析报告.
+//x,y为两个变量的向量集(自我理解)
+
+8.直接\(除)/(除以)求解线性方程组
+
+9.利用lu分解求解线性方程组,然后\/.
+[l,u]=lu(x)	//产生一个上三角阵u和下三角l,x不一定是方阵
+[l,u,p]=lu(x)	//增加返回一个交换矩阵p,使得p*x=l*u.
+例:X*y=b求y
+[l,u]=lu(X)==>Y1=l\b==>y=U\Y1.	//b为列矩阵
+
+10.迭代法求解线性方程组
+Jacobi迭代,Gauss-Seidel迭代和SOR迭代.
+
+11.非线性方程组的解法
+x=fsolve(fun,x0,options)
+
+12.常微分方程的数值求解
+普通2-3阶Runge-Kutta法
+[t,y]=ode23(odefun,tspan,y0)返回一个列向量,tspan=[t0,tfinal]是积分限,也可以是一些离散点.odefun定义微分方程形式y'=f(t,y)
+
+13.偏微分方程的数值求解pdepe
+sol=pdepe(m,pdefun,icfun,bcfun,xmesh,tspan)求解一维抛物线-----椭圆初始边界值问题.

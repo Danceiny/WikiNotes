@@ -1,0 +1,101 @@
+1.
+//numstr.cpp--following number input with line input
+#include<iostream>
+int main()
+{
+	using namespace std;
+	cout<<"What year was your house built?\n";
+	int year;
+	||cin>>year;||(问题代码段)
+	//(cin>>year).get(); 
+	or
+	//cin>>year;cin.get();
+	cout <<"What is its street address?\n";
+	char address[80];
+	cin.getline(address,80);
+	cout<<"Year built:"<<year<<endl;
+	cout<<"Address:"<<address<<endl;
+	cout<<"Done!\n";
+	return 0;
+}
+//cin读取年份,将回车键生成的换行符留在了输入队列中,
+后面的cin.getline看到换行符后,将认为是一个空行,并将一个
+空字符串赋给address数组.解决:
+在读取地址之前先读取并丢弃换行符.
+
+2.
+#include <string>
+#include<cstring>//or #include <string.h>//(old C-style)
+int len1=str1.size();//obtain length of str1
+int len2=strlen(charr1);//obtain length of charr1
+
+3.
+new/delete
+int *pt=new int[10];//get a block of 10 ints
+delete [] psom;//free a dynamic array
+使用方括号释放整个数组的内存,而非首地址.
+$如果使用new[]为一个实体分配内存,则应使用delete(无[])来释放
+$对空指针应用delete是安全的
+$不能使用delete释放同一个内存块两次
+程序跟踪了分配的内存量,但并非公用,不能用sizeof运算符来确定字节数
+
+4.int a[=5;
+int *p=&a;//or int *p;p=&a
+(数组类此）
+
+5.
+short tell[10];	//tell an array of 20 bytes
+cout<<tell<<endl;		//dispalys &tell[0]
+cout<<&tell<<endl;		//displays address of whole array
+short (*pas)[20]=&tell;	//pas points to array of 20 shorts
+//*pas与tell等价
+//tell是一short指针(*short),而&tell是指向包括20个元素的short数组(short(*)[20]).
+
+6.
+new[]创建数组时采用动态联编,如下:
+int size;
+cin>>size;
+int *pz=new int[size];//dynamic bingding,size set at run time
+...
+delete [] pz;//free memory when finished
+
+7.
+int x;
+cout<<(x=100)<<endl;//输出100 
+cout.setf(ios_base::boolalpha);//a newer C++ feature
+cout<<(x<3)<<endl;//输出false
+
+8.#define FLOAT_POINTER float *
+FLOAT_POINTER pa,pb;
+预处理器置换将该声明转换为:
+float *pa,pb;//pa a pointer to float,pb just a float
+typedef不会有这样的问题
+
+9.
+....	char ch;int count=0;cout<<"Enter characters;enter # to quit:\n";
+cin>>ch;while(ch!='#'){cout<<ch;++count;cin>>ch;cout<<endl<<count<<
+"characters read\n";		.....
+========================运行情况如下================
+Enter characters;enter # to quit:
+see ken run#really fast//输入字符
+seekenrun
+9 characters read
+解析:读取char值时,cin将忽略空格和换行符,因此输入中的空格没有被回显,也没有被包括在计数内.
+发送给cin的输入被缓冲,这意味着只有在用户按下回车键后,他输入的内容才会被发送给程序.因此,在运行该程序时,可以在#后面输入字符.
+
+10.
+字符函数库cctype(老式ctype.h)
+常规:	if((ch>='a'&&ch<='z')||(ch>='A'&&ch<='Z'))
+cctype:	if(isalpha(ch));
+isalpha();//字母
+isspace();//空白(包括换行符)
+isdigits();//数字
+ispunct();//标点符号
+iscntrl();//控制字符
+isgraph();//除空格外的打印字符
+islower();//小写字母
+isupper();//大写字母
+isprint();//打印字符(包括空格)
+tolower();//大写变小写
+toupper();//小写变大写
+isxdigit();//十六进制数字

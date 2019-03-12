@@ -1,0 +1,34 @@
+1.cout.width(INT);
+该方法只影响接下来显示的一个项目,然后恢复为默认的0值;(右对齐)
+
+2.cout.fill('*');
+即用*代替默认的 (空格)作为填充字符.
+并且一直有效直到再次更改
+
+3.cout.precision(INT);
+设置显示精度.
+默认模式下,指的是显示的总位数;定点模式和科学模式下,指的是小数点后
+一直有效指导再次更改
+
+4.cout.setf()方法(单参情形)
+cout.setf(ios_base::showpoint);//显示末尾小数点
+ios_base::boolalpha   输入输出bool值
+ios_base::showbase   对于输出,使用C++基数前缀(0,0x)
+ios_base::uppercase  对于16进制输出,使用大写字母,Ｅ表示法
+ios_base::showpos	在正数前加+
+
+5.cout.setf()方法(双参)
+第二个参数:ios_base::basefield
+	第一个:ios_base::dec(基数10)/oct(基数8)/hex(基数16)
+第二个参数:ios_base::floatfield
+	第一个:ios_base::fixed(定点记数法)/scientific(科学计数法)
+第二个参数:ios_base::adjustfield
+	第一个:ios_base::left(左对齐)/right(右对齐)/internal(符号或基数左对齐,值右对齐).
+
+6.fmtflags 存储设置的类型,
+ios_base::fmtflags old=cout.setf(.....);//存储设置
+cout.setf(old,ios::adjustfield);//恢复设置old
+
+7.调用setf()的效果可以通过unsetf()消除
+如:cout.setf(ios_base::showpoint);
+cout.unsetf(ios_base::showpoint);

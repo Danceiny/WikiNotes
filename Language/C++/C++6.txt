@@ -1,0 +1,50 @@
+1.部分具体化
+//general template
+template<class T1,class T2>class Pair{...};
+//specialization with T2 set to int
+template<class T1>class Pair<T1,int>{...};
+关键字template后面的<>声明的是没有被具体化的类型参数.如果指定所有的类型,则<>内将为空,这将导致显式具体化.
+//specialization with T1 and T2 set to int
+template<>class Pair<int,int>{...};
+如果有多个模板可以选择,编译器将选择具体化程度最高的模板
+
+2.类模板
+典型模板如下:
+template<class T>
+class Ic
+{
+	T v;
+...
+public:
+	Ic(const T & val):v(val){}
+	...
+}
+隐式实例化:class Ic<short>sic;//implicit instantiation
+显式实例化:template class Ic<int>;//explicit instantiation
+显式具体化:
+template<>class Ic<char *>
+{	
+	char * str;
+	...
+public:
+	Ic(const char * s):str(s){}
+	...
+};
+
+3.类型转换运算符
+* dynamic_cast	语法:dynamic_cast<type-name>(expression)
+* const_cast	语法:const_cast<type-name>(expression)   //该expression除了const或volatile特征不同外,必须与type-name相同.
+* static_cast
+* reinterpret_cast 	//语法一致同上
+
+4.对于定义的Grand,Superb和Magnificent类,假设pg为Grand*指针,并将其中某个类的对象的地址赋给了他,而ps为Superb*指针,则下面两个代码示例的行为有什么不同?
+if (ps=dynamic_cast<Superb *>(pg))
+	ps->say();//sample #1
+if(typeid(*pg)==typeid(Superb))
+	(Superb *)pg)->say();//sample #2
+
+对于示例1,如果pg指向一个Superb对象或从Superb派生而来的任何类的对象,则if条件为true.
+对于示例2,仅当指向Superb对象时,if条件才为true,若指向派生类对象则为false.
+
+5.dynamic_cast运算符只允许沿类层次结构向上转换,而static_cast运算符允许向上/向下转换,还允许枚举类型和整型之间以及数值类型之间的转换.
+
