@@ -1,0 +1,50 @@
+1.脚本式
+适用于较多命令的重复输入.将这些命令集成依次存放到scriptM文件中,每次运行只要输入该M文件的文件名即可
+
+2.函数式
+%局部变量
+
+
+3.程序控制
+(1)if-else-end
+//多种情况时,用elseif
+//end与if配对,只出现一次
+(2)switch-case-otherwise-end
+//otherwise用法同default
+(3)for
+//形式
+for i=m:s:n	...	end
+m,s,n可以是整数\小数\负数,n>m时s>0;n<m时s<0.该表达式也可以是m:n,此时s默认为1,n>m.
+//该向量表达式的理解:m为起始循环位置,s为步长(>0时+,<0时-),n为跳出循环位置
+//这里的for循环没有逻辑判断
+(4)while
+//条件语句以,(逗号)结束
+//执行语句以;(分号)分隔
+
+4.fprintf(   )用法同printf(	);常用disp输出匿名数组   
+ disp(X) displays the array, without printing the array name.  In all other ways it's the same as leaving the semicolon off an expression except that empty arrays don't display.
+ If X is a string, the text is displayed.
+ 
+
+5.try-catch模块
+//须以end结束.即try-catch-end
+
+6.input命令
+R=input('statements');
+显示输入statements,用户输入表达式,其值赋予R
+
+7.其他命令
+keyboard //类似于input
+echo	//
+
+8.全局变量
+global 函数
+
+9.永久变量
+persistent
+//与global相似,但是范围限制在声明的函数内部
+10.匿名函数
+格式:
+fhandle=@(arglist)expr
+//fhandle是为该函数创建的函数句柄,@符号创建函数句柄,arglist是一些由逗号分隔的输入参数,expr是函数的主体.
+

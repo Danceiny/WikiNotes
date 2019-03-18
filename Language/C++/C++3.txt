@@ -1,0 +1,54 @@
+1.*pd[3]//a array of 3 pointers,pd是一个指针数组名，该数组存放着三个指针
+（*pd)[3]//a pointer to an array of 3 elements	//pd是一个指针，它指向一个包含三个元素的数组
+
+2.函数模板(允许以泛型而非具体类型的方式编程)
+template<typename AnyType>
+关键字:template,typename(could be replaced by "class")
+
+3.优先级
+非模板函数>具体化>常规模板
+示例:struct job;
+template<>void Swap<job>(job &,job &);//显式具体化explicit specialization
+
+4.实例化和具体化
+模板示例instantiation
+隐式实例化implicit instantiation
+显式实例化explicit instantiation
+explicit instantiation::::::template void Swap<int>(int,int);
+explicit specialization::::::template<>void Swap(int &,int &);
+		:::::::::template<>void Swap<int>(int &,int &);
+
+5.编译器选择函数优先级
+从最佳到最差降序排名:
+①.完全匹配,但常规函数优先于模板
+②.提升转换(例如,char和shorts自动转换为int,float自动转换成double)
+③.标准转换(例如,int转换为char,long转换为double)
+④.用户定义的转换,如类声明中定义的转换
+通常,有两个函数完全匹配是一种错误,但这一规则有两个例外.
+
+6.关键字decltype
+decltype(x)y;//make y the same type as x
+核对表:
+第一步:如果x是一个没有用()括起的标识符,则y的类型与该标识符的类型相同,包括const等限定符;
+第二步:如果x是一个函数调用,则y的类型与函数的返回类型相同(并不会实际调用函数);
+第三步:如果x是一个左值,则y为指向其类型的引用.要进入第三步,x是用()括起的标识符;
+第四步:前面条件均不满足,则y的类型与x类型相同.
+
+多次声明,可结合使用typedef和decltype:
+template<class T1,class T2>
+void ft(T1 x,T2 y)
+{````
+	typedef decltype(x+y)xytype;
+	xytype xpy=x+y;
+	xytype arr[10];
+	xytype & rxy=arr[2];//rxy a reference
+````}
+
+7.后置返回类型
+template<class T1,class T2>
+auto gt(T1 x,T2 y) -> decltype(x+y)
+{````return x+y;`````}
+适用于无法预先知道返回类型的情形.由于必须在声明参数后使用decltype,故后置.
+
+8.内联函数
+inline 前置,适用于代码短\调用频率高,非递归的函数

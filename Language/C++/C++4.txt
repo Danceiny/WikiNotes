@@ -1,0 +1,46 @@
+1.定位new运算符
+chaff *p1,*p2;int *p3,*p4;char buffer1[50],buffer2[500];
+p1=new chaff;//place structure in heap(structure chaff)
+p3=new int[20];//place int array in heap
+p2=new(buffer1)chaff;//place structure in buffer1
+p4=new(buffer2)int[20];//place int array in buffer2
+从buffer1中分配空间给结构chaff,从buffer2中分配空间给一个包含20个元素的int数组
+如果要再从buffer1种分配空间,需要buffer1+sizeof()确保两个内存单元不重叠
+
+2.using编译指令与using声明之比较
+namespace Jill{
+	double bucket(double n){`````}
+	double fetch;
+	struct Hill{`````};
+}
+char fetch;//global namespace
+int main()
+{
+	using namespace Jill;//import all namespace names
+	Hill Thrill;//create a type Jill::Hill structure
+	double water=bucket(2);//use Jill::bucked();
+	double fetch;//not an error;hides Jill::fetch
+	cin>>fetch;//read a value into the local fetch
+	cin>>::fetch;//read a value into global fetch
+	cin>>Jill::fetch;//read a value into Jill::fetch
+}
+int foom()
+{	Hill top;//ERROR
+	Jill::Hill crest;//valid 
+}
+
+3.关于类的内联方法
+定义位于类声明中的函数都将自动成为内联函数.在类声明外定义的成员函数,需要inline限定为内联函数.
+
+4.
+fmtflags是在ios_base类中定义的一种类型,而ios_base类又是在名称空间std中定义的.利用std::ios_base;ios_base::fmtflags orig=...;语句定义的orig存储所有的标记,重置语句使用这些信息来重置floatfield,而floatfield包含定点表示法标记和科学表示法标记.
+代码:
+std::streamsize prec=
+	std::cout.precision(N);//save preceding value for precision
+...
+std::cout.precision(prec);//reset to old value
+//store original flags
+std::ios_base::fmtflags orig=std::cout.setf(std::ios_base::fixed);
+...
+//reset to stored values
+std::cout.setf(orig,std::ios_base::floatfield);

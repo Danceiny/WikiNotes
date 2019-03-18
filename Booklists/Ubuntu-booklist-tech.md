@@ -8,8 +8,6 @@
 5. 第二卷：图算法.djvu p122
 6. 算法设计与分析基础.djvu p180
 7. 学习Go语言(Golang).pdf p15
-
-
 8. Java数据结构和算法(2ndEdition).pdf p140
 9. C_C++趣味程序百例.pdf p34
 

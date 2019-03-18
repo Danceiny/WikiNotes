@@ -1,0 +1,69 @@
+1.
+程序发现用户输入错误内容,采取
+1)重置cin以接收新的输入;2)删除错误输入;3)提示用户再输入
+关键代码示例:
+for(i=0;i<Max;i++){
+cout<<"round #"<< i+1 <<": ";
+while(!(cin>>golf[i])){
+cin.clear();//reset input
+while(cin.get() != '\n')	
+continue;//get rid of bad input
+cout<<"Please enter a number: ";}}
+注明:如果没有cin.clear()语句,程序将拒绝继续读取输入;接下来,程序在while循环中使用cin.get()来读取行尾之前的所有输入,从而删除这一行中的错误输入.另一种方法是读取到下一个空白字符,这样将每次删除一个单词而不是一次删除整行.(这种方法将怎样实现??????)
+
+2.检查文件是否被成功打开
+if(inFile.eof()){cout<<"End of file reached.\n";}//检查EOF错误
+else if(inFile.fail()){cout<<"Input terminated by data mismatch.\n";}
+//fail()可检查EOF和类型不匹配两种错误
+else {cout<<"Input terminated for unknown reason.\n";}
+或者good(),在没有发生任何错误时返回true
+优化的读取-测试循环结构:
+//abbreviated file-reading loop design
+//omit pre-loop input
+while(inFile>>value)//read and test for success
+{//loop body goes here
+//omit end-of-loop input}
+
+3.char ch;
+ch+1:是int类型,作为数字打印;
+++ch:是char类型,作为字符打印;
+
+4.案例分析
+int c1=c2=0;char ch;
+while((ch=cin.get())!='$')
+{	cout<<ch;c1++;if(ch='$')c2++;cout<<ch;		}
+cout<<c1<<endl;cout<<c2
+运行:
+Hi!(输入)
+H$i$!$
+$Send $10 or $20 now
+S$e$n$d $10 $(get()中,换行.空格视为字符,执行后跟$输出)
+c1=c2=9,分别为'H','i'.'(换行)','S','e','n','d',' '.
+
+5.在C++中,不指定参数列表时应使用省略号.
+
+6.如果数据类型本身并不是指针，则可以将const数据或者非const数据的地址，赋给指向const的指针，但是，只能将非const数据
+的地址赋给非const指针。则禁止将常量数组的地址赋给非常量指针将意味着不能将数组名作为参数传递给使用非常量形参的函数；
+例如：const int months[12]={....};
+int sum(int arr[],int n);//should have been const int arr[]
+...
+int j=sum(months,12);//not allowed 
+再看一例：
+int age=34;const int *pt=&age;
+第二个声明只能防止修改pt指向的值，所以可以将一个新地址赋给pt
+再看一例：
+int sloth=3;const int *ps=&sloth;//a pointer to coust int
+int * const finger=&sloth;//a const pointer to int
+简言之，finger和*ps都是const,*finger和ps都不是const。
+
+7.处理字符串中字符的标准方式
+while(*str)
+{
+	statements
+	str++;
+}
+
+8.
+<cmath>	atan2(x,y);根据x,y的值计算角度(弧度值)
+
+
