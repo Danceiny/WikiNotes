@@ -48,3 +48,63 @@ DONE
 TODO
 
 THINKING
+
+
+
+
+
+## 2019-03-22
+
+DONE
+
+- parser-engine v0.0.9 更新日志
+  集成了clue相关的代码，在`parser_engine.clue`包，包含以下内容：
+
+  - ClueSpider： 整理了原BaseSpider的内容，`from parser_engine.clue.spider import ClueSpider`
+  - ClueItem：即原ClueItemm， `from parser_engine.clue.items import ClueItem`
+  - ClueModel: 即原ClueModel, `from parser_engine.clue.models import ClueModel`
+  - CluePersistentPipeline: 将clue持久化到mysql，`parser_engine.clue.pipelines.CluePersistentPipeline`
+  - CluePipeline: 将clue扔进队列， `parser_engine.clue.pipelines.CluePipeline`，强烈建议将该pipeline置于CluePersistentPipeline之后
+
+  一般来说，我们新的spider类，只需要继承ClueSpider即可，然后开启两个clue相关的pipeline，上面列出的其他事项已经不需要关心了。settings.py关于mysql的配置（上面的CluePersistentPipeline，将会把clue持久化到该配置指定的数据库中的clue表），建议格式如下：
+
+  ```
+  MYSQL = {
+    "HOST": "",
+    "USER": "",
+    "PORT": 3306,
+    "PASSWORD": "",
+    "DATABASE": ""
+  }
+  ```
+
+  需要yield一个ClueItem的时候，请务必指定item的`project`、`spider`这两个属性值，按照约定，PE根据这两个值确定相应的队列名。
+
+  具体代码可以参考 `huoche` 项目的 `kachezhijia_spider.py`及`settings.py`。
+
+
+
+本地可以跑一个 scrapydweb的服务（可以`pip install -U scrapydweb` 安装最新版，在任意目录下直接scrapydweb运行)，可以直接部署spider、运行spider、查看日志， 主要有以下自定义配置：
+
+```
+SCRAPYD_SERVERS = [
+    '172.31.1.4:30217',
+    '172.31.1.4:31429',
+]
+
+SCRAPY_PROJECTS_DIR = '/Users/huangzhen/baixing/processor/'
+ENABLE_LOGPARSER = False
+```
+
+
+
+## 2019-03-28
+
+DONE
+
+- 在开发[优卡](<http://www.china2cv.com/>)
+- 微服务第一讲：
+
+TODO
+
+THINKING
