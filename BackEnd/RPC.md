@@ -1,4 +1,4 @@
->>>本文整理自公司的前端同学发起的《网络探秘》课程中RPC一章的备课资料（授课时间约50min），该课程的宗旨是回答**从浏览器输入url到展示页面中间都发生了什么**。本文对RPC的介绍，比较偏重协议本身，知识点比较分散，较少涉及RPC框架、微服务等内容。
+>本文整理自公司的前端同学发起的《网络探秘》课程中RPC一章的备课资料（授课时间约50min），该课程的宗旨是回答**从浏览器输入url到展示页面中间都发生了什么**。本文对RPC的介绍，比较偏重协议本身，知识点比较分散，较少涉及RPC框架、微服务等内容。
 
 ## 前言
 
@@ -10,14 +10,14 @@
 
 我先讲前言部分。之所以叫前言，是因为想回顾一下前面几节课。可以说，**DNS解决了域名到ip的映射问题，http/https/http2解决了数据的端到端传输问题**，也就是说，有了这几个协议，浏览器可以从某台远端的服务器拿到一些数据。我现在假设在计算机网络这门学科、这个领域中，大家都知道OSI七层模型，也知道TCP/IP四层模型。那么大家可以思考一下，我们学过的这几个协议，是哪一层的协议？我们是如何在不知道底层协议如何工作的基础上，知道这些协议是能work的？——这一点很重要，对RPC来讲也是。
 
-![1556933023324](assets/1556933023324.png)
+![1556933023324](https://raw.githubusercontent.com/Danceiny/WikiNotes/master/BackEnd/assets/1556933023324.png)
 
 我们经常讲某某协议工作在第几层，今天讲RPC，当然也希望知道它是工作在第几层的。在揭晓答案之前，我想先介绍一下我用Google Trends做的一点微小的工作。
 
 
 首先我通过某种众所周知的工具知道了一件事情，那就是：RPC全称叫Remote Procedure Call，直译过来就是远程过程调用。然后我想知道，当人们在谈论RPC的时候，到底在关心着什么，于是乎我想到了Google Trends，我搜索了近5年全中国在Google上搜索“远程过程调用”这一主题的“相关主题”，也就是人们在搜索的RPC的同时还搜索了什么，最终我得到了这页PPT。
 
-![1556933068685](assets/1556933068685.png)
+![1556933068685](https://raw.githubusercontent.com/Danceiny/WikiNotes/master/BackEnd/assets/1556933068685.png)
 
 值得一提的是，我把时间放宽到自2004年以来，SOAP进入了这份名单，而我估计在座大部分人根本没用过这个东西。由此推测，RPC的发展还是有一定的历史阶段的。
 
@@ -25,7 +25,7 @@
 
 回到TCP/IP的四层网络模型，”显而易见"，RPC是工作在应用层的协议。这一点和前面课程讲到的DNS、HTTP等是一样的。但是我们知道应用层本身也是博大精深的，内部也会有一些上下层级关系，这一点情况比较复杂，后面会讲到。
 
-![1556933100470](assets/1556933100470.png)
+![1556933100470](https://raw.githubusercontent.com/Danceiny/WikiNotes/master/BackEnd/assets/1556933100470.png)
 
 
 
@@ -39,7 +39,7 @@
 
 又假设我们现在有一台1核1G内存20G硬盘的云主机。现在我们尝试来做一点高级的开发工作——写点伪代码，画个PPT架构图。
 
-![1556933177897](assets/1556933177897.png)
+![1556933177897](https://raw.githubusercontent.com/Danceiny/WikiNotes/master/BackEnd/assets/1556933177897.png)
 
 现在请大家脑补一下我设计的架构。我在这台服务器上跑个mysql-server，并且给每个注册用户分配一个文件目录，然后用我们熟悉的web框架，比如flask，laravel，eggjs这样的，写个controller连mysql做用户模块，写个controller做**ls**，写个foreach渲染的html。三下五除二，这个云盘应用模型就呼之欲出了——
 
@@ -52,7 +52,7 @@ def index('/home', request) {
 ```
 So easy。我把这个阶段的架构叫做“web应用和文件存储在一台服务器上”。
 
-![1556933261132](assets/1556933261132.png)
+![1556933261132](https://raw.githubusercontent.com/Danceiny/WikiNotes/master/BackEnd/assets/1556933261132.png)
 
 然而随着用户文件数量的增长，我们很快发现这个20G硬盘要满了。
 
@@ -88,7 +88,7 @@ def index('/home', request) {
 
 
 
-![1556933341389](assets/1556933341389.png)
+![1556933341389](https://raw.githubusercontent.com/Danceiny/WikiNotes/master/BackEnd/assets/1556933341389.png)
 
 
 
@@ -164,19 +164,19 @@ Nelson这位大牛呢，写了一篇大名鼎鼎的论文，奈何年代久远�
 
 第一张图，那时候我还没出生。这里面大部分东西估计大家也不太清楚，但是细看的话，其实Nelson和施乐的名字在图中是在一起的。
 
-![1556933535123](assets/1556933535123.png)
+![1556933535123](https://raw.githubusercontent.com/Danceiny/WikiNotes/master/BackEnd/assets/1556933535123.png)
 
 
 
 第二张图，开始出现一些大家比较熟悉、或者耳闻过的一些名词，比如Java RMI，REST，Thrift。
 
-![1556933573438](assets/1556933573438.png)
+![1556933573438](https://raw.githubusercontent.com/Danceiny/WikiNotes/master/BackEnd/assets/1556933573438.png)
 
 
 
 第三张图，可能慢慢地大家没那么了解了。从前后端分离的视角看，问题域会比较偏后端一些。
 
-![1556933595480](assets/1556933595480.png)
+![1556933595480](https://raw.githubusercontent.com/Danceiny/WikiNotes/master/BackEnd/assets/1556933595480.png)
 
 
 
@@ -186,7 +186,7 @@ Nelson这位大牛呢，写了一篇大名鼎鼎的论文，奈何年代久远�
 
 我们再看Nelson的那篇论文（其实是看别人的总结），里面论述了实现RPC协议的一种范式，后来也成为了RPC框架的一种标准范式。
 
-![1556933657943](assets/1556933657943.png)
+![1556933657943](https://raw.githubusercontent.com/Danceiny/WikiNotes/master/BackEnd/assets/1556933657943.png)
 
 
 这里补充说一点，其实RPC协议和TCP/IP协议一样，都是先有工业实现，然后才贡献回标准组织成为业界标准的。这个好处就是协议非常接地气。
@@ -203,7 +203,7 @@ Nelson这位大牛呢，写了一篇大名鼎鼎的论文，奈何年代久远�
 
 先简单介绍下NFS，网络文件系统，也就是Sun公司的RPC的来头，可以看下图：
 
-![1556933685669](assets/1556933685669.png)
+![1556933685669](https://raw.githubusercontent.com/Danceiny/WikiNotes/master/BackEnd/assets/1556933685669.png)
 
 它是怎么解决前面提到的那五个问题的呢？
 
@@ -213,11 +213,11 @@ Nelson这位大牛呢，写了一篇大名鼎鼎的论文，奈何年代久远�
 
 这里就牵扯到一个RPC的分类问题，同步RPC，异步RPC。NFS对于读写操作，基本都是走异步RPC的，也就是会先放到一个本地缓存，再异步去做真正的读写。但是其他的NFS操作，基本上都还是传统的同步RFC调用。
 
-![1556933755647](assets/1556933755647.png)
+![1556933755647](https://raw.githubusercontent.com/Danceiny/WikiNotes/master/BackEnd/assets/1556933755647.png)
 
 再看第五个问题。这个问题在NFS这里变复杂了，它不能简单地用一个API端点（endpoint）约定来做，因为服务端可能在不同的进程中实现了多个远程调用，而这些进程监听的端口不一样，也不可能再各自去占用一个“众所周知”的端口。这就有点像是需要“服务发现”了。NFS的解决方案是portmapper，也就是每个RPC进程启动时先去portmapper注册一下自己的端口号，而这个portmapper监听一个众所周知的端口号，这样客户端只需要问portmapper就行了。
 
-![1556933777468](assets/1556933777468.png)
+![1556933777468](https://raw.githubusercontent.com/Danceiny/WikiNotes/master/BackEnd/assets/1556933777468.png)
 
 NFS里的这个RPC，以及RFC1050中所谈到的RPC，通常管它叫Sun RPC。它有什么缺点呢？
 
@@ -241,7 +241,7 @@ NFS里的这个RPC，以及RFC1050中所谈到的RPC，通常管它叫Sun RPC。
 
 这一节最后，我们看一张图，这个图很好地解释了RPC的层次，以及RPC框架需要做什么。
 
-![1556933894864](assets/1556933894864.png)
+![1556933894864](https://raw.githubusercontent.com/Danceiny/WikiNotes/master/BackEnd/assets/1556933894864.png)
 
 需要说明的是，RFC中有句话：
 
@@ -263,14 +263,14 @@ NFS里的这个RPC，以及RFC1050中所谈到的RPC，通常管它叫Sun RPC。
 - 装一个node，让python来调node，让node来运行js，比如`signature = os.execute('node sign.js --userid=' + user_id)`
 - 使用跨语言RPC框架，把js封装成一个服务端，python这边作为客户端
 
-![1556933928618](assets/1556933928618.png)
+![1556933928618](https://raw.githubusercontent.com/Danceiny/WikiNotes/master/BackEnd/assets/1556933928618.png)
 
 跟后者比较类似的，有一个大家比较熟悉的做法，就是写API，JSON来JSON去，很好办的。
 
 不过今天要换一种符合主题的方式，gRPC。
 
 先看一下gRPC官网自我介绍一下的一个图，我的第一反应是跨语言这个优点表现得挺明显的。
-![1556933949494](assets/1556933949494.png)
+![1556933949494](https://raw.githubusercontent.com/Danceiny/WikiNotes/master/BackEnd/assets/1556933949494.png)
 
 
 
@@ -365,7 +365,7 @@ wireshark需要配置一下，就可以筛选http2的包（可以参考<<https:/
 
 wireshark筛选一下http2，可以看到一次rpc调用大概会有5到6个报文。
 
-![1556934382744](assets/1556934382744.png)
+![1556934382744](https://raw.githubusercontent.com/Danceiny/WikiNotes/master/BackEnd/assets/1556934382744.png)
 
 这里可以看到很多WINDOW_UPDATE帧，提一个问题：
 >对于数据量较大的gRPC传输，可以怎么优化？
@@ -376,7 +376,7 @@ wireshark筛选一下http2，可以看到一次rpc调用大概会有5到6个报�
 
 如果改一下这个service的代码，让它做一个除0的除法，看一下报文，会比较容易理解Trailers实际上是什么内容。
 
-![1556934524959](assets/1556934524959.png)
+![1556934524959](https://raw.githubusercontent.com/Danceiny/WikiNotes/master/BackEnd/assets/1556934524959.png)
 
 
 
@@ -401,18 +401,18 @@ wireshark筛选一下http2，可以看到一次rpc调用大概会有5到6个报�
 
 从序列化之后的消息体积来看，比json和xml都要小，看图差不多小了一半多。
 
-![1556934612011](assets/1556934612011.png)
+![1556934612011](https://raw.githubusercontent.com/Danceiny/WikiNotes/master/BackEnd/assets/1556934612011.png)
 
 上面讲Varint，它对越小的数字，使用越少的字节数来表示，这个方案能奏效的原理，其实来自于哈弗曼编码。因为哈弗曼编码论证了一个结论：压缩编码应满足“高概率的码字字长应不长于低概率的码字字长”，而protobuf做出了一个我们都深以为然的假设：实际上高频使用的数字，其实都挺小的，一个long型64比特，大部分都浪费了。
 那么也请大家思考一个问题，如果要传输的整数是大整数巨多，那protobuf还高效吗？答案比较显而易见，但是也很显然的是，这样的场景出现的概率比较小。
 
 关于protobuf，再给大家分享一篇文章，叫[《Protobuf有没有比JSON快5倍》]()。这篇文章的一个结论是：protobuf在处理整数时优势明显，而json在对象绑定时其实并不弱。
 
-![1556934661178](assets/1556934661178.png)
+![1556934661178](https://raw.githubusercontent.com/Danceiny/WikiNotes/master/BackEnd/assets/1556934661178.png)
 
 最后简单提一下gRPC的一些不完美之处。
 
-![1556934721455](assets/1556934721455.png)
+![1556934721455](https://raw.githubusercontent.com/Danceiny/WikiNotes/master/BackEnd/assets/1556934721455.png)
 
 ## Q && A
 
@@ -442,7 +442,7 @@ Stream ID 不可能被重复使用，如果一条连接上面 ID 分配完了，
 
 
 ##  参考资料
-- <https://github.com/Danceiny/WikiNotes/blob/master/BackEnd/RPC_tutorial.ipynb>
+- <https://raw.githubusercontent.com/Danceiny/WikiNotes/master/BackEnd/RPC_tutorial.ipynb>
 - [深入了解 gRPC协议 （作者为TiDB开发者）](https://www.jianshu.com/p/48ad37e8b4ed) 
 - [深入浅出RPC原理](https://ketao1989.github.io/2016/12/10/rpc-theory-in-action/)
 - [RPC 的概念模型与实现解析](https://segmentfault.com/a/1190000005178084)
