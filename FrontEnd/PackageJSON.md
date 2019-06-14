@@ -9,3 +9,4 @@ package.json是CommonJS规定的用来描述包的文件，完全符合规范的
 □licenses：许可证数组，每个元素要包含type（许可证的名称）和url（链接到许可证文本的地址）字段。
 □repositories：仓库托管地址数组，每个元素要包含type（仓库的类型，如git）、url（仓库的地址）和path（相对于仓库的路径，可选）字段。
 □dependencies：包的依赖，一个关联数组，由包名称和版本号组成
+

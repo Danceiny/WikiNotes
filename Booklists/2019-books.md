@@ -21,3 +21,6 @@
 21. 发布！软件的设计与部署 【美】Michael T.Nygard
 22. 性能之巅：洞悉系统、企业与云计算 【美】Brendan Gregg
 23. SQL语言艺术 Oreilly Stephane Faroult
+24. 大而不倒 安德鲁•罗斯•索尔金（Andrew Ross Sorkin）
+25. 偷书贼  【澳】马克斯•苏萨克
+26. 
