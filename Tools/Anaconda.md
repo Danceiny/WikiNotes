@@ -1,1 +1,0 @@
-清华镜像：https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/
