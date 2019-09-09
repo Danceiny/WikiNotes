@@ -23,4 +23,4 @@
 23. SQL语言艺术 Oreilly Stephane Faroult
 24. 大而不倒 安德鲁•罗斯•索尔金（Andrew Ross Sorkin）
 25. 偷书贼  【澳】马克斯•苏萨克
-26. 
+26. MySQL性能调优与架构设计--全册
